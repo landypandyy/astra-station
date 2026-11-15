@@ -15,7 +15,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Station Hull & Bulkhead Palette */
       --hull-dark: #0a0e14;
       --hull-mid: #141c26;
       --hull-plate: #1c2735;
@@ -24,7 +23,6 @@
       --hazard-yellow: #d99b26;
       --hazard-black: #111418;
 
-      /* CRT Phosphor Palettes */
       --crt-bg: #060b09;
       --crt-amber: #ffb000;
       --crt-amber-dim: #7a5200;
@@ -35,7 +33,6 @@
       --crt-green: #3dff8b;
       --crt-red: #ff3b4e;
 
-      /* Typography */
       --font-pixel: 'Press Start 2P', monospace;
       --font-term: 'VT323', monospace;
       --font-tech: 'Share Tech Mono', monospace;
@@ -51,7 +48,7 @@
       margin: 0;
       padding: 0;
       width: 100%;
-      max-width: 100vw;
+      max-width: 100%;
       height: 100dvh;
       background: #05070a;
       color: var(--crt-cyan);
@@ -60,21 +57,26 @@
     }
 
     /* =========================================================
-       COCKPIT SHELL & STRUCTURAL BULKHEAD FRAME
+       UNIFIED COCKPIT SHELL (STRICT VIEWPORT LOCK)
     ========================================================= */
     #bridge-shell {
       display: grid;
-      grid-template-rows: 44px minmax(140px, 28vh) minmax(0, 1fr) 26px;
+      grid-template-rows:
+        40px
+        minmax(108px, 19vh)
+        auto
+        minmax(0, 1fr)
+        54px;
       width: 100%;
-      max-width: 1680px;
+      max-width: 1100px;
       height: 100dvh;
       margin: 0 auto;
       padding-top: env(safe-area-inset-top);
       padding-bottom: env(safe-area-inset-bottom);
       background: linear-gradient(180deg, #0d131b 0%, #151e29 48%, #0d1219 100%);
-      border-left: 4px solid var(--hull-trim);
-      border-right: 4px solid var(--hull-trim);
-      box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.9);
+      border-left: 2px solid var(--hull-trim);
+      border-right: 2px solid var(--hull-trim);
+      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.9);
       position: relative;
       overflow: hidden;
     }
@@ -83,43 +85,46 @@
       content: "";
       position: fixed;
       inset: 0;
-      background: rgba(2, 5, 12, 0.42);
+      background: rgba(2, 5, 12, 0.44);
       pointer-events: none;
       z-index: 999;
     }
 
-    /* Overhead Bulkhead Header */
+    /* =========================================================
+       1. OVERHEAD BULKHEAD HEADER
+    ========================================================= */
     .overhead-bulkhead {
       background: linear-gradient(180deg, #090d12 0%, #17212e 85%, #0a0e14 100%);
-      border-bottom: 3px solid #06090d;
+      border-bottom: 2px solid #06090d;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 10px;
+      padding: 0 8px;
       gap: 6px;
+      width: 100%;
       min-width: 0;
-      z-index: 10;
+      overflow: hidden;
     }
 
     .overhead-lamps {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       align-items: center;
       min-width: 0;
     }
 
     .recessed-lamp {
-      width: 16px;
-      height: 6px;
+      width: 12px;
+      height: 5px;
       flex-shrink: 0;
       background: var(--crt-amber);
       border-radius: 1px;
-      box-shadow: 0 0 10px var(--crt-amber);
+      box-shadow: 0 0 8px var(--crt-amber);
     }
 
     .recessed-lamp.alert {
       background: var(--crt-red);
-      box-shadow: 0 0 12px var(--crt-red);
+      box-shadow: 0 0 10px var(--crt-red);
       animation: strobe 0.9s infinite alternate;
     }
 
@@ -131,21 +136,20 @@
     .station-id-plate {
       background: #0d131a;
       border: 1px solid var(--hull-highlight);
-      padding: 3px 7px 3px 4px;
+      padding: 2px 6px 2px 3px;
       font-family: var(--font-pixel);
-      font-size: 8px;
-      letter-spacing: 0.5px;
+      font-size: 7px;
       color: var(--crt-amber);
       text-shadow: 0 0 6px var(--crt-amber-glow);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       white-space: nowrap;
     }
 
     .station-emblem {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border: 1px solid var(--crt-amber-dim);
       border-radius: 2px;
       object-fit: cover;
@@ -156,21 +160,20 @@
     .top-telemetry-strip {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 13px;
+      gap: 5px;
+      font-size: 12px;
       flex-shrink: 0;
     }
 
     .hud-pill {
       background: #070b10;
       border: 1px solid #2b3c4e;
-      padding: 3px 7px;
+      padding: 2px 6px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       color: var(--crt-cyan);
       white-space: nowrap;
-      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.85);
     }
 
     .hud-pill strong {
@@ -179,8 +182,8 @@
     }
 
     .xp-mini-track {
-      width: 44px;
-      height: 7px;
+      width: 34px;
+      height: 6px;
       background: #0d171c;
       border: 1px solid var(--crt-cyan-dim);
       overflow: hidden;
@@ -194,15 +197,14 @@
     }
 
     /* =========================================================
-       PANORAMIC OBSERVATION VIEWPORT
+       2. PANORAMIC OBSERVATION VIEWPORT (ALWAYS VISIBLE)
     ========================================================= */
     .observatory-bay {
       position: relative;
       background: #03060c;
-      border-bottom: 4px solid #0b1017;
+      border-bottom: 3px solid #0b1017;
       overflow: hidden;
-      display: flex;
-      align-items: stretch;
+      width: 100%;
       min-width: 0;
     }
 
@@ -217,44 +219,44 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.85);
-      border-top: 3px solid #182330;
+      box-shadow: inset 0 0 32px rgba(0, 0, 0, 0.85);
+      border-top: 2px solid #182330;
     }
 
     .viewport-pillar {
       position: absolute;
       top: 0;
       bottom: 0;
-      width: 16px;
+      width: 12px;
       background: linear-gradient(90deg, #0b1017 0%, #223042 45%, #111822 100%);
       border-left: 1px solid #06090d;
       border-right: 1px solid #06090d;
       z-index: 3;
     }
 
-    .viewport-pillar.left { left: 15%; transform: skewX(-4deg); }
-    .viewport-pillar.right { right: 15%; transform: skewX(4deg); }
+    .viewport-pillar.left { left: 14%; transform: skewX(-4deg); }
+    .viewport-pillar.right { right: 14%; transform: skewX(4deg); }
 
     .safety-rail {
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 14px;
-      height: 10px;
+      bottom: 10px;
+      height: 8px;
       border-top: 2px solid #2b3c50;
-      border-bottom: 2px solid #16202b;
+      border-bottom: 1px solid #16202b;
       background: rgba(10, 15, 22, 0.25);
       z-index: 4;
     }
 
     .viewport-controls {
       position: absolute;
-      top: 8px;
-      left: 10px;
-      right: 10px;
+      top: 6px;
+      left: 8px;
+      right: 8px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       gap: 6px;
       z-index: 5;
       pointer-events: none;
@@ -263,9 +265,12 @@
     .viewport-tag {
       background: rgba(7, 12, 18, 0.84);
       border: 1px solid #2d4259;
-      padding: 3px 6px;
-      font-size: 11px;
+      padding: 2px 6px;
+      font-size: 10px;
       color: #8bb8d9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       min-width: 0;
     }
 
@@ -273,12 +278,11 @@
       pointer-events: auto;
       background: #141d28;
       border: 1px solid #2f4257;
-      padding: 3px 6px;
+      padding: 2px 4px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
     }
 
     .lever-btn {
@@ -286,8 +290,8 @@
       border: 1px solid var(--crt-cyan-dim);
       color: var(--crt-cyan);
       font-family: var(--font-tech);
-      font-size: 11px;
-      padding: 2px 6px;
+      font-size: 10px;
+      padding: 2px 5px;
       cursor: pointer;
     }
 
@@ -295,108 +299,111 @@
       background: var(--crt-cyan);
       color: #041014;
       font-weight: bold;
-      box-shadow: 0 0 8px var(--crt-cyan-glow);
     }
 
     /* =========================================================
-       ANGLED COMMAND DESK & 3-BAY CRT WORKSTATION
+       3. ALWAYS-VISIBLE AMBER VITALS TELEMETRY STRIP
     ========================================================= */
-    .command-desk {
-      background:
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,255,255,0.015) 0px,
-          rgba(255,255,255,0.015) 2px,
-          transparent 2px,
-          transparent 16px
-        ),
-        linear-gradient(180deg, #1b2533 0%, #131b26 18%, #0d131b 100%);
-      border-top: 3px solid #324459;
-      padding: 8px 10px;
-      display: grid;
-      grid-template-columns: 270px minmax(0, 1fr) 275px;
-      gap: 10px;
+    .vitals-strip-bay {
+      background: linear-gradient(180deg, #1b2533 0%, #111822 100%);
+      border-bottom: 2px solid #2c3d52;
+      padding: 5px 8px;
+      width: 100%;
       min-width: 0;
-      min-height: 0;
-      overflow: hidden;
-      position: relative;
     }
 
-    .hazard-strip {
-      height: 5px;
-      background: repeating-linear-gradient(
-        -45deg,
-        var(--hazard-yellow),
-        var(--hazard-yellow) 8px,
-        var(--hazard-black) 8px,
-        var(--hazard-black) 16px
-      );
-      border-top: 1px solid #000;
-      border-bottom: 1px solid #000;
-      margin-bottom: 5px;
-      opacity: 0.85;
-      flex-shrink: 0;
-    }
-
-    .console-bay {
-      background: linear-gradient(180deg, #1e2938 0%, #121923 100%);
-      border: 2px solid #2e3f54;
+    .vitals-crt-box {
+      background: radial-gradient(circle at center, #181104 0%, #080501 100%);
+      border: 2px solid #090d12;
       border-radius: 6px;
-      padding: 7px;
+      padding: 5px 7px;
+      color: var(--crt-amber);
+      text-shadow: 0 0 4px var(--crt-amber-glow);
+      box-shadow: inset 0 0 14px #000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scanlines-enabled .vitals-crt-box::after,
+    .scanlines-enabled .crt-bezel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.32) 50%);
+      background-size: 100% 3px;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .vitals-grid-2x3 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4px 10px;
+      width: 100%;
+    }
+
+    .v-mini-item {
       display: flex;
       flex-direction: column;
-      box-shadow:
-        inset 0 2px 0 rgba(255, 255, 255, 0.08),
-        0 6px 16px rgba(0, 0, 0, 0.75);
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .v-mini-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      line-height: 1;
+    }
+
+    .v-mini-segs {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 1.5px;
+      height: 6px;
+      background: rgba(255, 176, 0, 0.08);
+      padding: 1px;
+      border: 1px solid var(--crt-amber-dim);
+    }
+
+    .v-seg {
+      background: rgba(255, 176, 0, 0.12);
+    }
+
+    .v-seg.on {
+      background: var(--crt-amber);
+      box-shadow: 0 0 3px var(--crt-amber);
+    }
+
+    .v-seg.crit {
+      background: var(--crt-red);
+      box-shadow: 0 0 4px var(--crt-red);
+    }
+
+    /* =========================================================
+       4. CENTER PRIMARY CRT DECK MONITOR
+    ========================================================= */
+    .main-console-bay {
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
       min-width: 0;
       min-height: 0;
       overflow: hidden;
     }
 
-    .bay-label-plate {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      letter-spacing: 0.5px;
-      color: #93acc4;
-      padding: 0 2px 4px;
-      border-bottom: 1px solid #263547;
-      margin-bottom: 5px;
-      flex-shrink: 0;
-    }
-
-    .led-dot {
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--crt-green);
-      box-shadow: 0 0 6px var(--crt-green);
-    }
-
-    .led-dot.amber {
-      background: var(--crt-amber);
-      box-shadow: 0 0 6px var(--crt-amber);
-    }
-
-    .led-dot.red {
-      background: var(--crt-red);
-      box-shadow: 0 0 6px var(--crt-red);
-    }
-
-    /* Recessed CRT Glass & Phosphor Glow */
     .crt-bezel {
       flex: 1;
+      width: 100%;
       background: #070a0e;
       border: 3px solid #0b1016;
       border-radius: 8px;
-      padding: 3px;
-      box-shadow:
-        inset 0 0 14px #000,
-        0 1px 0 rgba(255, 255, 255, 0.08);
+      padding: 2px;
+      box-shadow: inset 0 0 14px #000, 0 1px 0 rgba(255, 255, 255, 0.07);
       display: flex;
       flex-direction: column;
+      position: relative;
       min-width: 0;
       min-height: 0;
       overflow: hidden;
@@ -404,13 +411,15 @@
 
     .crt-screen {
       flex: 1;
-      background: radial-gradient(circle at center, #0c1715 0%, #040807 100%);
+      width: 100%;
+      background: radial-gradient(circle at center, #06181c 0%, #03090b 100%);
       border-radius: 6px;
       padding: 8px;
-      position: relative;
+      color: var(--crt-cyan);
+      text-shadow: 0 0 5px var(--crt-cyan-glow);
       overflow-y: auto;
       overflow-x: hidden;
-      box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.95);
+      box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.95);
       min-width: 0;
       min-height: 0;
     }
@@ -421,143 +430,9 @@
       text-shadow: 0 0 5px var(--crt-amber-glow);
     }
 
-    .crt-screen.cyan-mode {
-      background: radial-gradient(circle at center, #06181c 0%, #03090b 100%);
-      color: var(--crt-cyan);
-      text-shadow: 0 0 5px var(--crt-cyan-glow);
-    }
-
-    .scanlines-enabled .crt-bezel {
-      position: relative;
-    }
-
-    .scanlines-enabled .crt-bezel::after {
-      content: "";
-      position: absolute;
-      inset: 3px;
-      border-radius: 6px;
-      background: linear-gradient(
-        rgba(18, 16, 16, 0) 50%,
-        rgba(0, 0, 0, 0.34) 50%
-      );
-      background-size: 100% 3px;
-      pointer-events: none;
-      z-index: 4;
-    }
-
     .crt-screen::-webkit-scrollbar { width: 4px; }
     .crt-screen::-webkit-scrollbar-track { background: #040708; }
     .crt-screen::-webkit-scrollbar-thumb { background: #26484d; border-radius: 2px; }
-
-    /* =========================================================
-       LEFT CRT: VITALS & LIFE SUPPORT MATRIX
-    ========================================================= */
-    .vital-row {
-      margin-bottom: 8px;
-      padding-bottom: 5px;
-      border-bottom: 1px dashed rgba(255, 176, 0, 0.2);
-    }
-
-    .vital-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      margin-bottom: 3px;
-    }
-
-    .vital-segments {
-      display: grid;
-      grid-template-columns: repeat(20, minmax(0, 1fr));
-      gap: 2px;
-      height: 10px;
-      background: rgba(255, 176, 0, 0.06);
-      padding: 2px;
-      border: 1px solid var(--crt-amber-dim);
-    }
-
-    .vital-seg {
-      background: rgba(255, 176, 0, 0.12);
-    }
-
-    .vital-seg.on {
-      background: var(--crt-amber);
-      box-shadow: 0 0 4px var(--crt-amber);
-    }
-
-    .vital-seg.crit {
-      background: var(--crt-red);
-      box-shadow: 0 0 5px var(--crt-red);
-    }
-
-    .decay-readout {
-      margin-top: 6px;
-      padding: 6px;
-      border: 1px solid var(--crt-amber-dim);
-      background: rgba(255, 176, 0, 0.05);
-      font-size: 12px;
-      line-height: 1.35;
-    }
-
-    /* =========================================================
-       CENTER CRT: TACTILE DECK SWITCHES & TERMINAL VIEWS
-    ========================================================= */
-    .deck-button-bank {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 4px;
-      margin-bottom: 6px;
-      min-width: 0;
-      flex-shrink: 0;
-    }
-
-    .mech-btn {
-      background: linear-gradient(180deg, #273547 0%, #161f2b 100%);
-      border: 2px solid #0b1016;
-      border-top-color: #435975;
-      border-radius: 4px;
-      color: #9cb3c9;
-      font-family: var(--font-tech);
-      font-size: 11px;
-      padding: 5px 2px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      min-width: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      box-shadow: 0 2px 0 #070a0f;
-      transition: transform 0.06s ease;
-    }
-
-    .mech-btn:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #070a0f;
-    }
-
-    .mech-btn .cap-led {
-      width: 16px;
-      height: 3px;
-      background: #2f3e4f;
-      border-radius: 1px;
-    }
-
-    .mech-btn.active {
-      background: linear-gradient(180deg, #1b3640 0%, #0f2129 100%);
-      color: var(--crt-cyan);
-      border-top-color: var(--crt-cyan);
-      text-shadow: 0 0 6px var(--crt-cyan-glow);
-    }
-
-    .mech-btn.active .cap-led {
-      background: var(--crt-cyan);
-      box-shadow: 0 0 8px var(--crt-cyan);
-    }
-
-    .btn-lbl-short { display: none; }
 
     /* Terminal Header Strip */
     .term-toolbar {
@@ -565,9 +440,10 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--crt-cyan-dim);
-      padding-bottom: 6px;
+      padding-bottom: 5px;
       margin-bottom: 8px;
       gap: 6px;
+      width: 100%;
       min-width: 0;
     }
 
@@ -576,6 +452,9 @@
       font-size: 8px;
       line-height: 1.4;
       color: var(--crt-cyan);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       min-width: 0;
     }
 
@@ -585,23 +464,23 @@
       color: var(--crt-cyan);
       font-family: var(--font-tech);
       font-size: 12px;
-      padding: 3px 7px;
+      padding: 3px 8px;
       cursor: pointer;
       white-space: nowrap;
       flex-shrink: 0;
     }
 
-    .term-action-btn:hover {
+    .term-action-btn:hover, .term-action-btn:active {
       background: var(--crt-cyan);
       color: #031014;
     }
 
-    /* Habit Protocol Switches Grid */
+    /* Habit Protocol Modules */
     .protocol-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
       gap: 7px;
-      min-width: 0;
+      width: 100%;
     }
 
     .protocol-module {
@@ -610,8 +489,8 @@
       padding: 7px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       gap: 5px;
+      width: 100%;
       min-width: 0;
     }
 
@@ -655,7 +534,7 @@
     .proto-controls {
       display: flex;
       gap: 5px;
-      margin-top: 2px;
+      width: 100%;
     }
 
     .engage-switch {
@@ -669,7 +548,6 @@
       padding: 5px 6px;
       cursor: pointer;
       text-align: center;
-      letter-spacing: 0.5px;
     }
 
     .engage-switch:hover, .engage-switch:active {
@@ -683,14 +561,9 @@
       border: 1px solid #4a252b;
       color: #b85c68;
       font-family: var(--font-tech);
-      padding: 0 7px;
+      padding: 0 8px;
       cursor: pointer;
       flex-shrink: 0;
-    }
-
-    .del-proto-btn:hover {
-      border-color: var(--crt-red);
-      color: var(--crt-red);
     }
 
     /* Telemetry Chart & Logs */
@@ -699,11 +572,12 @@
       grid-template-columns: repeat(7, minmax(0, 1fr));
       gap: 4px;
       align-items: end;
-      height: 105px;
+      height: 95px;
       padding: 6px;
       border: 1px solid var(--crt-cyan-dim);
       background: rgba(0, 0, 0, 0.35);
       margin-bottom: 8px;
+      width: 100%;
     }
 
     .t-col {
@@ -712,12 +586,13 @@
       align-items: center;
       height: 100%;
       justify-content: flex-end;
-      gap: 3px;
+      gap: 2px;
+      min-width: 0;
     }
 
     .t-bar {
       width: 100%;
-      max-width: 24px;
+      max-width: 22px;
       background: var(--crt-cyan);
       box-shadow: 0 0 6px var(--crt-cyan-glow);
       min-height: 3px;
@@ -741,7 +616,7 @@
       word-break: break-word;
     }
 
-    /* Quartermaster & Crew Grid */
+    /* Supplies & Lounge */
     .qm-item {
       border: 1px solid var(--crt-cyan-dim);
       padding: 7px;
@@ -751,6 +626,7 @@
       align-items: center;
       gap: 8px;
       background: rgba(56, 242, 255, 0.03);
+      width: 100%;
     }
 
     .class-grid {
@@ -758,6 +634,7 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 6px;
       margin-bottom: 8px;
+      width: 100%;
     }
 
     .class-card {
@@ -765,6 +642,7 @@
       padding: 7px;
       cursor: pointer;
       background: rgba(56, 242, 255, 0.03);
+      min-width: 0;
     }
 
     .class-card.selected {
@@ -773,30 +651,27 @@
       color: var(--crt-amber);
     }
 
-    /* =========================================================
-       RIGHT CRT: HARDWARE SWITCHBOARD & GITHUB GIST UPLINK
-    ========================================================= */
+    /* Hardware Switches & Gist Uplink (Tab 05) */
     .switch-bank {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 5px;
-      margin-bottom: 6px;
-      flex-shrink: 0;
+      gap: 6px;
+      margin-bottom: 10px;
+      width: 100%;
     }
 
     .rocker-switch {
       background: #0c1219;
-      border: 2px solid #29384a;
-      padding: 4px 2px;
+      border: 1px solid var(--crt-amber-dim);
+      padding: 6px 4px;
       text-align: center;
       cursor: pointer;
-      border-radius: 3px;
     }
 
     .rocker-toggle {
-      width: 24px;
+      width: 26px;
       height: 12px;
-      margin: 0 auto 3px;
+      margin: 0 auto 4px;
       background: #1d2733;
       border: 1px solid #49607a;
       position: relative;
@@ -814,20 +689,21 @@
     }
 
     .rocker-switch.on .rocker-toggle::after {
-      left: 13px;
+      left: 15px;
       background: var(--crt-amber);
       box-shadow: 0 0 6px var(--crt-amber);
     }
 
     .rocker-label {
-      font-size: 9px;
-      color: #9cb3c9;
+      font-size: 10px;
+      color: var(--crt-amber);
       display: block;
     }
 
     .gist-form-group {
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       font-size: 12px;
+      width: 100%;
     }
 
     .gist-input {
@@ -836,16 +712,17 @@
       border: 1px solid var(--crt-amber-dim);
       color: var(--crt-amber);
       font-family: var(--font-tech);
-      font-size: 12px;
-      padding: 4px 6px;
-      margin-top: 2px;
+      font-size: 13px;
+      padding: 6px;
+      margin-top: 3px;
     }
 
     .gist-btn-row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 6px;
-      margin-top: 6px;
+      margin-top: 8px;
+      width: 100%;
     }
 
     .amber-btn {
@@ -853,58 +730,75 @@
       border: 1px solid var(--crt-amber);
       color: var(--crt-amber);
       font-family: var(--font-tech);
-      font-size: 12px;
-      padding: 5px 6px;
+      font-size: 13px;
+      padding: 6px;
       cursor: pointer;
     }
 
-    .amber-btn:hover {
+    .amber-btn:hover, .amber-btn:active {
       background: var(--crt-amber);
       color: #090600;
       font-weight: bold;
     }
 
     /* =========================================================
-       LOWER CONSOLE LED MATRIX STRIP
+       5. BOTTOM CONSOLE TACTILE SWITCHBANK (5 TABS)
     ========================================================= */
-    .lower-led-deck {
-      background: #080c11;
-      border-top: 2px solid #253345;
-      padding: 0 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 10px;
-      color: #6d859c;
+    .bottom-console-bar {
+      background: linear-gradient(180deg, #17212e 0%, #0b1017 100%);
+      border-top: 2px solid #324459;
+      padding: 5px 6px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 4px;
+      width: 100%;
       min-width: 0;
-      overflow: hidden;
     }
 
-    #footer-ticker {
+    .mech-btn {
+      background: linear-gradient(180deg, #273547 0%, #161f2b 100%);
+      border: 1.5px solid #0b1016;
+      border-top-color: #435975;
+      border-radius: 4px;
+      color: #9cb3c9;
+      font-family: var(--font-tech);
+      font-size: 11px;
+      padding: 3px 2px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      min-width: 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      min-width: 0;
-      text-align: center;
+      box-shadow: 0 2px 0 #070a0f;
     }
 
-    .led-cluster {
-      display: flex;
-      gap: 3px;
-      align-items: center;
-      flex-shrink: 0;
+    .mech-btn:active {
+      transform: translateY(1px);
     }
 
-    .micro-led {
-      width: 4px;
-      height: 4px;
-      background: #1d2936;
+    .mech-btn .cap-led {
+      width: 16px;
+      height: 3px;
+      background: #2f3e4f;
+      border-radius: 1px;
     }
 
-    .micro-led.r { background: #c93242; box-shadow: 0 0 4px #c93242; }
-    .micro-led.a { background: #d99b26; box-shadow: 0 0 4px #d99b26; }
-    .micro-led.c { background: #26b8c9; box-shadow: 0 0 4px #26b8c9; }
+    .mech-btn.active {
+      background: linear-gradient(180deg, #1b3640 0%, #0f2129 100%);
+      color: var(--crt-cyan);
+      border-top-color: var(--crt-cyan);
+      text-shadow: 0 0 6px var(--crt-cyan-glow);
+    }
+
+    .mech-btn.active .cap-led {
+      background: var(--crt-cyan);
+      box-shadow: 0 0 8px var(--crt-cyan);
+    }
 
     /* =========================================================
        IN-TERMINAL MODAL (ADD PROTOCOL)
@@ -917,7 +811,7 @@
       align-items: center;
       justify-content: center;
       z-index: 100;
-      padding: 16px;
+      padding: 14px;
     }
 
     #protocol-modal.open {
@@ -926,11 +820,10 @@
 
     .modal-chassis {
       width: 100%;
-      max-width: 400px;
+      max-width: 380px;
       background: #131c26;
       border: 3px solid #354b63;
       padding: 10px;
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.95);
     }
 
     .modal-screen {
@@ -961,52 +854,13 @@
       padding: 6px;
     }
 
-    /* =========================================================
-       RESPONSIVE BRIDGE ADAPTATION (IPHONE / NARROW SCREENS)
-    ========================================================= */
-    @media (max-width: 980px) {
-      #bridge-shell {
-        grid-template-rows: 40px 132px minmax(0, 1fr) 24px;
-        border-left: 2px solid var(--hull-trim);
-        border-right: 2px solid var(--hull-trim);
-      }
-
-      .command-desk {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-rows: auto minmax(0, 1fr);
-        padding: 6px;
-        gap: 6px;
-      }
-
-      .console-bay.mobile-hidden {
-        display: none;
-      }
-
-      .mobile-bay-bar {
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 5px;
-        min-width: 0;
-      }
-
-      .btn-lbl-full { display: none; }
-      .btn-lbl-short { display: inline; }
-
+    @media (max-width: 520px) {
       .protocol-grid {
         grid-template-columns: minmax(0, 1fr);
       }
-
-      .hide-sm {
+      .hide-xs {
         display: none !important;
       }
-
-      .led-cluster:nth-child(3) {
-        display: none;
-      }
-    }
-
-    .mobile-bay-bar {
-      display: none;
     }
   </style>
 </head>
@@ -1023,7 +877,6 @@
         <div class="station-id-plate">
           <img src="./astra-station+icon.jpeg" alt="Astra Station Emblem" class="station-emblem" />
           <span>ASTRA v3</span>
-          <span class="hide-sm">// DECK 01</span>
         </div>
       </div>
 
@@ -1035,14 +888,14 @@
         <div class="hud-pill" title="Station Credits">
           <span>⎈ <strong id="hud-credits">0</strong></span>
         </div>
-        <div class="hud-pill hide-sm" title="Station Clock">
+        <div class="hud-pill hide-xs" title="Station Clock">
           <span id="hud-clock">00:00:00</span>
         </div>
       </div>
     </header>
 
     <!-- =======================================================
-         2. PANORAMIC OBSERVATORY VIEWPORT
+         2. PANORAMIC OBSERVATION VIEWPORT (ALWAYS ON)
     ======================================================= -->
     <section class="observatory-bay">
       <canvas id="space-canvas"></canvas>
@@ -1056,131 +909,55 @@
           ALT: 408.2 KM // INC: 51.6°
         </div>
         <div class="viewport-lever-box">
-          <span class="hide-sm" style="font-size:11px; color:#8ca3ba;">OPTICS:</span>
-          <button class="lever-btn active" id="btn-view-orbit" onclick="setViewportMode('orbit')">ORBITAL</button>
+          <button class="lever-btn active" id="btn-view-orbit" onclick="setViewportMode('orbit')">ORBIT</button>
           <button class="lever-btn" id="btn-view-radar" onclick="setViewportMode('radar')">RADAR</button>
         </div>
       </div>
     </section>
 
     <!-- =======================================================
-         3. 3-BAY ANGLED WORKSTATION CONSOLE
+         3. ALWAYS-VISIBLE AMBER VITALS TELEMETRY STRIP
     ======================================================= -->
-    <main class="command-desk">
-      <!-- Narrow-screen physical console bay selector -->
-      <div class="mobile-bay-bar">
-        <button class="mech-btn" id="mob-bay-left" onclick="selectMobileBay('left')">
-          <span class="cap-led"></span>CRT-1: VITALS
-        </button>
-        <button class="mech-btn active" id="mob-bay-center" onclick="selectMobileBay('center')">
-          <span class="cap-led"></span>CRT-2: COMMAND
-        </button>
-        <button class="mech-btn" id="mob-bay-right" onclick="selectMobileBay('right')">
-          <span class="cap-led"></span>CRT-3: UPLINK
-        </button>
+    <section class="vitals-strip-bay">
+      <div class="vitals-crt-box">
+        <div class="vitals-grid-2x3" id="vitals-strip-grid"></div>
       </div>
+    </section>
 
-      <!-- BAY 1: LEFT CRT MONITOR (AMBER PHOSPHOR - VITALS) -->
-      <aside class="console-bay mobile-hidden" id="bay-left">
-        <div class="hazard-strip"></div>
-        <div class="bay-label-plate">
-          <span>SYS-01 // LIFE SUPPORT</span>
-          <span class="led-dot amber" id="vitals-led"></span>
-        </div>
-        <div class="crt-bezel">
-          <div class="crt-screen amber-mode" id="vitals-crt"></div>
-        </div>
-      </aside>
-
-      <!-- BAY 2: CENTER PRIMARY CRT MONITOR (COMMAND DECKS) -->
-      <section class="console-bay" id="bay-center">
-        <div class="deck-button-bank">
-          <button class="mech-btn active" id="tab-protocols" onclick="switchDeck('protocols')">
-            <span class="cap-led"></span>
-            <span class="btn-lbl-full">01 PROTOCOLS</span>
-            <span class="btn-lbl-short">01 PROTO</span>
-          </button>
-          <button class="mech-btn" id="tab-telemetry" onclick="switchDeck('telemetry')">
-            <span class="cap-led"></span>
-            <span class="btn-lbl-full">02 TELEMETRY</span>
-            <span class="btn-lbl-short">02 TELEM</span>
-          </button>
-          <button class="mech-btn" id="tab-quartermaster" onclick="switchDeck('quartermaster')">
-            <span class="cap-led"></span>
-            <span class="btn-lbl-full">03 SUPPLIES</span>
-            <span class="btn-lbl-short">03 SUPPLY</span>
-          </button>
-          <button class="mech-btn" id="tab-lounge" onclick="switchDeck('lounge')">
-            <span class="cap-led"></span>
-            <span class="btn-lbl-full">04 LOUNGE</span>
-            <span class="btn-lbl-short">04 LOUNGE</span>
-          </button>
-        </div>
-
-        <div class="crt-bezel">
-          <div class="crt-screen cyan-mode" id="main-crt"></div>
-        </div>
-      </section>
-
-      <!-- BAY 3: RIGHT CRT MONITOR & HARDWARE SWITCHBOARD -->
-      <aside class="console-bay mobile-hidden" id="bay-right">
-        <div class="hazard-strip"></div>
-        <div class="bay-label-plate">
-          <span>COM-03 // GIST UPLINK</span>
-          <span class="led-dot" id="sync-led"></span>
-        </div>
-
-        <div class="switch-bank">
-          <div class="rocker-switch on" id="sw-scanlines" onclick="toggleHardware('scanlines')">
-            <div class="rocker-toggle"></div>
-            <span class="rocker-label">SCANLINES</span>
-          </div>
-          <div class="rocker-switch on" id="sw-audio" onclick="toggleHardware('audio')">
-            <div class="rocker-toggle"></div>
-            <span class="rocker-label">KEY AUDIO</span>
-          </div>
-          <div class="rocker-switch" id="sw-dimmer" onclick="toggleHardware('dimmer')">
-            <div class="rocker-toggle"></div>
-            <span class="rocker-label">NIGHT DIM</span>
-          </div>
-        </div>
-
-        <div class="crt-bezel">
-          <div class="crt-screen amber-mode" id="uplink-crt">
-            <div style="font-size:13px; border-bottom:1px solid var(--crt-amber-dim); padding-bottom:4px; margin-bottom:6px;">
-              GITHUB GIST CLOUD BACKUP
-            </div>
-            <div class="gist-form-group">
-              <label>GIST ID (astra_station_save.json)</label>
-              <input type="text" class="gist-input" id="gist-id-input" value="801f264895fb9e4c5d5130684e259088" />
-            </div>
-            <div class="gist-form-group">
-              <label>PERSONAL ACCESS TOKEN</label>
-              <input type="password" class="gist-input" id="gist-token-input" placeholder="ghp_xxxxxxxxxxxx" />
-            </div>
-            <div class="gist-btn-row">
-              <button class="amber-btn" onclick="pushToGist()">▲ PUSH GIST</button>
-              <button class="amber-btn" onclick="pullFromGist()">▼ PULL GIST</button>
-            </div>
-            <div id="sync-status-msg" style="margin-top:8px; font-size:12px; color:#d99b26;">
-              STATUS: LOCAL STORAGE ACTIVE
-            </div>
-            <div style="margin-top:10px; border-top:1px dashed var(--crt-amber-dim); padding-top:6px;">
-              <button class="amber-btn" style="width:100%;" onclick="exportSaveJSON()">EXPORT RAW JSON</button>
-            </div>
-          </div>
-        </div>
-      </aside>
+    <!-- =======================================================
+         4. CENTER PRIMARY CRT DECK SCREEN
+    ======================================================= -->
+    <main class="main-console-bay">
+      <div class="crt-bezel">
+        <div class="crt-screen" id="main-crt"></div>
+      </div>
     </main>
 
     <!-- =======================================================
-         4. LOWER CONSOLE INDICATOR MATRIX
+         5. BOTTOM CONSOLE TACTILE SWITCHBANK (5 TABS)
     ======================================================= -->
-    <footer class="lower-led-deck">
-      <div class="led-cluster" id="led-matrix-left"></div>
-      <div id="footer-ticker">ASTRA BRIDGE v3 NOMINAL // READY</div>
-      <div class="led-cluster" id="led-matrix-right"></div>
-    </footer>
+    <nav class="bottom-console-bar">
+      <button class="mech-btn active" id="tab-protocols" onclick="switchDeck('protocols')">
+        <span class="cap-led"></span>
+        <span>01 PROTO</span>
+      </button>
+      <button class="mech-btn" id="tab-telemetry" onclick="switchDeck('telemetry')">
+        <span class="cap-led"></span>
+        <span>02 TELEM</span>
+      </button>
+      <button class="mech-btn" id="tab-quartermaster" onclick="switchDeck('quartermaster')">
+        <span class="cap-led"></span>
+        <span>03 SUPPLY</span>
+      </button>
+      <button class="mech-btn" id="tab-lounge" onclick="switchDeck('lounge')">
+        <span class="cap-led"></span>
+        <span>04 LOUNGE</span>
+      </button>
+      <button class="mech-btn" id="tab-uplink" onclick="switchDeck('uplink')">
+        <span class="cap-led"></span>
+        <span>05 UPLINK</span>
+      </button>
+    </nav>
   </div>
 
   <!-- ADD NEW PROTOCOL MODAL -->
@@ -1293,7 +1070,6 @@
       const stamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       gameState.logs.unshift(`[${stamp}] ${msg}`);
       if (gameState.logs.length > 35) gameState.logs.pop();
-      document.getElementById('footer-ticker').textContent = msg.toUpperCase();
     }
 
     /* =========================================================
@@ -1353,7 +1129,6 @@
       habit.history = habit.history || {};
       habit.history[day] = (habit.history[day] || 0) + 1;
 
-      // Restore linked vital (+15%) or boost lowest vital if unlinked legacy habit
       let vKey = habit.vital;
       if (!vKey || gameState.vitals[vKey] === undefined) {
         vKey = Object.keys(gameState.vitals).reduce((a, b) =>
@@ -1379,7 +1154,7 @@
       }
 
       saveGameState();
-      renderVitalsCRT();
+      renderVitalsStrip();
       renderMainCRT();
     }
 
@@ -1427,59 +1202,51 @@
     }
 
     /* =========================================================
-       5. CRT MONITOR RENDERERS
+       5. ALWAYS-VISIBLE AMBER VITALS STRIP RENDERER
     ========================================================= */
-    function renderVitalsCRT() {
-      const crt = document.getElementById('vitals-crt');
+    function renderVitalsStrip() {
+      const grid = document.getElementById('vitals-strip-grid');
       const entries = [
         { key: 'oxygen', label: 'OXYGEN' },
         { key: 'morale', label: 'MORALE' },
         { key: 'shields', label: 'SHIELDS' },
         { key: 'bio', label: 'BIO-SYS' },
         { key: 'power', label: 'REACTOR' },
-        { key: 'earth', label: 'EARTH LINK' }
+        { key: 'earth', label: 'EARTH' }
       ];
 
       let anyCritical = false;
-      const html = entries.map(item => {
+      grid.innerHTML = entries.map(item => {
         const val = Math.round(gameState.vitals[item.key] ?? 100);
         if (val < 25) anyCritical = true;
-        const litCount = Math.round((val / 100) * 20);
+        const litCount = Math.round((val / 100) * 12);
         let segs = '';
-        for (let i = 0; i < 20; i++) {
-          const cls = i < litCount ? (val < 25 ? 'vital-seg crit' : 'vital-seg on') : 'vital-seg';
+        for (let i = 0; i < 12; i++) {
+          const cls = i < litCount ? (val < 25 ? 'v-seg crit' : 'v-seg on') : 'v-seg';
           segs += `<div class="${cls}"></div>`;
         }
         return `
-          <div class="vital-row">
-            <div class="vital-header">
+          <div class="v-mini-item">
+            <div class="v-mini-top">
               <span>${item.label}</span>
               <span>${val}%</span>
             </div>
-            <div class="vital-segments">${segs}</div>
+            <div class="v-mini-segs">${segs}</div>
           </div>
         `;
       }).join('');
 
-      const hour = new Date().getHours();
-      const night = hour >= 0 && hour < 5;
-
-      crt.innerHTML = html + `
-        <div class="decay-readout">
-          DECAY RATE: <strong>${night ? '1.5%/HR (NIGHT SHIELD)' : '3.0%/HR (ACTIVE ORBIT)'}</strong><br/>
-          STATUS: ${anyCritical ? '<span style="color:var(--crt-red)">WARNING: LOW SUBSYSTEM</span>' : 'ALL DECKS STABLE'}
-        </div>
-      `;
-
       document.getElementById('lamp-1').classList.toggle('alert', anyCritical);
       document.getElementById('lamp-2').classList.toggle('alert', anyCritical);
-      document.getElementById('vitals-led').className = anyCritical ? 'led-dot red' : 'led-dot amber';
     }
 
+    /* =========================================================
+       6. CENTER PRIMARY CRT DECK RENDERER
+    ========================================================= */
     function switchDeck(deck) {
       playClick(490, 0.04);
       activeDeck = deck;
-      document.querySelectorAll('.deck-button-bank .mech-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.bottom-console-bar .mech-btn').forEach(b => b.classList.remove('active'));
       const btn = document.getElementById('tab-' + deck);
       if (btn) btn.classList.add('active');
       renderMainCRT();
@@ -1488,6 +1255,7 @@
     function renderMainCRT() {
       const crt = document.getElementById('main-crt');
       const today = todayKey();
+      crt.classList.toggle('amber-mode', activeDeck === 'uplink');
 
       if (activeDeck === 'protocols') {
         const cards = gameState.habits.map(h => {
@@ -1514,7 +1282,7 @@
 
         crt.innerHTML = `
           <div class="term-toolbar">
-            <span class="term-title">DECK 01 // PROTOCOLS</span>
+            <span class="term-title">DECK 01 // HABIT PROTOCOLS</span>
             <button class="term-action-btn" onclick="openProtocolModal()">+ ADD</button>
           </div>
           <div class="protocol-grid">${cards}</div>
@@ -1533,7 +1301,7 @@
         }
         const maxVal = Math.max(5, ...days.map(d => d.total));
         const bars = days.map(d => {
-          const pct = Math.round((d.total / maxVal) * 76);
+          const pct = Math.round((d.total / maxVal) * 68);
           return `
             <div class="t-col">
               <span style="font-size:10px;">${d.total}</span>
@@ -1543,12 +1311,14 @@
           `;
         }).join('');
 
+        const hour = new Date().getHours();
+        const night = hour >= 0 && hour < 5;
         const logsHtml = gameState.logs.map(l => `<div class="log-entry">&gt; ${l}</div>`).join('');
 
         crt.innerHTML = `
           <div class="term-toolbar">
             <span class="term-title">DECK 02 // TELEMETRY</span>
-            <span style="font-size:12px;">LOGS: ${gameState.habits.reduce((a, b) => a + (b.count || 0), 0)}</span>
+            <span style="font-size:11px;">DECAY: ${night ? '1.5%/HR' : '3.0%/HR'}</span>
           </div>
           <div class="telemetry-bars">${bars}</div>
           <div class="log-stream">${logsHtml}</div>
@@ -1556,7 +1326,7 @@
       } else if (activeDeck === 'quartermaster') {
         const catalog = [
           { id: 'o2-scrubber', name: 'Mk-II Algae O2 Scrubber', desc: 'Restores +35% OXYGEN immediately.', cost: 60, action: () => { gameState.vitals.oxygen = Math.min(100, gameState.vitals.oxygen + 35); } },
-          { id: 'coffee-synth', name: 'Espresso Synthesizer', desc: 'Restores +35% MORALE & +20% POWER.', cost: 75, action: () => { gameState.vitals.morale = Math.min(100, gameState.vitals.morale + 35); gameState.vitals.power = Math.min(100, gameState.vitals.power + 20); } },
+          { id: 'coffee-synth', name: 'Espresso Synthesizer', desc: 'Restores +35% MORALE & +20% REACTOR.', cost: 75, action: () => { gameState.vitals.morale = Math.min(100, gameState.vitals.morale + 35); gameState.vitals.power = Math.min(100, gameState.vitals.power + 20); } },
           { id: 'hull-plating', name: 'Ablative Hull Armor', desc: 'Restores +40% SHIELDS.', cost: 80, action: () => { gameState.vitals.shields = Math.min(100, gameState.vitals.shields + 40); } },
           { id: 'hydro-bay', name: 'Hydroponic Galley Bay', desc: 'Restores +35% BIO & +25% EARTH.', cost: 90, action: () => { gameState.vitals.bio = Math.min(100, gameState.vitals.bio + 35); gameState.vitals.earth = Math.min(100, gameState.vitals.earth + 25); } }
         ];
@@ -1599,12 +1369,53 @@
         crt.innerHTML = `
           <div class="term-toolbar">
             <span class="term-title">DECK 04 // LOUNGE</span>
-            <span style="font-size:12px;">${gameState.playerClass.toUpperCase()}</span>
+            <span style="font-size:11px;">${gameState.playerClass.toUpperCase()}</span>
           </div>
           <div style="font-size:12px; margin-bottom:6px; color:#8ad6e0;">COMMANDER SPECIALIZATION:</div>
           <div class="class-grid">${classHtml}</div>
           <div style="border:1px solid var(--crt-cyan-dim); padding:7px; font-size:12px;">
-            ASTRA STATION v3 // LEO Sector 07 // Local & GitHub Gist persistence active.
+            ASTRA STATION v3 // LEO Sector 07 // Self-Hosted Bridge Node // Local & GitHub Gist persistence active.
+          </div>
+        `;
+      } else if (activeDeck === 'uplink') {
+        const savedToken = localStorage.getItem('astra_gist_token') || '';
+        const savedGistId = localStorage.getItem('astra_gist_id') || DEFAULT_GIST_ID;
+
+        crt.innerHTML = `
+          <div class="term-toolbar" style="border-color:var(--crt-amber-dim);">
+            <span class="term-title" style="color:var(--crt-amber);">DECK 05 // SYS & GIST UPLINK</span>
+          </div>
+          <div class="switch-bank">
+            <div class="rocker-switch ${hwPrefs.scanlines ? 'on' : ''}" id="sw-scanlines" onclick="toggleHardware('scanlines')">
+              <div class="rocker-toggle"></div>
+              <span class="rocker-label">SCANLINES</span>
+            </div>
+            <div class="rocker-switch ${hwPrefs.audio ? 'on' : ''}" id="sw-audio" onclick="toggleHardware('audio')">
+              <div class="rocker-toggle"></div>
+              <span class="rocker-label">KEY AUDIO</span>
+            </div>
+            <div class="rocker-switch ${hwPrefs.dimmer ? 'on' : ''}" id="sw-dimmer" onclick="toggleHardware('dimmer')">
+              <div class="rocker-toggle"></div>
+              <span class="rocker-label">NIGHT DIM</span>
+            </div>
+          </div>
+          <div class="gist-form-group">
+            <label>GIST ID (${GIST_FILENAME})</label>
+            <input type="text" class="gist-input" id="gist-id-input" value="${savedGistId}" />
+          </div>
+          <div class="gist-form-group">
+            <label>GITHUB PERSONAL ACCESS TOKEN</label>
+            <input type="password" class="gist-input" id="gist-token-input" value="${savedToken}" placeholder="ghp_xxxxxxxxxxxx" />
+          </div>
+          <div class="gist-btn-row">
+            <button class="amber-btn" onclick="pushToGist()">▲ PUSH GIST</button>
+            <button class="amber-btn" onclick="pullFromGist()">▼ PULL GIST</button>
+          </div>
+          <div id="sync-status-msg" style="margin-top:8px; font-size:12px;">
+            STATUS: LOCAL STORAGE ACTIVE
+          </div>
+          <div style="margin-top:8px;">
+            <button class="amber-btn" style="width:100%;" onclick="exportSaveJSON()">EXPORT RAW JSON</button>
           </div>
         `;
       }
@@ -1624,7 +1435,7 @@
       if (!gameState.ownedItems.includes(id)) gameState.ownedItems.push(id);
       appendLog(`REQUISITIONED: ${item.name} (-${cost}⎈)`);
       saveGameState();
-      renderVitalsCRT();
+      renderVitalsStrip();
       renderMainCRT();
     }
 
@@ -1637,12 +1448,13 @@
     }
 
     /* =========================================================
-       6. HARDWARE SWITCHES & MOBILE BAY SELECTOR
+       7. HARDWARE SWITCHES & GITHUB GIST CLOUD SYNC
     ========================================================= */
     function toggleHardware(key) {
       playClick(440, 0.04);
       hwPrefs[key] = !hwPrefs[key];
-      document.getElementById('sw-' + key).classList.toggle('on', hwPrefs[key]);
+      const sw = document.getElementById('sw-' + key);
+      if (sw) sw.classList.toggle('on', hwPrefs[key]);
 
       if (key === 'scanlines') {
         document.body.classList.toggle('scanlines-enabled', hwPrefs.scanlines);
@@ -1650,22 +1462,6 @@
         document.getElementById('bridge-shell').classList.toggle('dimmed', hwPrefs.dimmer);
       }
     }
-
-    function selectMobileBay(bay) {
-      playClick(500, 0.04);
-      ['left', 'center', 'right'].forEach(b => {
-        document.getElementById('bay-' + b).classList.toggle('mobile-hidden', b !== bay);
-        document.getElementById('mob-bay-' + b).classList.toggle('active', b === bay);
-      });
-    }
-
-    /* =========================================================
-       7. GITHUB GIST CLOUD SYNC (astra_station_save.json)
-    ========================================================= */
-    const savedToken = localStorage.getItem('astra_gist_token');
-    const savedGistId = localStorage.getItem('astra_gist_id');
-    if (savedToken) document.getElementById('gist-token-input').value = savedToken;
-    if (savedGistId) document.getElementById('gist-id-input').value = savedGistId;
 
     async function pushToGist() {
       playClick(640, 0.05);
@@ -1729,7 +1525,7 @@
           vitals: { ...DEFAULT_STATE.vitals, ...(remoteState.vitals || {}) }
         };
         saveGameState();
-        renderVitalsCRT();
+        renderVitalsStrip();
         renderMainCRT();
         statusEl.textContent = `RESTORED OK (${new Date().toLocaleTimeString()})`;
         appendLog('RESTORED SAVE FROM GITHUB GIST.');
@@ -1759,7 +1555,7 @@
     function resizeCanvas() {
       const rect = canvas.parentElement.getBoundingClientRect();
       canvas.width = Math.max(240, Math.floor(rect.width / 2));
-      canvas.height = Math.max(80, Math.floor(rect.height / 2));
+      canvas.height = Math.max(70, Math.floor(rect.height / 2));
       stars = Array.from({ length: 65 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height * 0.75,
@@ -1865,7 +1661,7 @@
     }
 
     /* =========================================================
-       9. HUD & DECORATIVE LED MATRIX INITIALIZATION
+       9. HUD INITIALIZATION
     ========================================================= */
     function updateTopHUD() {
       document.getElementById('hud-lvl').textContent = gameState.level;
@@ -1874,29 +1670,17 @@
       document.getElementById('hud-xp-bar').style.width = pct + '%';
     }
 
-    function populateLEDMatrix() {
-      const classes = ['r', 'a', 'c', '', 'a', ''];
-      ['led-matrix-left', 'led-matrix-right'].forEach(id => {
-        const el = document.getElementById(id);
-        el.innerHTML = Array.from({ length: 14 }, (_, i) => {
-          const c = classes[(i + id.length) % classes.length];
-          return `<span class="micro-led ${c}"></span>`;
-        }).join('');
-      });
-    }
-
     setInterval(() => {
       document.getElementById('hud-clock').textContent = new Date().toLocaleTimeString([], { hour12: false });
       applyVitalsDecay();
-      renderVitalsCRT();
+      renderVitalsStrip();
     }, 1000);
 
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
-    populateLEDMatrix();
     applyVitalsDecay();
     updateTopHUD();
-    renderVitalsCRT();
+    renderVitalsStrip();
     renderMainCRT();
     requestAnimationFrame(drawViewport);
   </script>
