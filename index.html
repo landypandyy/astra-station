@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Astra Station" />
-  <title>ASTRA STATION // BRIDGE CONSOLE v3</title>
+  <title>ASTRA STATION // BRIDGE CONSOLE</title>
   <link rel="icon" type="image/jpeg" href="./astra-station+icon.jpeg" />
   <link rel="apple-touch-icon" href="./astra-station+icon.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,11 +15,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
   <style>
     :root {
-      --hull-dark: #090d14;
-      --hull-mid: #141d2b;
+      --hull-dark: #080c12;
+      --hull-mid: #131c29;
       --hull-plate: #1c283b;
-      --hull-highlight: #324663;
-      --hull-trim: #06090f;
+      --hull-highlight: #3a5173;
+      --hull-trim: #05070c;
 
       /* Color-Coordinated Vital Phosphors */
       --v-oxygen: #38f2ff;
@@ -47,33 +47,38 @@
       width: 100%;
       max-width: 100%;
       height: 100dvh;
-      background: #04060a;
+      background: radial-gradient(circle at 50% 0%, #0e1624 0%, #030508 100%);
       color: #d8f4ff;
       font-family: var(--font-tech);
       overflow: hidden;
     }
 
     /* =========================================================
-       MAIN BRIDGE CHASSIS
+       MAIN BRIDGE CHASSIS (DIMENSIONAL HARDWARE SHELL)
     ========================================================= */
     #bridge-shell {
       display: grid;
       grid-template-rows:
-        40px
+        42px
         minmax(126px, 22vh)
         auto
         minmax(0, 1fr)
-        56px;
+        58px;
       width: 100%;
       max-width: 1120px;
       height: 100dvh;
       margin: 0 auto;
       padding-top: env(safe-area-inset-top);
       padding-bottom: env(safe-area-inset-bottom);
-      background: linear-gradient(180deg, #0d141f 0%, #162030 50%, #0b1018 100%);
-      border-left: 2px solid var(--hull-trim);
-      border-right: 2px solid var(--hull-trim);
-      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9);
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(56, 100, 150, 0.14) 0%, transparent 55%),
+        linear-gradient(180deg, #0e1521 0%, #162132 48%, #0a0f17 100%);
+      border-left: 2px solid #243347;
+      border-right: 2px solid #090d14;
+      box-shadow:
+        0 0 60px rgba(0, 0, 0, 0.95),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        inset 0 0 36px rgba(0, 0, 0, 0.85);
       position: relative;
       overflow: hidden;
     }
@@ -92,9 +97,12 @@
     ========================================================= */
     .overhead-bulkhead {
       background:
-        repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 12px),
-        linear-gradient(180deg, #090d14 0%, #1a2536 88%, #070a10 100%);
-      border-bottom: 2px solid #05080d;
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 10px),
+        linear-gradient(180deg, #0b1019 0%, #1c283b 52%, #0e141f 92%, #05070b 100%);
+      border-bottom: 2px solid #04060a;
+      box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -102,6 +110,7 @@
       gap: 6px;
       width: 100%;
       min-width: 0;
+      z-index: 6;
     }
 
     .brand-cluster {
@@ -116,24 +125,29 @@
       flex-direction: column;
       gap: 3px;
       flex-shrink: 0;
+      background: #06090f;
+      padding: 3px;
+      border-radius: 2px;
+      border: 1px solid #28384f;
+      box-shadow: inset 0 1px 3px #000;
     }
 
     .recessed-lamp {
       width: 14px;
       height: 4px;
       background: var(--v-power);
-      box-shadow: 0 0 8px var(--v-power);
+      box-shadow: 0 0 8px var(--v-power), inset 0 1px 0 rgba(255,255,255,0.6);
       border-radius: 1px;
     }
 
     .recessed-lamp.cyan {
       background: var(--v-oxygen);
-      box-shadow: 0 0 8px var(--v-oxygen);
+      box-shadow: 0 0 8px var(--v-oxygen), inset 0 1px 0 rgba(255,255,255,0.6);
     }
 
     .recessed-lamp.alert {
       background: var(--crt-red);
-      box-shadow: 0 0 10px var(--crt-red);
+      box-shadow: 0 0 12px var(--crt-red);
       animation: strobe 0.75s infinite alternate;
     }
 
@@ -143,10 +157,14 @@
     }
 
     .station-id-plate {
-      background: #0a0f17;
-      border: 1.5px solid var(--hull-highlight);
-      box-shadow: inset 0 0 8px #000;
-      padding: 2px 7px 2px 3px;
+      background: linear-gradient(180deg, #121a26 0%, #080c12 100%);
+      border: 1px solid #3c5373;
+      border-bottom-color: #16202e;
+      box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      padding: 2px 8px 2px 3px;
+      border-radius: 3px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -161,13 +179,14 @@
       object-fit: cover;
       image-rendering: pixelated;
       flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(255, 176, 0, 0.35);
     }
 
     .station-title-txt {
       font-family: var(--font-pixel);
       font-size: 7.5px;
       color: var(--v-power);
-      text-shadow: 0 0 6px rgba(255, 176, 0, 0.45);
+      text-shadow: 0 0 6px rgba(255, 176, 0, 0.5);
     }
 
     .top-telemetry-strip {
@@ -179,27 +198,33 @@
     }
 
     .hud-pill {
-      background: #060a10;
-      border: 1px solid #2e425c;
+      background: linear-gradient(180deg, #05080d 0%, #0b121c 100%);
+      border: 1px solid #2b3f59;
+      border-top-color: #141e2b;
+      border-radius: 3px;
       padding: 2px 6px;
       display: flex;
       align-items: center;
       gap: 4px;
       color: var(--v-oxygen);
       white-space: nowrap;
-      box-shadow: inset 0 0 6px #000;
+      box-shadow:
+        inset 0 2px 5px rgba(0, 0, 0, 0.9),
+        0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .hud-pill strong {
       color: var(--v-power);
       font-weight: normal;
+      text-shadow: 0 0 5px rgba(255, 176, 0, 0.4);
     }
 
     .xp-mini-track {
       width: 36px;
       height: 6px;
-      background: #0b161c;
+      background: #070e12;
       border: 1px solid #1e5663;
+      box-shadow: inset 0 1px 3px #000;
       overflow: hidden;
     }
 
@@ -217,9 +242,31 @@
       position: relative;
       background: #03050a;
       border-bottom: 3px solid #090e16;
+      box-shadow:
+        inset 0 8px 18px rgba(0, 0, 0, 0.85),
+        inset 0 -6px 14px rgba(0, 0, 0, 0.85),
+        0 3px 8px rgba(0, 0, 0, 0.65);
       overflow: hidden;
       width: 100%;
       min-width: 0;
+    }
+
+    /* Subtle canopy glass glare reflection */
+    .observatory-bay::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        115deg,
+        rgba(255, 255, 255, 0.04) 0%,
+        rgba(255, 255, 255, 0.01) 35%,
+        transparent 36%,
+        transparent 68%,
+        rgba(56, 242, 255, 0.03) 75%,
+        transparent 100%
+      );
+      pointer-events: none;
+      z-index: 3;
     }
 
     #space-canvas {
@@ -243,71 +290,84 @@
     }
 
     .viewport-tag {
-      background: rgba(6, 11, 18, 0.88);
-      border: 1px solid #354d6b;
+      background: rgba(6, 11, 18, 0.9);
+      border: 1px solid #3a5475;
+      border-radius: 3px;
       padding: 2px 7px;
       font-size: 10px;
-      color: #a9d6f5;
+      color: #b8e0fa;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       min-width: 0;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255,255,255,0.1);
     }
 
     .viewport-tag.hazard-active {
       border-color: var(--crt-red);
       color: #ff9aa4;
-      background: rgba(45, 8, 14, 0.92);
+      background: rgba(45, 8, 14, 0.94);
       animation: strobe 0.8s infinite alternate;
     }
 
     .viewport-lever-box {
       pointer-events: auto;
-      background: #131c29;
-      border: 1px solid #354d6b;
+      background: linear-gradient(180deg, #1b2738 0%, #0e1520 100%);
+      border: 1px solid #3d5678;
+      border-radius: 3px;
       padding: 2px 4px;
       display: flex;
       align-items: center;
       gap: 3px;
       flex-shrink: 0;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255,255,255,0.12);
     }
 
     .lever-btn {
-      background: #080d14;
-      border: 1px solid #264954;
+      background: linear-gradient(180deg, #0d1520 0%, #060a10 100%);
+      border: 1px solid #2b4e5c;
+      border-radius: 2px;
       color: #8ccad4;
       font-family: var(--font-tech);
       font-size: 10px;
       padding: 2px 5px;
       cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
     }
 
     .lever-btn.active {
-      background: var(--v-oxygen);
+      background: linear-gradient(180deg, #54f5ff 0%, #24c8d4 100%);
       color: #031014;
       font-weight: bold;
-      border-color: var(--v-oxygen);
+      border-color: #8cf9ff;
+      box-shadow: 0 0 8px rgba(56, 242, 255, 0.45);
     }
 
     /* =========================================================
-       3. COLOR-CODED 6-VITAL INSTRUMENT PANEL
+       3. COLOR-CODED 6-VITAL INSTRUMENT PANEL (3D BEZEL)
     ========================================================= */
     .instrument-deck {
-      background: linear-gradient(180deg, #1e2b3d 0%, #131c29 100%);
-      border-top: 1px solid #3b516e;
-      border-bottom: 2px solid #080c12;
-      padding: 5px 7px;
+      background: linear-gradient(180deg, #213045 0%, #141e2c 55%, #0e1520 100%);
+      border-top: 1px solid #486387;
+      border-bottom: 2px solid #06090e;
+      box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.75),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      padding: 6px 7px;
       width: 100%;
       min-width: 0;
+      z-index: 4;
     }
 
     .instrument-bezel {
-      background: #070b11;
-      border: 2px solid #27374d;
+      background: linear-gradient(180deg, #06090f 0%, #0b111a 100%);
+      border: 2px solid #2b3d54;
+      border-top-color: #162130;
       border-radius: 6px;
       padding: 5px 6px;
-      box-shadow: inset 0 0 16px #000;
+      box-shadow:
+        inset 0 3px 12px rgba(0, 0, 0, 0.95),
+        0 1px 0 rgba(255, 255, 255, 0.1);
       position: relative;
     }
 
@@ -319,18 +379,29 @@
     }
 
     .vital-gauge-card {
-      background: rgba(15, 22, 33, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(180deg, #141e2e 0%, #0b111a 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-top-color: rgba(255, 255, 255, 0.22);
       border-left: 3px solid var(--vc, #38f2ff);
       border-radius: 3px;
       padding: 3px 5px;
       cursor: pointer;
       min-width: 0;
-      transition: background 0.15s ease;
+      box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.75),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+      transition: transform 0.1s ease, background 0.15s ease;
+    }
+
+    .vital-gauge-card:active {
+      transform: translateY(1px);
     }
 
     .vital-gauge-card:hover, .vital-gauge-card.selected {
-      background: rgba(28, 42, 62, 0.95);
+      background: linear-gradient(180deg, #1d2c42 0%, #101926 100%);
+      box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.85),
+        inset 0 0 8px rgba(255, 255, 255, 0.06);
     }
 
     .vg-head {
@@ -341,6 +412,7 @@
       line-height: 1.1;
       margin-bottom: 3px;
       color: var(--vc, #38f2ff);
+      text-shadow: 0 1px 2px #000;
       white-space: nowrap;
     }
 
@@ -357,14 +429,21 @@
       grid-template-columns: repeat(10, minmax(0, 1fr));
       gap: 1.5px;
       height: 6px;
-      background: #04070b;
+      background: #030508;
       padding: 1px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 1px 3px #000;
     }
 
-    .vg-cell { background: rgba(255, 255, 255, 0.07); }
-    .vg-cell.lit { background: var(--vc, #38f2ff); box-shadow: 0 0 4px var(--vc, #38f2ff); }
-    .vg-cell.crit { background: var(--crt-red); box-shadow: 0 0 5px var(--crt-red); }
+    .vg-cell { background: rgba(255, 255, 255, 0.06); }
+    .vg-cell.lit {
+      background: var(--vc, #38f2ff);
+      box-shadow: 0 0 4px var(--vc, #38f2ff), inset 0 1px 0 rgba(255,255,255,0.45);
+    }
+    .vg-cell.crit {
+      background: var(--crt-red);
+      box-shadow: 0 0 5px var(--crt-red);
+    }
 
     .vital-inspector-bar {
       margin-top: 5px;
@@ -394,11 +473,15 @@
     .crt-bezel {
       flex: 1;
       width: 100%;
-      background: #080c12;
-      border: 3px solid #26364a;
-      border-radius: 8px;
-      padding: 2px;
-      box-shadow: inset 0 0 18px #000, 0 2px 0 rgba(255, 255, 255, 0.08);
+      background: linear-gradient(180deg, #0b1018 0%, #151f2e 100%);
+      border: 3px solid #2d4059;
+      border-top-color: #192433;
+      border-radius: 9px;
+      padding: 3px;
+      box-shadow:
+        inset 0 4px 18px rgba(0, 0, 0, 0.98),
+        0 2px 0 rgba(255, 255, 255, 0.1),
+        0 6px 16px rgba(0, 0, 0, 0.8);
       display: flex;
       flex-direction: column;
       position: relative;
@@ -407,12 +490,25 @@
       overflow: hidden;
     }
 
+    /* Curved glass vignette & scanlines inside CRT bezel */
+    .crt-bezel::before {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 6px;
+      box-shadow:
+        inset 0 0 28px rgba(0, 0, 0, 0.9),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+      z-index: 3;
+    }
+
     .scanlines-enabled .crt-bezel::after {
       content: "";
       position: absolute;
-      inset: 2px;
+      inset: 3px;
       border-radius: 6px;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.28) 50%);
       background-size: 100% 3px;
       pointer-events: none;
       z-index: 4;
@@ -421,13 +517,12 @@
     .crt-screen {
       flex: 1;
       width: 100%;
-      background: radial-gradient(circle at center, #081821 0%, #03080d 100%);
+      background: radial-gradient(circle at 50% 35%, #0b202b 0%, #040b12 75%, #02060a 100%);
       border-radius: 6px;
       padding: 8px;
       color: #d6f7ff;
       overflow-y: auto;
       overflow-x: hidden;
-      box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.95);
       min-width: 0;
       min-height: 0;
       display: flex;
@@ -435,7 +530,7 @@
     }
 
     .crt-screen.amber-mode {
-      background: radial-gradient(circle at center, #1a1205 0%, #070501 100%);
+      background: radial-gradient(circle at 50% 35%, #211706 0%, #090601 80%, #040300 100%);
       color: var(--v-power);
     }
 
@@ -448,7 +543,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #224654;
+      border-bottom: 1px solid #264f61;
       padding-bottom: 5px;
       margin-bottom: 8px;
       gap: 6px;
@@ -462,7 +557,7 @@
       font-size: 8px;
       line-height: 1.4;
       color: var(--v-oxygen);
-      text-shadow: 0 0 6px rgba(56, 242, 255, 0.35);
+      text-shadow: 0 0 6px rgba(56, 242, 255, 0.4), 0 1px 2px #000;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -470,8 +565,9 @@
     }
 
     .term-action-btn {
-      background: rgba(56, 242, 255, 0.14);
+      background: linear-gradient(180deg, rgba(56, 242, 255, 0.22) 0%, rgba(16, 86, 102, 0.35) 100%);
       border: 1px solid var(--v-oxygen);
+      border-radius: 3px;
       color: var(--v-oxygen);
       font-family: var(--font-tech);
       font-size: 12px;
@@ -479,9 +575,14 @@
       cursor: pointer;
       white-space: nowrap;
       flex-shrink: 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
-    .term-action-btn:hover, .term-action-btn:active {
+    .term-action-btn:active {
+      transform: translateY(1px);
+    }
+
+    .term-action-btn:hover {
       background: var(--v-oxygen);
       color: #031014;
       font-weight: bold;
@@ -489,8 +590,9 @@
 
     /* Hazard Alert Banner inside CRT */
     .hazard-banner {
-      background: rgba(255, 59, 78, 0.14);
+      background: linear-gradient(180deg, rgba(255, 59, 78, 0.22) 0%, rgba(120, 14, 26, 0.28) 100%);
       border: 1px solid var(--crt-red);
+      border-radius: 3px;
       padding: 7px 8px;
       margin-bottom: 8px;
       display: flex;
@@ -499,6 +601,7 @@
       gap: 8px;
       font-size: 12px;
       color: #ffb8bf;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
       flex-shrink: 0;
     }
 
@@ -508,13 +611,16 @@
     .lounge-hero-wrap {
       flex: 1;
       min-height: 215px;
-      border: 2px solid #2c4459;
+      border: 2px solid #324c66;
       background: #050a12;
-      border-radius: 4px;
+      border-radius: 5px;
       overflow: hidden;
       position: relative;
       display: flex;
       flex-direction: column;
+      box-shadow:
+        inset 0 0 22px rgba(0, 0, 0, 0.9),
+        0 4px 10px rgba(0, 0, 0, 0.7);
     }
 
     #lounge-canvas {
@@ -528,16 +634,19 @@
     .lounge-hud-strip {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 5px;
+      gap: 6px;
       margin-top: 7px;
       flex-shrink: 0;
     }
 
     .lounge-stat-box {
-      background: rgba(10, 20, 30, 0.85);
-      border: 1px solid #234254;
+      background: linear-gradient(180deg, #0e1c29 0%, #071018 100%);
+      border: 1px solid #294c61;
+      border-top-color: #3a6882;
+      border-radius: 3px;
       padding: 5px 6px;
-      font-size: 11px;
+      font-size: 10.5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .lounge-stat-box strong {
@@ -545,6 +654,7 @@
       font-size: 13px;
       color: var(--v-power);
       margin-top: 1px;
+      text-shadow: 0 1px 2px #000;
     }
 
     /* =========================================================
@@ -559,46 +669,55 @@
     }
 
     .subview-btn {
-      background: #09131c;
+      background: linear-gradient(180deg, #0e1c29 0%, #071018 100%);
       border: 1px solid #284b5c;
+      border-radius: 3px;
       color: #7eb8c2;
       font-family: var(--font-tech);
       font-size: 12px;
       padding: 5px;
       cursor: pointer;
       text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     }
 
     .subview-btn.active {
-      background: rgba(56, 242, 255, 0.16);
+      background: linear-gradient(180deg, rgba(56, 242, 255, 0.22) 0%, rgba(16, 76, 92, 0.35) 100%);
       border-color: var(--v-oxygen);
       color: var(--v-oxygen);
       font-weight: bold;
+      box-shadow: 0 0 10px rgba(56, 242, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
     .protocol-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 8px;
       width: 100%;
     }
 
     .protocol-module {
       border: 1px solid rgba(255, 255, 255, 0.16);
+      border-top-color: rgba(255, 255, 255, 0.24);
       border-left: 4px solid var(--vc, #38f2ff);
-      background: linear-gradient(90deg, rgba(255,255,255,0.04) 0%, rgba(5,12,18,0.65) 100%);
+      background: linear-gradient(180deg, #101f2d 0%, #08111a 100%);
       padding: 8px;
       display: flex;
       flex-direction: column;
       gap: 6px;
       width: 100%;
       min-width: 0;
-      border-radius: 3px;
+      border-radius: 4px;
+      box-shadow:
+        0 3px 7px rgba(0, 0, 0, 0.75),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .protocol-module.logged-today {
-      box-shadow: inset 0 0 12px rgba(61, 255, 139, 0.12);
-      border-color: rgba(61, 255, 139, 0.45);
+      box-shadow:
+        0 3px 7px rgba(0, 0, 0, 0.75),
+        inset 0 0 14px rgba(61, 255, 139, 0.14);
+      border-color: rgba(61, 255, 139, 0.48);
     }
 
     .proto-top {
@@ -613,6 +732,7 @@
       font-size: 15px;
       font-weight: bold;
       color: #ffffff;
+      text-shadow: 0 1px 2px #000;
       word-break: break-word;
       min-width: 0;
     }
@@ -621,11 +741,13 @@
       font-size: 10px;
       padding: 2px 5px;
       border: 1px solid var(--vc, #38f2ff);
+      border-radius: 2px;
       color: var(--vc, #38f2ff);
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, 0.55);
       text-transform: uppercase;
       flex-shrink: 0;
       white-space: nowrap;
+      box-shadow: inset 0 1px 2px #000;
     }
 
     .proto-effect-line {
@@ -633,6 +755,7 @@
       color: #9ec5d6;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
       gap: 4px;
     }
@@ -641,36 +764,39 @@
       font-size: 10px;
       padding: 1px 5px;
       border-radius: 2px;
-      background: rgba(255, 176, 0, 0.14);
-      border: 1px solid rgba(255, 176, 0, 0.4);
+      background: rgba(255, 176, 0, 0.15);
+      border: 1px solid rgba(255, 176, 0, 0.45);
       color: var(--v-power);
     }
 
     .yield-pill.capped {
-      background: rgba(255, 59, 78, 0.16);
+      background: rgba(255, 59, 78, 0.18);
       border-color: var(--crt-red);
       color: #ff9aa4;
     }
 
     .proto-controls {
       display: flex;
-      gap: 5px;
+      gap: 4px;
       width: 100%;
     }
 
     .decrement-btn {
-      background: rgba(255, 176, 0, 0.12);
+      background: linear-gradient(180deg, #2b200a 0%, #171105 100%);
       border: 1px solid #8a6214;
+      border-radius: 3px;
       color: var(--v-power);
       font-family: var(--font-tech);
       font-size: 15px;
       font-weight: bold;
-      padding: 0 11px;
+      padding: 0 10px;
       cursor: pointer;
       flex-shrink: 0;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
 
     .decrement-btn:active {
+      transform: translateY(1px);
       background: var(--v-power);
       color: #050505;
     }
@@ -678,8 +804,9 @@
     .engage-switch {
       flex: 1;
       min-width: 0;
-      background: rgba(8, 28, 36, 0.9);
+      background: linear-gradient(180deg, #0d2b36 0%, #071921 100%);
       border: 1px solid var(--vc, #38f2ff);
+      border-radius: 3px;
       color: var(--vc, #38f2ff);
       font-family: var(--font-tech);
       font-size: 13px;
@@ -687,22 +814,38 @@
       cursor: pointer;
       text-align: center;
       font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.14);
     }
 
-    .engage-switch:hover, .engage-switch:active {
+    .engage-switch:active {
+      transform: translateY(1px);
+    }
+
+    .engage-switch:hover {
       background: var(--vc, #38f2ff);
       color: #030a0e;
     }
 
     .icon-sq-btn {
-      background: rgba(12, 20, 30, 0.8);
+      background: linear-gradient(180deg, #162436 0%, #0c141f 100%);
       border: 1px solid #354d66;
+      border-radius: 3px;
       color: #9cb8d4;
       font-family: var(--font-tech);
-      font-size: 12px;
-      padding: 0 8px;
+      font-size: 11px;
+      padding: 0 7px;
       cursor: pointer;
       flex-shrink: 0;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .icon-sq-btn:active {
+      transform: translateY(1px);
+    }
+
+    .icon-sq-btn:disabled {
+      opacity: 0.32;
+      cursor: default;
     }
 
     .icon-sq-btn.del {
@@ -719,9 +862,11 @@
     }
 
     .kpi-card {
-      background: rgba(8, 20, 30, 0.8);
-      border: 1px solid #1f4454;
+      background: linear-gradient(180deg, #0d1f2e 0%, #07121c 100%);
+      border: 1px solid #224b5c;
+      border-radius: 3px;
       padding: 6px 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .kpi-card span {
@@ -733,6 +878,7 @@
     .kpi-card strong {
       font-size: 16px;
       color: var(--v-oxygen);
+      text-shadow: 0 0 6px rgba(56, 242, 255, 0.3);
     }
 
     .telemetry-bars {
@@ -743,7 +889,9 @@
       height: 88px;
       padding: 6px;
       border: 1px solid #1f4454;
-      background: rgba(0, 0, 0, 0.4);
+      border-radius: 3px;
+      background: rgba(0, 0, 0, 0.45);
+      box-shadow: inset 0 2px 8px #000;
       margin-bottom: 8px;
       width: 100%;
     }
@@ -761,7 +909,7 @@
     .t-bar {
       width: 100%;
       max-width: 20px;
-      background: linear-gradient(180deg, #38f2ff, #167a8c);
+      background: linear-gradient(180deg, #54f5ff, #167a8c);
       box-shadow: 0 0 6px rgba(56, 242, 255, 0.35);
       min-height: 3px;
     }
@@ -780,6 +928,7 @@
       height: 7px;
       background: #061017;
       border: 1px solid #1e3847;
+      box-shadow: inset 0 1px 3px #000;
       margin-top: 2px;
       overflow: hidden;
     }
@@ -797,10 +946,12 @@
     }
 
     .earth-tile {
-      border: 1px solid rgba(179, 136, 255, 0.4);
-      background: rgba(179, 136, 255, 0.06);
+      border: 1px solid rgba(179, 136, 255, 0.45);
+      border-radius: 3px;
+      background: linear-gradient(180deg, rgba(179, 136, 255, 0.12) 0%, rgba(30, 18, 52, 0.35) 100%);
       padding: 6px;
       cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
     }
 
     .log-stream {
@@ -822,20 +973,23 @@
       color: var(--v-power);
       letter-spacing: 0.8px;
       margin: 8px 0 5px;
-      border-bottom: 1px dashed rgba(255, 176, 0, 0.3);
+      border-bottom: 1px dashed rgba(255, 176, 0, 0.35);
       padding-bottom: 2px;
+      text-shadow: 0 1px 2px #000;
     }
 
     .qm-item {
-      border: 1px solid #224454;
+      border: 1px solid #264a5c;
       border-left: 3px solid var(--vc, #ffb000);
+      border-radius: 3px;
       padding: 7px;
       margin-bottom: 6px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 8px;
-      background: rgba(10, 22, 32, 0.7);
+      background: linear-gradient(180deg, #0f202e 0%, #08121b 100%);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.07);
       width: 100%;
     }
 
@@ -846,7 +1000,7 @@
       margin-left: 4px;
     }
 
-    /* Config / Settings Tab (Classes, Achievements, Switches, Gist) */
+    /* Config / Settings Tab */
     .class-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -857,17 +1011,20 @@
 
     .class-card {
       border: 1px solid #593e08;
+      border-radius: 3px;
       padding: 6px;
       cursor: pointer;
-      background: rgba(255, 176, 0, 0.04);
+      background: linear-gradient(180deg, rgba(255, 176, 0, 0.08) 0%, rgba(20, 14, 4, 0.6) 100%);
       min-width: 0;
       color: #d9b66c;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.65);
     }
 
     .class-card.selected {
       border-color: var(--v-power);
-      background: rgba(255, 176, 0, 0.16);
+      background: linear-gradient(180deg, rgba(255, 176, 0, 0.22) 0%, rgba(56, 38, 6, 0.7) 100%);
       color: #fff2cc;
+      box-shadow: 0 0 10px rgba(255, 176, 0, 0.25);
     }
 
     .ach-grid {
@@ -879,9 +1036,10 @@
 
     .ach-badge {
       border: 1px solid #3d2d0d;
+      border-radius: 3px;
       padding: 5px 6px;
       font-size: 11px;
-      background: rgba(12, 9, 3, 0.7);
+      background: rgba(12, 9, 3, 0.75);
       opacity: 0.55;
       color: #c9a763;
     }
@@ -889,8 +1047,9 @@
     .ach-badge.unlocked {
       opacity: 1;
       border-color: var(--v-bio);
-      background: rgba(61, 255, 139, 0.08);
+      background: linear-gradient(180deg, rgba(61, 255, 139, 0.14) 0%, rgba(10, 32, 20, 0.6) 100%);
       color: #d8ffe8;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
     }
 
     .switch-bank {
@@ -902,11 +1061,13 @@
     }
 
     .rocker-switch {
-      background: #0c1219;
+      background: linear-gradient(180deg, #141d29 0%, #090e14 100%);
       border: 1px solid #6b4800;
+      border-radius: 3px;
       padding: 6px 3px;
       text-align: center;
       cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .rocker-toggle {
@@ -915,6 +1076,7 @@
       margin: 0 auto 4px;
       background: #1d2733;
       border: 1px solid #49607a;
+      box-shadow: inset 0 1px 3px #000;
       position: relative;
     }
 
@@ -951,11 +1113,13 @@
       width: 100%;
       background: #04070a;
       border: 1px solid #7a5200;
+      border-radius: 3px;
       color: var(--v-power);
       font-family: var(--font-tech);
       font-size: 13px;
       padding: 6px;
       margin-top: 3px;
+      box-shadow: inset 0 2px 5px #000;
     }
 
     .gist-btn-row {
@@ -967,43 +1131,53 @@
     }
 
     .amber-btn {
-      background: rgba(255, 176, 0, 0.14);
+      background: linear-gradient(180deg, rgba(255, 176, 0, 0.2) 0%, rgba(120, 78, 0, 0.25) 100%);
       border: 1px solid var(--v-power);
+      border-radius: 3px;
       color: var(--v-power);
       font-family: var(--font-tech);
       font-size: 13px;
       padding: 6px;
       cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
 
-    .amber-btn:hover, .amber-btn:active {
+    .amber-btn:active {
+      transform: translateY(1px);
+    }
+
+    .amber-btn:hover {
       background: var(--v-power);
       color: #090600;
       font-weight: bold;
     }
 
     /* =========================================================
-       5. BOTTOM CONSOLE 4-TAB HARDWARE SWITCHBANK
+       5. BOTTOM CONSOLE 4-TAB TACTILE HARDWARE SWITCHBANK
     ========================================================= */
     .bottom-console-bar {
       background:
-        repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 10px),
-        linear-gradient(180deg, #1b2738 0%, #0a0f17 100%);
-      border-top: 2px solid #384e6b;
-      padding: 5px 6px;
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 2px, transparent 2px, transparent 10px),
+        linear-gradient(180deg, #1f2d40 0%, #101722 65%, #070b10 100%);
+      border-top: 2px solid #435c7d;
+      box-shadow:
+        0 -4px 12px rgba(0, 0, 0, 0.75),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      padding: 5px 6px 6px;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 6px;
       width: 100%;
       min-width: 0;
+      z-index: 6;
     }
 
     .mech-btn {
-      background: linear-gradient(180deg, #2a394f 0%, #151e2b 100%);
-      border: 1.5px solid #090d14;
-      border-top-color: #4b6487;
-      border-radius: 4px;
-      color: #a6bfd9;
+      background: linear-gradient(180deg, #2e3f57 0%, #192433 78%, #101722 100%);
+      border: 1.5px solid #080c12;
+      border-top-color: #567399;
+      border-radius: 5px;
+      color: #aec7e0;
       font-family: var(--font-tech);
       font-size: 11.5px;
       padding: 3px 2px;
@@ -1017,23 +1191,37 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      box-shadow: 0 2px 0 #05080d;
+      box-shadow:
+        0 3px 0 #05080d,
+        0 4px 6px rgba(0, 0, 0, 0.85),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      transition: transform 0.06s ease, box-shadow 0.06s ease;
     }
 
-    .mech-btn:active { transform: translateY(1px); }
+    .mech-btn:active {
+      transform: translateY(2px);
+      box-shadow:
+        0 1px 0 #05080d,
+        0 2px 3px rgba(0, 0, 0, 0.8);
+    }
 
     .mech-btn .cap-led {
       width: 20px;
       height: 3px;
-      background: #2f3e4f;
+      background: #2b3a4d;
       border-radius: 1px;
+      box-shadow: inset 0 1px 1px #000;
     }
 
     .mech-btn.active {
-      background: linear-gradient(180deg, #1b3845 0%, #0e2029 100%);
+      background: linear-gradient(180deg, #1f414f 0%, #112630 82%, #0a1820 100%);
       color: var(--v-oxygen);
       border-top-color: var(--v-oxygen);
-      text-shadow: 0 0 6px rgba(56, 242, 255, 0.45);
+      text-shadow: 0 0 7px rgba(56, 242, 255, 0.55);
+      box-shadow:
+        0 2px 0 #05080d,
+        0 0 10px rgba(56, 242, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
     }
 
     .mech-btn.active .cap-led {
@@ -1060,17 +1248,20 @@
     .modal-chassis {
       width: 100%;
       max-width: 390px;
-      background: #141e2b;
-      border: 3px solid #3a5270;
+      background: linear-gradient(180deg, #1b2838 0%, #101824 100%);
+      border: 3px solid #446082;
+      border-radius: 6px;
       padding: 10px;
-      box-shadow: 0 0 40px #000;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
 
     .modal-screen {
       background: #04090d;
       border: 2px solid #224654;
+      border-radius: 4px;
       padding: 12px;
       color: var(--v-oxygen);
+      box-shadow: inset 0 0 18px #000;
     }
 
     .modal-field { margin-bottom: 10px; }
@@ -1086,10 +1277,12 @@
       width: 100%;
       background: #07131a;
       border: 1px solid var(--v-oxygen);
+      border-radius: 3px;
       color: #ffffff;
       font-family: var(--font-tech);
       font-size: 14px;
       padding: 6px;
+      box-shadow: inset 0 2px 5px #000;
     }
 
     @media (max-width: 540px) {
@@ -1122,7 +1315,7 @@
           <div class="xp-mini-track"><div class="xp-mini-fill" id="hud-xp-bar" style="width:0%"></div></div>
         </div>
         <div class="hud-pill" title="Station Credits">
-          <span>⎈ <strong id="hud-credits">0</strong></span>
+          <span>⎈ <strong id="hud-credits">500</strong></span>
         </div>
         <div class="hud-pill hide-xs" title="Station Clock">
           <span id="hud-clock">00:00:00</span>
@@ -1288,17 +1481,27 @@
     ];
 
     /* =========================================================
-       2. PERSISTENCE, LEVEL CURVE & DIMINISHING RETURNS
+       2. LOCAL CALENDAR MIDNIGHT KEY, LEVEL CURVE & ECONOMY
     ========================================================= */
     const STORAGE_KEY = 'astra_station_save_v4';
     const LEGACY_KEY = 'astra_station_save_v3';
     const DEFAULT_GIST_ID = '801f264895fb9e4c5d5130684e259088';
     const GIST_FILENAME = 'astra_station_save.json';
 
+    // Returns local YYYY-MM-DD so daily counts reset strictly at 12:00 AM local time
+    function localDateKey(dateObj = new Date()) {
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const d = String(dateObj.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
     const DEFAULT_STATE = {
       level: 1,
       xp: 0,
-      credits: 150,
+      credits: 500,
+      economyResetV5: true,
+      lastActiveLocalDate: localDateKey(),
       playerClass: 'Flight Engineer',
       lastDecayTimestamp: Date.now(),
       vitals: {
@@ -1327,23 +1530,23 @@
         { label: 'SIGNAL GAIN', value: '98.4% LOCK' }
       ],
       logs: [
-        `[${new Date().toLocaleTimeString()}] ASTRA BRIDGE v3 ONLINE.`
+        `[${new Date().toLocaleTimeString()}] ASTRA BRIDGE ONLINE // ECONOMY REBALANCED.`
       ]
     };
 
     let gameState = loadGameState();
     let activeDeck = 'home';
-    let protoSubView = 'tallies'; // 'tallies' | 'telemetry'
+    let protoSubView = 'tallies';
     let selectedVital = 'oxygen';
     let chartRange = '7d';
-    let viewportMode = 'orbit'; // 'orbit' | 'traj' | 'radar'
+    let viewportMode = 'orbit';
     let hwPrefs = { scanlines: true, audio: true, dimmer: false };
 
+    // Harder multi-month leveling curve: Lvl 1->2 = 400 XP, Lvl 2->3 = 1,345 XP, Lvl 5->6 = 6,690 XP
     function xpRequiredForLevel(lvl) {
-      return Math.floor(150 * Math.pow(lvl, 1.45));
+      return Math.floor(400 * Math.pow(lvl, 1.75));
     }
 
-    // Diminishing returns multiplier based on how many times THIS habit was already logged today
     function getDiminishingTier(todayCount) {
       if (todayCount < 2)  return { mult: 1.00, label: '100% YIELD', capped: false };
       if (todayCount < 5)  return { mult: 0.40, label: '40% YIELD',  capped: false };
@@ -1371,7 +1574,7 @@
     }
 
     function subsystemsLoggedToday(state = gameState) {
-      const day = todayKey();
+      const day = localDateKey();
       const set = new Set();
       (state.habits || []).forEach(h => {
         if (h.history && h.history[day] > 0 && h.vital) set.add(h.vital);
@@ -1384,7 +1587,7 @@
         const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_KEY);
         if (!raw) return structuredClone(DEFAULT_STATE);
         const parsed = JSON.parse(raw);
-        return {
+        const merged = {
           ...structuredClone(DEFAULT_STATE),
           ...parsed,
           vitals: { ...DEFAULT_STATE.vitals, ...(parsed.vitals || {}) },
@@ -1394,6 +1597,23 @@
           earthTiles: Array.isArray(parsed.earthTiles) && parsed.earthTiles.length ? parsed.earthTiles : structuredClone(DEFAULT_STATE.earthTiles),
           logs: Array.isArray(parsed.logs) ? parsed.logs.slice(0, 40) : structuredClone(DEFAULT_STATE.logs)
         };
+
+        // One-time economy & level rebalance for existing saves
+        if (!parsed.economyResetV5) {
+          merged.level = 1;
+          merged.xp = 0;
+          merged.credits = 500;
+          merged.economyResetV5 = true;
+          merged.logs.unshift(`[${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}] COMMAND RANK RESET TO LVL 1 // CREDITS SET TO 500⎈.`);
+        }
+
+        const today = localDateKey();
+        if (merged.lastActiveLocalDate !== today) {
+          merged.lastActiveLocalDate = today;
+          merged.logs.unshift(`[${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}] NEW ORBITAL DAY (${today}) // DAILY COUNTS RESET TO 0.`);
+        }
+
+        return merged;
       } catch (e) {
         return structuredClone(DEFAULT_STATE);
       }
@@ -1407,6 +1627,16 @@
       updateTopHUD();
     }
 
+    function checkMidnightRollover() {
+      const today = localDateKey();
+      if (gameState.lastActiveLocalDate !== today) {
+        gameState.lastActiveLocalDate = today;
+        appendLog(`MIDNIGHT ROLLOVER (${today}) // DAILY TALLY COUNTS RESET.`);
+        saveGameState();
+        renderMainCRT();
+      }
+    }
+
     function checkAchievements() {
       ACHIEVEMENTS_LIST.forEach(a => {
         if (!gameState.achievements.includes(a.id) && a.check(gameState)) {
@@ -1416,14 +1646,22 @@
       });
     }
 
-    function todayKey() {
-      return new Date().toISOString().slice(0, 10);
-    }
-
     function appendLog(msg) {
       const stamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       gameState.logs.unshift(`[${stamp}] ${msg}`);
       if (gameState.logs.length > 40) gameState.logs.pop();
+    }
+
+    function manualEconomyReset() {
+      if (!confirm('Reset Commander Level to 1 (0 XP) and Credits to 500⎈? Your habit tallies and lounge items will be kept.')) return;
+      playClick(300, 0.08);
+      gameState.level = 1;
+      gameState.xp = 0;
+      gameState.credits = 500;
+      gameState.economyResetV5 = true;
+      appendLog('MANUAL REBALANCE: LEVEL 1 (0 XP) // CREDITS SET TO 500⎈.');
+      saveGameState();
+      renderMainCRT();
     }
 
     /* =========================================================
@@ -1482,7 +1720,7 @@
     }
 
     /* =========================================================
-       5. HABIT PROTOCOL ENGAGEMENT, DECREMENT & CRUD
+       5. HABIT PROTOCOL ENGAGEMENT, DECREMENT, REORDER & CRUD
     ========================================================= */
     function resolveHabitVital(habit) {
       if (habit.vital && VITAL_META[habit.vital]) return habit.vital;
@@ -1498,8 +1736,8 @@
         const item = LOUNGE_CATALOG.find(f => f.id === id);
         return item && item.vital === vKey;
       });
-      const baseCredits = (gameState.playerClass === 'Quartermaster' ? 18 : 12) + (hasFurnBonus ? 2 : 0);
-      const baseXp = gameState.playerClass === 'Flight Engineer' ? 30 : 24;
+      const baseCredits = (gameState.playerClass === 'Quartermaster' ? 16 : 10) + (hasFurnBonus ? 2 : 0);
+      const baseXp = gameState.playerClass === 'Flight Engineer' ? 20 : 15;
 
       const credits = tier.capped ? 0 : Math.max(tier.mult > 0 ? 1 : 0, Math.round(baseCredits * tier.mult));
       const xp = tier.capped ? 0 : Math.max(tier.mult > 0 ? 1 : 0, Math.round(baseXp * tier.mult));
@@ -1507,12 +1745,23 @@
       return { credits, xp, vitalBoost, tier, vKey };
     }
 
+    function moveProtocol(index, delta) {
+      const target = index + delta;
+      if (target < 0 || target >= gameState.habits.length) return;
+      playClick(600, 0.03);
+      const list = gameState.habits;
+      const [moved] = list.splice(index, 1);
+      list.splice(target, 0, moved);
+      saveGameState();
+      renderMainCRT();
+    }
+
     function engageProtocol(habitId) {
       const habit = gameState.habits.find(h => h.id === habitId);
       if (!habit) return;
 
       playClick(680, 0.06, 'triangle');
-      const day = todayKey();
+      const day = localDateKey();
       habit.history = habit.history || {};
       const prevToday = habit.history[day] || 0;
       const { credits, xp, vitalBoost, tier, vKey } = computeRewardForHabit(habit, prevToday);
@@ -1544,7 +1793,7 @@
       if (xp > 0 || credits > 0) {
         appendLog(`${habit.name} [${tier.label}]: +${vitalBoost}% ${VITAL_META[vKey].label}, +${xp}XP, +${credits}⎈${hazardMsg}`);
       } else {
-        appendLog(`${habit.name} [DAILY CAP]: Tally +1 (+${vitalBoost}% ${VITAL_META[vKey].label}, 0⎈)${hazardMsg}`);
+        appendLog(`${habit.name} [DAILY CAP]: Today ${habit.history[day]}x (+${vitalBoost}% ${VITAL_META[vKey].label}, 0⎈)${hazardMsg}`);
       }
 
       saveGameState();
@@ -1556,7 +1805,7 @@
       const habit = gameState.habits.find(h => h.id === habitId);
       if (!habit) return;
 
-      const day = todayKey();
+      const day = localDateKey();
       habit.history = habit.history || {};
       const curToday = habit.history[day] || 0;
 
@@ -1738,7 +1987,7 @@
 
     function renderMainCRT() {
       const crt = document.getElementById('main-crt');
-      const today = todayKey();
+      const today = localDateKey();
       crt.classList.toggle('amber-mode', activeDeck === 'config');
 
       /* -------------------------------------------------------
@@ -1790,7 +2039,7 @@
       } else if (activeDeck === 'protocols') {
         const toggleBar = `
           <div class="term-toolbar">
-            <span class="term-title">DECK 02 // ${protoSubView === 'tallies' ? 'HABIT PROTOCOLS' : 'TELEMETRY ANALYTICS'}</span>
+            <span class="term-title">DECK 02 // ${protoSubView === 'tallies' ? 'DAILY PROTOCOLS' : 'TELEMETRY ANALYTICS'}</span>
             ${protoSubView === 'tallies'
               ? `<button class="term-action-btn" onclick="openProtocolModal()">+ NEW</button>`
               : `<div class="chart-toggle-row">
@@ -1820,7 +2069,7 @@
             </div>
           ` : '';
 
-          const cards = gameState.habits.map(h => {
+          const cards = gameState.habits.map((h, idx) => {
             const vKey = resolveHabitVital(h);
             const meta = VITAL_META[vKey];
             const todayCount = (h.history && h.history[today]) || 0;
@@ -1838,12 +2087,14 @@
                   <span class="yield-pill ${reward.tier.capped ? 'capped' : ''}">${reward.tier.label}</span>
                 </div>
                 <div class="proto-effect-line">
-                  <span>TODAY: <strong>${todayCount}x</strong></span>
-                  <span>LIFETIME TALLY: <strong>${h.count || 0}</strong></span>
+                  <span>TODAY (RESETS 12AM): <strong style="color:#fff; font-size:13px;">${todayCount}x</strong></span>
+                  <span>ALL-TIME: <strong>${h.count || 0}</strong></span>
                 </div>
                 <div class="proto-controls">
                   <button class="decrement-btn" title="Reduce count by 1" onclick="decrementProtocol('${h.id}')">−</button>
                   <button class="engage-switch" onclick="engageProtocol('${h.id}')">[ + ENGAGE ${meta.label} ]</button>
+                  <button class="icon-sq-btn" title="Move Up" ${idx === 0 ? 'disabled' : ''} onclick="moveProtocol(${idx}, -1)">▲</button>
+                  <button class="icon-sq-btn" title="Move Down" ${idx === gameState.habits.length - 1 ? 'disabled' : ''} onclick="moveProtocol(${idx}, 1)">▼</button>
                   <button class="icon-sq-btn" title="Edit / Assign Vital" onclick="openProtocolModal('${h.id}')">✎</button>
                   <button class="icon-sq-btn del" title="Remove" onclick="deleteProtocol('${h.id}')">✕</button>
                 </div>
@@ -1859,7 +2110,7 @@
           for (let i = numDays - 1; i >= 0; i--) {
             const d = new Date();
             d.setDate(d.getDate() - i);
-            const key = d.toISOString().slice(0, 10);
+            const key = localDateKey(d);
             let total = 0;
             gameState.habits.forEach(h => {
               if (h.history && h.history[key]) total += h.history[key];
@@ -1883,7 +2134,6 @@
           const dailyAvg = activeDays > 0 ? (lifetime / activeDays).toFixed(1) : '0.0';
           const nextLvlXp = xpRequiredForLevel(gameState.level);
 
-          // Subsystem distribution breakdown
           const subCounts = { oxygen: 0, power: 0, shields: 0, bio: 0, morale: 0, earth: 0 };
           gameState.habits.forEach(h => {
             const vk = resolveHabitVital(h);
@@ -1990,7 +2240,7 @@
         const savedGistId = localStorage.getItem('astra_gist_id') || DEFAULT_GIST_ID;
 
         const classes = [
-          { name: 'Flight Engineer', perk: '+6 XP bonus per protocol.' },
+          { name: 'Flight Engineer', perk: '+5 XP bonus per protocol.' },
           { name: 'Quartermaster',   perk: '+6⎈ bonus per protocol.' },
           { name: 'Astro-Botanist',  perk: 'Bio & Oxygen specialist.' },
           { name: 'Comms Officer',   perk: 'Earth Link specialist.' }
@@ -2058,8 +2308,9 @@
           <div id="sync-status-msg" style="margin-top:8px; font-size:12px;">
             STATUS: LOCAL STORAGE ACTIVE
           </div>
-          <div style="margin-top:8px;">
-            <button class="amber-btn" style="width:100%;" onclick="exportSaveJSON()">EXPORT RAW JSON</button>
+          <div class="gist-btn-row" style="margin-top:8px;">
+            <button class="amber-btn" onclick="exportSaveJSON()">EXPORT JSON</button>
+            <button class="amber-btn" style="border-color:var(--crt-red); color:#ff9aa4;" onclick="manualEconomyReset()">RESET LVL &amp; 500⎈</button>
           </div>
         `;
       }
@@ -2142,15 +2393,23 @@
       const isHazard = Boolean(gameState.activeHazard);
       const owned = new Set(gameState.ownedItems || []);
 
-      // 1. Back Bulkhead Wall & Deck Floor
-      g.fillStyle = isHazard ? '#1c1016' : '#101824';
+      // 1. Back Bulkhead Wall & Deck Floor with perspective shadows
+      const wallGrad = g.createLinearGradient(0, 0, 0, 154);
+      wallGrad.addColorStop(0, isHazard ? '#241219' : '#141e2e');
+      wallGrad.addColorStop(1, isHazard ? '#14090d' : '#0b111a');
+      g.fillStyle = wallGrad;
       g.fillRect(0, 0, w, 154);
-      g.fillStyle = '#1b2738';
+
+      const floorGrad = g.createLinearGradient(0, 154, 0, h);
+      floorGrad.addColorStop(0, '#121b29');
+      floorGrad.addColorStop(0.25, '#1d2b3e');
+      floorGrad.addColorStop(1, '#101824');
+      g.fillStyle = floorGrad;
       g.fillRect(0, 154, w, 66);
-      g.fillStyle = '#090d14';
+
+      g.fillStyle = '#070a10';
       g.fillRect(0, 152, w, 3);
 
-      // Floor grid seams
       g.strokeStyle = '#131d2b';
       g.lineWidth = 1;
       for (let x = 20; x < w; x += 40) {
@@ -2159,6 +2418,8 @@
 
       // 2. Woven Orbital Deck Rug (furn-rug)
       if (owned.has('furn-rug')) {
+        g.fillStyle = 'rgba(0,0,0,0.45)';
+        g.fillRect(94, 168, 176, 38);
         g.fillStyle = '#2b2042';
         g.fillRect(92, 166, 176, 38);
         g.strokeStyle = '#b388ff';
@@ -2167,14 +2428,13 @@
         g.strokeRect(102, 174, 156, 22);
       }
 
-      // 3. Panoramic Lounge Space Window
+      // 3. Panoramic Lounge Space Window with Recessed Shadow
       g.fillStyle = '#040812';
       g.fillRect(108, 16, 144, 92);
-      g.strokeStyle = isHazard ? '#ff3b4e' : '#364f6e';
+      g.strokeStyle = isHazard ? '#ff3b4e' : '#3d587a';
       g.lineWidth = 3;
       g.strokeRect(108, 16, 144, 92);
 
-      // Stars & Earth Horizon in Lounge Window
       g.fillStyle = '#d8f4ff';
       [[120,28],[138,44],[158,24],[210,32],[232,50],[186,36],[224,24]].forEach(([sx,sy]) => g.fillRect(sx, sy, 2, 2));
       g.fillStyle = '#1366b5';
@@ -2184,6 +2444,13 @@
       g.fillStyle = '#6be4ff';
       g.fillRect(140, 86, 48, 3);
       g.fillRect(166, 93, 56, 3);
+
+      // Subtle diagonal glass glare inside Lounge window
+      g.fillStyle = 'rgba(255, 255, 255, 0.05)';
+      g.beginPath();
+      g.moveTo(112, 18); g.lineTo(144, 18); g.lineTo(118, 104); g.lineTo(112, 104);
+      g.closePath();
+      g.fill();
 
       // Brass Deep-Space Telescope (furn-observ)
       if (owned.has('furn-observ')) {
@@ -2206,8 +2473,8 @@
         g.fillRect(173, 147, 14, 6);
       }
 
-      // 4. WALL ACHIEVEMENT BADGE BOARD (Left of Window)
-      g.fillStyle = '#080e17';
+      // 4. WALL ACHIEVEMENT BADGE BOARD
+      g.fillStyle = '#070c14';
       g.fillRect(10, 16, 86, 56);
       g.strokeStyle = '#ffb000';
       g.lineWidth = 1.5;
@@ -2216,7 +2483,6 @@
       g.font = '7px monospace';
       g.fillText('ACHIEVEMENTS', 15, 25);
 
-      // 6x3 Grid of Glowing Dot Badges for all 18 Achievements
       ACHIEVEMENTS_LIST.forEach((ach, idx) => {
         const col = idx % 6;
         const row = Math.floor(idx / 6);
@@ -2231,7 +2497,7 @@
         }
       });
 
-      // 5. LIVE VITALS WALL MONITOR (Right of Window)
+      // 5. LIVE VITALS WALL MONITOR
       g.fillStyle = '#070d14';
       g.fillRect(264, 16, 86, 56);
       g.strokeStyle = '#38f2ff';
@@ -2257,9 +2523,14 @@
         });
       }
 
-      // 6. FURNITURE ITEMS IN ROOM
-      // Hydroponic Terrarium Pod (furn-fern)
+      // 6. FURNITURE ITEMS WITH FLOOR CONTACT SHADOWS
+      const drawShadow = (x, y, sw) => {
+        g.fillStyle = 'rgba(0, 0, 0, 0.45)';
+        g.fillRect(x, y, sw, 4);
+      };
+
       if (owned.has('furn-fern')) {
+        drawShadow(10, 153, 32);
         g.fillStyle = '#22354a';
         g.fillRect(10, 102, 30, 52);
         g.fillStyle = '#092e22';
@@ -2270,8 +2541,8 @@
         g.fillRect(29, 118, 4, 14);
       }
 
-      // Ancient Nebula Bonsai (furn-bonsai)
       if (owned.has('furn-bonsai')) {
+        drawShadow(44, 143, 22);
         g.fillStyle = '#ffb000';
         g.fillRect(44, 136, 20, 8);
         g.fillStyle = '#7a5230';
@@ -2281,8 +2552,8 @@
         g.fillRect(48, 113, 12, 5);
       }
 
-      // Galley Espresso Bar (furn-espresso)
       if (owned.has('furn-espresso')) {
+        drawShadow(68, 153, 38);
         g.fillStyle = '#2b394a';
         g.fillRect(68, 122, 36, 32);
         g.fillStyle = '#ffb000';
@@ -2293,8 +2564,8 @@
         g.fillRect(92, 111, 3, 3);
       }
 
-      // Manual Screen-Print Press (furn-press)
       if (owned.has('furn-press')) {
+        drawShadow(42, 181, 46);
         g.fillStyle = '#2d3f54';
         g.fillRect(42, 158, 44, 24);
         g.fillStyle = '#f5f0e1';
@@ -2303,7 +2574,6 @@
         g.fillRect(54, 155, 18, 4);
       }
 
-      // Zero-G Jellyfish Tank (furn-aquarium)
       if (owned.has('furn-aquarium')) {
         g.fillStyle = '#082c3d';
         g.fillRect(264, 80, 26, 44);
@@ -2315,8 +2585,8 @@
         g.fillRect(279, 99, 1, 6);
       }
 
-      // Aux NAS Cryo-Rack (furn-server)
       if (owned.has('furn-server')) {
+        drawShadow(264, 153, 28);
         g.fillStyle = '#151e29';
         g.fillRect(264, 126, 26, 28);
         g.fillStyle = '#3dff8b';
@@ -2327,8 +2597,8 @@
         g.fillRect(275, 136, 10, 2);
       }
 
-      // Reel-to-Reel Hi-Fi Deck (furn-hifi)
       if (owned.has('furn-hifi')) {
+        drawShadow(294, 153, 32);
         g.fillStyle = '#222f40';
         g.fillRect(294, 116, 30, 38);
         g.fillStyle = '#ff6ec7';
@@ -2338,8 +2608,8 @@
         g.fillRect(298, 136, 22, 4);
       }
 
-      // Retro CRT Arcade Cabinet (furn-arcade)
       if (owned.has('furn-arcade')) {
+        drawShadow(326, 153, 30);
         g.fillStyle = '#1d2738';
         g.fillRect(326, 94, 28, 60);
         g.fillStyle = '#ff6ec7';
@@ -2352,7 +2622,7 @@
         g.fillRect(342, 111, 4, 4);
       }
 
-      // 7. COMMANDER SPRITE IN LOUNGE CHAIR (Color-coded to Specialization)
+      // 7. COMMANDER SPRITE IN LOUNGE CHAIR
       const classColors = {
         'Flight Engineer': '#ffb000',
         'Quartermaster':   '#3dff8b',
@@ -2361,28 +2631,29 @@
       };
       const suitAccent = classColors[gameState.playerClass] || '#ffb000';
 
+      drawShadow(130, 153, 32);
       g.fillStyle = '#35485e';
-      g.fillRect(132, 118, 24, 36); // chair
+      g.fillRect(132, 118, 24, 36);
       g.fillStyle = '#e8f0fa';
-      g.fillRect(138, 110, 14, 14); // helmet
+      g.fillRect(138, 110, 14, 14);
       g.fillStyle = '#38f2ff';
-      g.fillRect(143, 114, 8, 5);   // visor
+      g.fillRect(143, 114, 8, 5);
       g.fillStyle = '#c8d6e5';
-      g.fillRect(137, 124, 16, 18); // torso
+      g.fillRect(137, 124, 16, 18);
       g.fillStyle = suitAccent;
-      g.fillRect(141, 128, 8, 6);   // specialization chest badge
+      g.fillRect(141, 128, 8, 6);
       g.fillStyle = '#9fb3c8';
-      g.fillRect(146, 140, 14, 7);  // legs
+      g.fillRect(146, 140, 14, 7);
 
-      // Zero-G Tabby Cat & Pod (furn-cat)
       if (owned.has('furn-cat')) {
+        drawShadow(198, 181, 30);
         g.fillStyle = '#5c3c6e';
         g.fillRect(198, 174, 28, 8);
         g.fillStyle = '#ff9f43';
-        g.fillRect(204, 167, 14, 8); // body
-        g.fillRect(214, 162, 8, 7);  // head
-        g.fillRect(214, 159, 2, 3);  // ear
-        g.fillRect(220, 159, 2, 3);  // ear
+        g.fillRect(204, 167, 14, 8);
+        g.fillRect(214, 162, 8, 7);
+        g.fillRect(214, 159, 2, 3);
+        g.fillRect(220, 159, 2, 3);
       }
     }
 
@@ -2461,6 +2732,8 @@
         gameState = {
           ...structuredClone(DEFAULT_STATE),
           ...remoteState,
+          economyResetV5: true,
+          lastActiveLocalDate: localDateKey(),
           vitals: { ...DEFAULT_STATE.vitals, ...(remoteState.vitals || {}) }
         };
         saveGameState();
@@ -2548,34 +2821,41 @@
       }
     }
 
-    // 4-Pane Edge-to-Edge Angled Windows (Far-Left, Center-Left, Center-Right, Far-Right)
     function drawCockpitFrame(w, h) {
+      // Cast drop shadow under top frame
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
+      ctx.fillRect(0, 6, w, 3);
+
       ctx.fillStyle = '#1a2638';
       ctx.fillRect(0, 0, w, 6);
       ctx.fillRect(0, h - 6, w, 6);
 
-      // Left & Right thin outer hull edges
       ctx.fillRect(0, 0, 4, h);
       ctx.fillRect(w - 4, 0, 4, h);
 
-      // Angled Strut 1 (separates Far-Left angled window from Center-Left window)
+      // Strut drop shadows
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.65)';
+      ctx.lineWidth = 7;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.19 + 2, 0); ctx.lineTo(w * 0.24 + 2, h);
+      ctx.moveTo(w * 0.81 - 2, 0); ctx.lineTo(w * 0.76 - 2, h);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+      ctx.fillRect(Math.floor(w * 0.495) + 2, 0, 5, h);
+
+      // Angled Struts & Center Mullion
       ctx.strokeStyle = '#1f2e45';
       ctx.lineWidth = 5;
       ctx.beginPath();
       ctx.moveTo(w * 0.19, 0); ctx.lineTo(w * 0.24, h);
-      ctx.stroke();
-
-      // Center Mullion (separates Center-Left from Center-Right)
-      ctx.fillStyle = '#1f2e45';
-      ctx.fillRect(Math.floor(w * 0.495), 0, 4, h);
-
-      // Angled Strut 2 (separates Center-Right from Far-Right angled window)
-      ctx.beginPath();
       ctx.moveTo(w * 0.81, 0); ctx.lineTo(w * 0.76, h);
       ctx.stroke();
 
-      // Specular metallic highlights on angled struts
-      ctx.strokeStyle = '#3f5980';
+      ctx.fillStyle = '#1f2e45';
+      ctx.fillRect(Math.floor(w * 0.495), 0, 4, h);
+
+      // Specular metallic highlights on struts
+      ctx.strokeStyle = '#476591';
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(w * 0.19, 0); ctx.lineTo(w * 0.24, h);
@@ -2588,7 +2868,6 @@
       ctx.fillRect(Math.floor(w * 0.785), 14, 5, 3);
     }
 
-    // Artemis-III Inspired Mission Trajectory Visualization
     function drawTrajectoryMap(w, h, t) {
       const earthX = Math.floor(w * 0.22);
       const earthY = Math.floor(h * 0.56);
@@ -2598,17 +2877,14 @@
       const moonY = Math.floor(h * 0.48);
       const moonR = Math.max(8, Math.floor(h * 0.13));
 
-      // Earth Globe
       ctx.fillStyle = '#1462b8';
       ctx.beginPath(); ctx.arc(earthX, earthY, earthR, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = '#3dff8b';
       ctx.fillRect(earthX - 5, earthY - 4, 7, 5);
       ctx.fillRect(earthX + 2, earthY + 2, 5, 4);
 
-      // Moon Globe
       drawDitheredPlanet(moonX, moonY, moonR, false);
 
-      // Green Outbound Trans-Lunar Trajectory Arc
       ctx.strokeStyle = '#3dff8b';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -2616,20 +2892,17 @@
       ctx.bezierCurveTo(w * 0.42, h * 0.14, w * 0.62, h * 0.22, moonX - moonR, moonY + 3);
       ctx.stroke();
 
-      // Red Lunar Gateway NRHO Loop
       ctx.strokeStyle = '#ff3b4e';
       ctx.beginPath();
       ctx.ellipse(moonX + 3, moonY + 4, moonR * 1.1, moonR * 2.2, 0.2, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Blue Trans-Earth Return Arc
       ctx.strokeStyle = '#38f2ff';
       ctx.beginPath();
       ctx.moveTo(moonX - 4, moonY - moonR);
       ctx.bezierCurveTo(w * 0.58, h * 0.86, w * 0.38, h * 0.78, earthX + earthR - 2, earthY + 5);
       ctx.stroke();
 
-      // Numbered Mission Waypoint Nodes (1 - 8)
       const nodes = [
         { x: earthX + earthR + 4, y: earthY - 6, c: '#3dff8b' },
         { x: w * 0.36, y: h * 0.28, c: '#3dff8b' },
@@ -2649,7 +2922,6 @@
         ctx.fillText(String(idx + 1), n.x - 1.8, n.y + 2);
       });
 
-      // Live Spacecraft Marker advancing along the journey by Level/Logs
       const activeIdx = Math.min(nodes.length - 1, Math.floor((gameState.level - 1 + totalLogsCount() * 0.1) % nodes.length));
       const ship = nodes[activeIdx];
       const pulse = 4 + Math.sin(t * 0.008) * 1.5;
@@ -2678,7 +2950,6 @@
       });
 
       if (viewportMode === 'orbit') {
-        // Curved blue Earth horizon spanning across left & center-left windows
         ctx.fillStyle = '#0e4d92';
         ctx.beginPath();
         ctx.arc(w * 0.24, h * 1.65, h * 1.18, 0, Math.PI * 2);
@@ -2689,7 +2960,6 @@
         ctx.arc(w * 0.24, h * 1.65, h * 1.18, Math.PI * 1.05, Math.PI * 1.9);
         ctx.stroke();
 
-        // Planets across center-right & far-right angled windows
         drawDitheredPlanet(Math.floor(w * 0.66), Math.floor(h * 0.34), Math.floor(h * 0.16), true);
         drawDitheredPlanet(Math.floor(w * 0.36), Math.floor(h * 0.32), Math.floor(h * 0.11), false);
         drawDitheredPlanet(Math.floor(w * 0.89), Math.floor(h * 0.58), Math.floor(h * 0.10), false);
@@ -2749,6 +3019,7 @@
 
     setInterval(() => {
       document.getElementById('hud-clock').textContent = new Date().toLocaleTimeString([], { hour12: false });
+      checkMidnightRollover();
       applyVitalsDecay();
       renderVitalsMatrix();
     }, 1000);
