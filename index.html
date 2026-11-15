@@ -12,10 +12,10 @@
   <link id="manifest-link" rel="manifest" href="" />
   <style>
     :root {
-      --bg-deep: #070b14;
-      --bg-card: #0d1424;
-      --bg-card-alt: #111a2e;
-      --border-subtle: rgba(255, 255, 255, 0.08);
+      --bg-deep: #050811;
+      --bg-card: #0c1220;
+      --bg-card-alt: #131d35;
+      --border-subtle: rgba(0, 243, 255, 0.2);
       --text-main: #f1f5f9;
       --text-muted: #94a3b8;
       --cyan: #00f3ff;
@@ -33,7 +33,8 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: "Courier New", Courier, monospace, -apple-system, sans-serif;
+      letter-spacing: -0.5px;
     }
 
     html, body {
@@ -47,7 +48,6 @@
       overscroll-behavior-y: none;
     }
 
-    /* FIXED TOP SAFE-AREA SHIELD TO PREVENT CLOCK / DYNAMIC ISLAND OVERLAP */
     .top-shield {
       position: fixed;
       top: 0;
@@ -67,53 +67,70 @@
     .app-container {
       max-width: 540px;
       margin: 0 auto;
-      padding: 0 14px;
+      padding: 0 12px;
     }
 
-    /* HERO DASHBOARD */
-    .hero-card {
-      background: linear-gradient(145deg, #0e1628 0%, #090e1a 100%);
-      border: 1px solid rgba(0, 243, 255, 0.22);
-      border-radius: 18px;
-      padding: 14px;
+    /* HAZARD ALERT BANNER */
+    .hazard-banner {
+      background: rgba(244, 63, 94, 0.15);
+      border: 2px dashed var(--rose);
+      border-radius: 12px;
+      padding: 10px;
       margin-bottom: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      animation: pulse-hazard 1.5s infinite;
+    }
+    .hazard-banner.active { display: flex; }
+    @keyframes pulse-hazard {
+      0% { border-color: var(--rose); }
+      50% { border-color: rgba(244, 63, 94, 0.3); }
+      100% { border-color: var(--rose); }
+    }
+
+    /* 8-BIT RETRO CARDS */
+    .hero-card {
+      background: var(--bg-card);
+      border: 2px solid var(--cyan);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-shadow: 4px 4px 0px rgba(0, 243, 255, 0.15);
     }
 
     .hero-top {
       display: grid;
-      grid-template-columns: 82px 1fr;
-      gap: 12px;
+      grid-template-columns: 74px 1fr;
+      gap: 10px;
       align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 2px dashed var(--border-subtle);
     }
 
     .avatar-box {
       position: relative;
-      width: 82px;
-      height: 82px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #172544, #090e1a);
+      width: 74px;
+      height: 74px;
+      border-radius: 10px;
+      background: #050811;
       border: 2px solid var(--cyan);
-      box-shadow: 0 0 16px rgba(0, 243, 255, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
     }
 
     .lvl-pill {
       position: absolute;
       bottom: -6px;
       background: var(--cyan);
-      color: #040811;
-      font-weight: 800;
-      font-size: 10px;
-      letter-spacing: 0.5px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      box-shadow: 0 2px 8px rgba(0, 243, 255, 0.5);
+      color: #050811;
+      font-weight: 900;
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
     .cmd-info {
@@ -129,41 +146,38 @@
     }
 
     .cmd-title {
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 1px;
+      font-size: 14px;
+      font-weight: 900;
       color: #ffffff;
     }
 
     .stardust-badge {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--cyan);
       background: rgba(0, 243, 255, 0.1);
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 243, 255, 0.25);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--cyan);
     }
 
     .cmd-rank {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
-      font-weight: 500;
     }
 
     .xp-track {
       width: 100%;
       height: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
+      background: #050811;
+      border: 1px solid var(--border-subtle);
+      border-radius: 3px;
       overflow: hidden;
-      margin: 4px 0;
     }
 
     .xp-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      border-radius: 999px;
+      background: var(--cyan);
       transition: width 0.3s ease;
     }
 
@@ -171,22 +185,21 @@
       display: flex;
       justify-content: space-between;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--amber);
-      font-variant-numeric: tabular-nums;
     }
 
-    /* 6-VITAL GRID */
+    /* VITALS GRID */
     .vitals-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 6px;
     }
 
     .vital-tile {
-      background: rgba(255, 255, 255, 0.025);
+      background: var(--bg-card-alt);
       border: 1px solid var(--border-subtle);
-      border-radius: 12px;
+      border-radius: 10px;
       padding: 8px;
       display: flex;
       flex-direction: column;
@@ -194,126 +207,115 @@
     }
 
     .vital-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      font-size: 8px;
+      font-weight: 800;
       color: var(--text-muted);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .vital-val {
-      font-size: 16px;
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
-      margin-bottom: 5px;
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 4px;
     }
 
     .vital-bar {
       width: 100%;
       height: 4px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
+      background: #050811;
+      border-radius: 2px;
       overflow: hidden;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .vital-bar-fill {
       height: 100%;
-      border-radius: 999px;
+      border-radius: 2px;
       transition: width 0.3s ease;
     }
 
     .vital-sub {
-      font-size: 9px;
+      font-size: 8px;
       color: var(--text-muted);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    /* OBSERVATION VIEWPORT */
+    /* VIEWPORT */
     .viewport-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 2px solid var(--border-subtle);
       border-radius: 14px;
       overflow: hidden;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .viewport-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 12px;
-      background: rgba(255, 255, 255, 0.02);
+      padding: 8px 10px;
+      background: #050811;
       border-bottom: 1px solid var(--border-subtle);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
+      font-size: 9px;
+      font-weight: 800;
     }
 
     .live-dot {
       display: inline-block;
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--emerald);
-      box-shadow: 0 0 8px var(--emerald);
+      box-shadow: 0 0 6px var(--emerald);
       margin-right: 6px;
     }
 
     #space-canvas {
       display: block;
       width: 100%;
-      height: 76px;
-      background: #04070e;
+      height: 72px;
+      background: #020408;
     }
 
-    /* TAB VIEWS */
-    .tab-view {
-      display: none;
-    }
-    .tab-view.active {
-      display: block;
-    }
+    /* TABS */
+    .tab-view { display: none; }
+    .tab-view.active { display: block; }
 
-    /* ZONE SELECTOR PILLS */
+    /* ZONE SELECTORS */
     .zone-tabs {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 6px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .zone-btn {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       color: var(--text-muted);
-      border-radius: 10px;
-      padding: 9px 4px;
-      font-size: 11px;
-      font-weight: 700;
+      border-radius: 8px;
+      padding: 8px 2px;
+      font-size: 10px;
+      font-weight: 800;
       text-align: center;
       cursor: pointer;
-      transition: all 0.2s ease;
     }
 
     .zone-btn.active {
       color: #050811;
-      border-color: transparent;
-      font-weight: 800;
+      border-color: var(--zone-color);
+      background: var(--zone-color);
     }
 
-    /* DECK MODULE GRID */
+    /* DECK PANEL */
     .deck-panel {
       background: var(--bg-card);
-      border: 1px solid var(--zone-color);
-      border-radius: 16px;
+      border: 2px solid var(--zone-color);
+      border-radius: 14px;
       padding: 12px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
+      box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
     }
 
     .deck-header {
@@ -324,80 +326,81 @@
     }
 
     .deck-title {
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.8px;
+      font-size: 12px;
+      font-weight: 900;
       color: var(--zone-color);
       text-transform: uppercase;
     }
 
     .deck-buff {
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-muted);
       background: rgba(255, 255, 255, 0.05);
-      padding: 3px 8px;
-      border-radius: 999px;
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
     .modules-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 9px;
-      margin-bottom: 12px;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
     .module-card {
       background: var(--bg-card-alt);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 11px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 8px;
+      gap: 6px;
+    }
+
+    .module-card.damaged {
+      border-color: var(--rose);
+      background: rgba(244, 63, 94, 0.05);
     }
 
     .mod-name {
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 800;
       color: #ffffff;
     }
 
     .mod-desc {
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-muted);
-      line-height: 1.3;
+      line-height: 1.2;
     }
 
     .mod-btn {
-      background: rgba(255, 255, 255, 0.06);
+      background: #050811;
       border: 1px solid var(--zone-color);
       color: var(--zone-color);
-      border-radius: 8px;
-      padding: 7px;
-      font-size: 11px;
-      font-weight: 800;
+      border-radius: 6px;
+      padding: 6px;
+      font-size: 10px;
+      font-weight: 900;
       cursor: pointer;
       text-align: center;
-      transition: transform 0.1s ease, background 0.15s ease;
     }
 
     .mod-btn:active {
-      transform: scale(0.96);
       background: var(--zone-color);
       color: #050811;
     }
 
     .installed-strip {
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 10px;
+      border-top: 1px dashed var(--border-subtle);
+      padding-top: 8px;
     }
 
     .installed-label {
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 9px;
+      font-weight: 800;
       color: var(--text-muted);
-      letter-spacing: 0.6px;
       margin-bottom: 6px;
       text-transform: uppercase;
     }
@@ -409,16 +412,16 @@
     }
 
     .furn-chip {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 9px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.05);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #050811;
       border: 1px solid var(--zone-color);
       color: #fff;
     }
 
-    /* EARTH LINK HABIT TRACKER */
+    /* EARTH LINK HABITS */
     .earth-header {
       display: flex;
       justify-content: space-between;
@@ -427,9 +430,8 @@
     }
 
     .earth-title {
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 0.6px;
+      font-size: 13px;
+      font-weight: 900;
     }
 
     .earth-action-group {
@@ -441,34 +443,34 @@
       background: rgba(0, 243, 255, 0.15);
       border: 1px solid var(--cyan);
       color: var(--cyan);
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 6px 10px;
-      font-size: 11px;
-      font-weight: 800;
+      font-size: 10px;
+      font-weight: 900;
       cursor: pointer;
     }
 
     .add-habit-btn {
       background: var(--cyan);
-      color: #040811;
+      color: #050811;
       border: none;
     }
 
     .habits-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
 
     .habit-tile {
-      border-radius: 16px;
-      padding: 12px;
-      color: #0b0f19;
+      border-radius: 12px;
+      padding: 10px;
+      color: #050811;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 128px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+      min-height: 120px;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.4);
       position: relative;
     }
 
@@ -476,57 +478,56 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .habit-name {
-      font-size: 13px;
-      font-weight: 800;
+      font-size: 12px;
+      font-weight: 900;
       line-height: 1.2;
       word-break: break-word;
       flex: 1;
     }
 
     .habit-edit-gear {
-      background: rgba(0, 0, 0, 0.15);
+      background: rgba(0, 0, 0, 0.2);
       border: none;
-      border-radius: 6px;
-      width: 24px;
-      height: 24px;
+      border-radius: 4px;
+      width: 22px;
+      height: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: inherit;
       cursor: pointer;
-      font-size: 12px;
-      opacity: 0.8;
+      font-size: 11px;
     }
 
     .habit-recency {
-      font-size: 10px;
-      font-weight: 600;
-      opacity: 0.78;
-      margin-bottom: 8px;
+      font-size: 9px;
+      font-weight: 700;
+      opacity: 0.8;
+      margin-bottom: 6px;
     }
 
     .habit-controls {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(0, 0, 0, 0.14);
-      border-radius: 10px;
-      padding: 4px;
+      background: rgba(0, 0, 0, 0.18);
+      border-radius: 8px;
+      padding: 3px;
     }
 
     .step-btn {
-      width: 32px;
-      height: 30px;
+      width: 30px;
+      height: 28px;
       border: none;
-      border-radius: 8px;
-      background: rgba(0, 0, 0, 0.22);
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.25);
       color: #ffffff;
-      font-size: 18px;
-      font-weight: 800;
+      font-size: 16px;
+      font-weight: 900;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -534,8 +535,7 @@
     }
 
     .step-btn:active {
-      transform: scale(0.92);
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
     }
 
     .habit-count-box {
@@ -543,32 +543,49 @@
     }
 
     .habit-count {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 900;
-      font-variant-numeric: tabular-nums;
       line-height: 1;
     }
 
     .habit-today-lbl {
-      font-size: 8px;
-      font-weight: 800;
+      font-size: 7px;
+      font-weight: 900;
       letter-spacing: 0.5px;
-      opacity: 0.75;
+      opacity: 0.8;
+    }
+
+    /* STATION LOUNGE TAB */
+    .lounge-card {
+      background: var(--bg-card);
+      border: 2px solid var(--purple);
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 4px 4px 0px rgba(168, 85, 247, 0.15);
+    }
+    #lounge-canvas {
+      display: block;
+      width: 100%;
+      height: 180px;
+      background: #020408;
+      border: 2px solid var(--border-subtle);
+      border-radius: 10px;
+      margin-bottom: 10px;
     }
 
     /* COMMAND HUB */
     .hub-section {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 13px;
+      border: 2px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 12px;
       margin-bottom: 12px;
     }
 
     .hub-sec-title {
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.7px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
       margin-bottom: 8px;
       display: flex;
@@ -577,10 +594,10 @@
     }
 
     .lvl-up-card {
-      background: linear-gradient(135deg, rgba(0, 243, 255, 0.12), rgba(168, 85, 247, 0.12));
-      border: 1px solid rgba(0, 243, 255, 0.3);
-      border-radius: 12px;
-      padding: 12px;
+      background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(168, 85, 247, 0.1));
+      border: 1px solid var(--cyan);
+      border-radius: 10px;
+      padding: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -589,19 +606,36 @@
 
     .lvl-up-btn {
       background: var(--cyan);
-      color: #040811;
+      color: #050811;
       border: none;
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 12px;
-      font-weight: 800;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 900;
       cursor: pointer;
       white-space: nowrap;
     }
 
-    .lvl-up-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
+    .class-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .class-card {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 9px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .class-card.selected {
+      border-color: var(--cyan);
+      background: rgba(0, 243, 255, 0.08);
     }
 
     .shop-grid {
@@ -612,37 +646,38 @@
 
     .shop-item {
       background: var(--bg-card-alt);
-      border-radius: 12px;
-      padding: 10px;
+      border-radius: 10px;
+      padding: 9px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 6px;
+      border: 1px solid var(--border-subtle);
     }
 
     .shop-item-name {
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 800;
       color: #fff;
     }
 
     .shop-item-perk {
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-muted);
     }
 
     .shop-buy-btn {
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       padding: 6px;
-      font-size: 11px;
-      font-weight: 800;
+      font-size: 10px;
+      font-weight: 900;
       cursor: pointer;
       color: #050811;
     }
 
     .shop-buy-btn.owned {
-      background: rgba(255, 255, 255, 0.1) !important;
+      background: rgba(255, 255, 255, 0.08) !important;
       color: var(--text-muted);
       cursor: default;
     }
@@ -651,14 +686,16 @@
     .ach-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
+      max-height: 220px;
+      overflow-y: auto;
     }
 
     .ach-card {
       background: var(--bg-card-alt);
       border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 10px;
+      border-radius: 10px;
+      padding: 9px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -671,21 +708,21 @@
     }
 
     .ach-title {
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 800;
     }
 
     .ach-desc {
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-muted);
       margin-top: 2px;
     }
 
     .ach-reward {
-      font-size: 10px;
-      font-weight: 800;
-      padding: 4px 8px;
-      border-radius: 8px;
+      font-size: 9px;
+      font-weight: 900;
+      padding: 3px 6px;
+      border-radius: 6px;
       background: rgba(255, 255, 255, 0.06);
       color: var(--amber);
       white-space: nowrap;
@@ -693,10 +730,10 @@
 
     .ach-card.unlocked .ach-reward {
       background: var(--emerald);
-      color: #040811;
+      color: #050811;
     }
 
-    /* CLOUD SYNC */
+    /* SYNC BOX */
     .sync-box {
       display: flex;
       flex-direction: column;
@@ -705,12 +742,12 @@
 
     .sync-input {
       width: 100%;
-      background: #070b14;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: #050811;
+      border: 1px solid var(--border-subtle);
       color: #fff;
-      border-radius: 10px;
-      padding: 9px 11px;
-      font-size: 12px;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 11px;
     }
 
     .sync-actions {
@@ -720,36 +757,31 @@
     }
 
     .sync-btn {
-      background: rgba(0, 243, 255, 0.14);
+      background: rgba(0, 243, 255, 0.12);
       border: 1px solid var(--cyan);
       color: var(--cyan);
-      border-radius: 10px;
-      padding: 8px;
-      font-size: 11px;
-      font-weight: 800;
+      border-radius: 8px;
+      padding: 7px;
+      font-size: 10px;
+      font-weight: 900;
       cursor: pointer;
     }
 
-    .sync-status {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* DISTINCT BOTTOM NAVIGATION BAR */
+    /* BOTTOM NAV BAR (4 TABS) */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(7, 11, 20, 0.96);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-top: 1px solid rgba(0, 243, 255, 0.22);
-      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.7);
-      padding: 10px 12px calc(var(--safe-bottom) + 8px);
+      background: rgba(5, 8, 17, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 2px solid var(--cyan);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.8);
+      padding: 8px 8px calc(var(--safe-bottom) + 6px);
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
       z-index: 100;
     }
 
@@ -760,18 +792,16 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      gap: 3px;
+      font-size: 9px;
+      font-weight: 800;
       cursor: pointer;
       padding: 4px 0;
-      transition: color 0.2s ease;
     }
 
     .nav-btn.active {
       color: var(--cyan);
-      text-shadow: 0 0 12px rgba(0, 243, 255, 0.5);
+      text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
     }
 
     /* MODALS */
@@ -779,21 +809,18 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
+      background: rgba(0, 0, 0, 0.85);
       z-index: 300;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
-
-    .modal-backdrop.open {
-      display: flex;
-    }
+    .modal-backdrop.open { display: flex; }
 
     .modal-card {
       background: var(--bg-card);
-      border: 1px solid var(--cyan);
-      border-radius: 16px;
+      border: 2px solid var(--cyan);
+      border-radius: 14px;
       padding: 16px;
       width: 100%;
       max-width: 380px;
@@ -809,40 +836,32 @@
       gap: 8px;
       flex-wrap: wrap;
     }
-
     .swatch {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
       border: 2px solid transparent;
       cursor: pointer;
     }
-
-    .swatch.selected {
-      border-color: #ffffff;
-      transform: scale(1.15);
-    }
+    .swatch.selected { border-color: #fff; transform: scale(1.1); }
 
     .toast {
       position: fixed;
-      top: calc(var(--safe-top) + 16px);
+      top: calc(var(--safe-top) + 14px);
       left: 50%;
       transform: translateX(-50%) translateY(-90px);
-      background: #10b981;
-      color: #040811;
-      font-weight: 800;
-      font-size: 12px;
+      background: var(--emerald);
+      color: #050811;
+      font-weight: 900;
+      font-size: 11px;
       padding: 8px 16px;
-      border-radius: 999px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6);
       transition: transform 0.25s ease;
       z-index: 400;
       pointer-events: none;
     }
-
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
@@ -850,33 +869,39 @@
   <div id="toast" class="toast">Synced</div>
 
   <div class="app-container">
-    <!-- HERO DASHBOARD HEADER -->
+    <!-- HAZARD WARNING BANNER -->
+    <div id="hazard-banner" class="hazard-banner">
+      <div style="font-size: 11px; font-weight: 900; color: var(--rose);" id="hazard-title">⚠️ SYSTEM ALERT: METEOR IMPACT</div>
+      <div style="font-size: 9px; color: var(--text-muted);" id="hazard-desc">Subsystems damaged. Certain deck modules are locked out!</div>
+      <button class="sync-btn" style="border-color: var(--rose); color: var(--rose); background: rgba(244,63,94,0.2);" onclick="repairHazard()">REPAIR SUBSYSTEMS (350 ⎈)</button>
+    </div>
+
+    <!-- HERO DASHBOARD -->
     <div class="hero-card">
       <div class="hero-top">
-        <div class="avatar-box">
-          <svg width="46" height="46" viewBox="0 0 64 64" fill="none">
-            <circle cx="32" cy="24" r="14" fill="#0d1424" stroke="#00f3ff" stroke-width="3.5"/>
-            <rect x="23" y="18" width="18" height="11" rx="5.5" fill="#00f3ff" fill-opacity="0.22" stroke="#00f3ff" stroke-width="2"/>
-            <circle cx="28" cy="23" r="1.8" fill="#00f3ff"/>
-            <circle cx="36" cy="23" r="1.8" fill="#00f3ff"/>
-            <path d="M18 52C18 43.1634 24.268 38 32 38C39.732 38 46 43.1634 46 52" fill="#00f3ff" fill-opacity="0.2" stroke="#00f3ff" stroke-width="3.5" stroke-linecap="round"/>
-            <rect x="27" y="43" width="10" height="6" rx="2" fill="#00f3ff"/>
+        <div class="avatar-box" onclick="switchTab('hub')">
+          <svg width="42" height="42" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="24" r="14" fill="#0c1220" stroke="#00f3ff" stroke-width="3"/>
+            <rect x="23" y="18" width="18" height="11" rx="4" fill="#00f3ff" fill-opacity="0.3" stroke="#00f3ff" stroke-width="2"/>
+            <circle cx="28" cy="23" r="1.5" fill="#00f3ff"/>
+            <circle cx="36" cy="23" r="1.5" fill="#00f3ff"/>
+            <path d="M18 52C18 43 24 38 32 38C40 38 46 43 46 52" fill="#00f3ff" fill-opacity="0.2" stroke="#00f3ff" stroke-width="3"/>
           </svg>
           <div class="lvl-pill" id="hero-lvl">LVL 1</div>
         </div>
 
         <div class="cmd-info">
           <div class="cmd-header-row">
-            <span class="cmd-title">ASTRA CMD</span>
+            <span class="cmd-title" id="hero-class-title">ENGINEER</span>
             <span class="stardust-badge" id="hero-stardust">✦ 45</span>
           </div>
-          <div class="cmd-rank" id="hero-rank">Cadet Officer • -0.0% Decay</div>
+          <div class="cmd-rank" id="hero-rank">Cadet Officer • 3% Decay</div>
           <div class="xp-track">
             <div class="xp-fill" id="hero-xp-bar" style="width: 15%"></div>
           </div>
           <div class="currency-row">
-            <span id="hero-credits">⎈ 1,500 CREDITS</span>
-            <span id="hero-next-lvl">NEXT LVL: 10,000</span>
+            <span id="hero-credits">⎈ 1,500</span>
+            <span id="hero-next-lvl">NEXT: 10K</span>
           </div>
         </div>
       </div>
@@ -885,13 +910,13 @@
       <div class="vitals-grid" id="vitals-grid"></div>
     </div>
 
-    <!-- LIVE OBSERVATION DECK VIEWPORT -->
+    <!-- VIEWPORT -->
     <div class="viewport-card">
       <div class="viewport-header">
-        <span><span class="live-dot"></span>LIVE OBSERVATION DECK</span>
-        <span style="color: var(--cyan);">ORBITAL SECTOR A-9</span>
+        <span><span class="live-dot"></span>ORBITAL VIEWPORT</span>
+        <span style="color: var(--cyan);" id="viewport-status">SECTOR A-9 • SECURE</span>
       </div>
-      <canvas id="space-canvas" width="520" height="76"></canvas>
+      <canvas id="space-canvas" width="520" height="72"></canvas>
     </div>
 
     <!-- TAB 1: STATION DECKS -->
@@ -906,24 +931,24 @@
       <div class="deck-panel" id="deck-panel">
         <div class="deck-header">
           <div class="deck-title" id="deck-title">HABITAT DECK</div>
-          <div class="deck-buff" id="deck-buff">Crew Quarters & Life Support</div>
+          <div class="deck-buff" id="deck-buff">Life Support</div>
         </div>
 
         <div class="modules-grid" id="modules-grid"></div>
 
         <div class="installed-strip">
-          <div class="installed-label">Installed Furnishings & Upgrades</div>
+          <div class="installed-label">Installed Furnishings</div>
           <div class="installed-chips" id="installed-chips"></div>
         </div>
       </div>
     </div>
 
-    <!-- TAB 2: EARTH LINK HABITS -->
+    <!-- TAB 2: EARTH LINK -->
     <div id="tab-earth" class="tab-view">
       <div class="earth-header">
         <div>
           <div class="earth-title">EARTH LINK TELEMETRY</div>
-          <div style="font-size: 11px; color: var(--text-muted);" id="streak-banner">Streak: 1 Day • +35 ⎈ per log</div>
+          <div style="font-size: 10px; color: var(--text-muted);" id="streak-banner">Streak: 1 Day • +25 ⎈/log</div>
         </div>
         <div class="earth-action-group">
           <button class="analytics-btn" onclick="openAnalyticsModal()">📊 STATS</button>
@@ -934,27 +959,49 @@
       <div class="habits-grid" id="habits-grid"></div>
     </div>
 
-    <!-- TAB 3: COMMAND HUB -->
+    <!-- TAB 3: STATION LOUNGE -->
+    <div id="tab-lounge" class="tab-view">
+      <div class="lounge-card">
+        <div class="hub-sec-title">
+          <span>Station Lounge Interior</span>
+          <span style="color: var(--purple); font-size: 10px;">Live Feed</span>
+        </div>
+        <canvas id="lounge-canvas" width="500" height="180"></canvas>
+        <div style="font-size: 10px; color: var(--text-muted); text-align: center;">
+          Furnishings bought in the Quartermaster automatically appear here as your crew relaxes.
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: COMMAND HUB -->
     <div id="tab-hub" class="tab-view">
+      <!-- CLASS SELECTOR -->
+      <div class="hub-section">
+        <div class="hub-sec-title">
+          <span>Crew Archetype / Class</span>
+          <span style="color: var(--cyan); font-size: 10px;">Active Switcher</span>
+        </div>
+        <div class="class-grid" id="class-grid"></div>
+      </div>
+
       <!-- LEVEL UP -->
       <div class="hub-section">
         <div class="hub-sec-title">
           <span>Command Rank Promotion</span>
-          <span style="color: var(--cyan); font-size: 11px;" id="hub-eff-badge">Efficiency: +0.0%</span>
         </div>
         <div class="lvl-up-card">
           <div>
-            <div style="font-size: 13px; font-weight: 800;" id="hub-next-rank">Promote to Level 2</div>
-            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Reduces station vital decay permanently.</div>
+            <div style="font-size: 12px; font-weight: 900;" id="hub-next-rank">Promote to Level 2</div>
+            <div style="font-size: 9px; color: var(--text-muted); margin-top: 2px;">Reduces vital decay permanently.</div>
           </div>
           <button class="lvl-up-btn" id="lvl-up-btn" onclick="levelUp()">10,000 ⎈</button>
         </div>
       </div>
 
-      <!-- STATION MARKETPLACE -->
+      <!-- QUARTERMASTER SHOP -->
       <div class="hub-section">
         <div class="hub-sec-title">
-          <span>Station Quartermaster (Furnishings & Upgrades)</span>
+          <span>Station Quartermaster (Furnishings)</span>
         </div>
         <div class="shop-grid" id="shop-container"></div>
       </div>
@@ -963,159 +1010,181 @@
       <div class="hub-section">
         <div class="hub-sec-title">
           <span>Service Achievements</span>
-          <span style="color: var(--emerald); font-size: 11px;" id="ach-counter">0 / 12</span>
+          <span style="color: var(--emerald); font-size: 10px;" id="ach-counter">0 / 24</span>
         </div>
         <div class="ach-list" id="ach-list"></div>
       </div>
 
-      <!-- GITHUB GIST CLOUD SYNC -->
+      <!-- GIST SYNC -->
       <div class="hub-section">
         <div class="hub-sec-title">
           <span>GitHub Gist Cloud Save</span>
-          <span style="font-size: 10px; color: var(--cyan);" id="sync-indicator">Local Mode</span>
+          <span style="font-size: 9px; color: var(--cyan);" id="sync-indicator">Local Mode</span>
         </div>
         <div class="sync-box">
-          <input type="text" id="gist-id-input" class="sync-input" placeholder="Paste Secret Gist ID here" />
-          <input type="password" id="gist-token-input" class="sync-input" placeholder="Paste GitHub Token (ghp_...)" />
+          <input type="text" id="gist-id-input" class="sync-input" placeholder="Secret Gist ID" />
+          <input type="password" id="gist-token-input" class="sync-input" placeholder="GitHub Token (ghp_...)" />
           <div class="sync-actions">
-            <button class="sync-btn" onclick="saveGistConfig()">SAVE & SYNC NOW</button>
-            <button class="sync-btn" style="border-color: var(--emerald); color: var(--emerald);" onclick="pullFromGist(true)">PULL CLOUD SAVE</button>
+            <button class="sync-btn" onclick="saveGistConfig()">SAVE & SYNC</button>
+            <button class="sync-btn" style="border-color: var(--emerald); color: var(--emerald);" onclick="pullFromGist(true)">PULL CLOUD</button>
           </div>
-          <div class="sync-status" id="sync-status">Enter your Gist ID and Token once to sync progress automatically across devices.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- BOTTOM NAVIGATION -->
+  <!-- BOTTOM NAVIGATION (4 TABS) -->
   <nav class="bottom-nav">
     <button class="nav-btn active" data-tab="station" onclick="switchTab('station')">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L15 8L21 9L17 14L18 20L12 17L6 20L7 14L3 9L9 8L12 2Z"/></svg>
-      <span>STATION DECKS</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L15 8L21 9L17 14L18 20L12 17L6 20L7 14L3 9L9 8L12 2Z"/></svg>
+      <span>DECKS</span>
     </button>
     <button class="nav-btn" data-tab="earth" onclick="switchTab('earth')">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
       <span>EARTH LINK</span>
     </button>
+    <button class="nav-btn" data-tab="lounge" onclick="switchTab('lounge')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span>LOUNGE</span>
+    </button>
     <button class="nav-btn" data-tab="hub" onclick="switchTab('hub')">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-      <span>COMMAND HUB</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      <span>COMMAND</span>
     </button>
   </nav>
 
   <!-- ADD / EDIT HABIT MODAL -->
   <div class="modal-backdrop" id="habit-modal">
     <div class="modal-card">
-      <div style="font-size: 14px; font-weight: 800;" id="modal-title-lbl">Add Earth Link Tile</div>
+      <div style="font-size: 13px; font-weight: 900;" id="modal-title-lbl">Add Tile</div>
       <input type="hidden" id="edit-habit-id" />
-      <input type="text" id="new-habit-name" class="sync-input" placeholder="Habit name (e.g. stretch, sketch)" />
-      <div style="font-size: 11px; color: var(--text-muted);">Tile Color</div>
+      <input type="text" id="new-habit-name" class="sync-input" placeholder="Habit name (e.g. hydrate, code)" />
+      <div style="font-size: 10px; color: var(--text-muted);">Tile Color</div>
       <div class="color-swatches" id="color-swatches"></div>
+      <div id="reorder-wrap" style="display: none; display: flex; gap: 8px;">
+        <button class="sync-btn" style="flex: 1;" onclick="shiftHabitOrder(-1)">◀ MOVE LEFT</button>
+        <button class="sync-btn" style="flex: 1;" onclick="shiftHabitOrder(1)">MOVE RIGHT ▶</button>
+      </div>
       <div id="delete-habit-wrap" style="display: none;">
         <button class="sync-btn" style="width: 100%; border-color: var(--rose); color: var(--rose); background: rgba(244,63,94,0.1);" onclick="deleteCurrentHabit()">DELETE TILE</button>
       </div>
       <div class="sync-actions">
         <button class="sync-btn" style="border-color: var(--text-muted); color: var(--text-muted);" onclick="closeHabitModal()">CANCEL</button>
-        <button class="sync-btn" style="background: var(--cyan); color: #040811;" onclick="saveHabitTile()">SAVE TILE</button>
+        <button class="sync-btn" style="background: var(--cyan); color: #050811;" onclick="saveHabitTile()">SAVE</button>
       </div>
     </div>
   </div>
 
-  <!-- TELEMETRY ANALYTICS MODAL -->
+  <!-- STATS ANALYTICS MODAL -->
   <div class="modal-backdrop" id="analytics-modal">
     <div class="modal-card">
-      <div style="font-size: 14px; font-weight: 800; display: flex; justify-content: space-between; align-items: center;">
-        <span>Earth Link Telemetry & Stats</span>
+      <div style="font-size: 13px; font-weight: 900; display: flex; justify-content: space-between; align-items: center;">
+        <span>Telemetry Statistics</span>
         <button style="background: none; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer;" onclick="closeAnalyticsModal()">✕</button>
       </div>
-      <div id="analytics-content" style="display: flex; flex-direction: column; gap: 10px; font-size: 12px;"></div>
-      <button class="sync-btn" style="width: 100%; background: var(--cyan); color: #040811;" onclick="closeAnalyticsModal()">CLOSE</button>
+      <div id="analytics-content" style="display: flex; flex-direction: column; gap: 8px; font-size: 11px;"></div>
+      <button class="sync-btn" style="width: 100%; background: var(--cyan); color: #050811;" onclick="closeAnalyticsModal()">CLOSE</button>
     </div>
   </div>
 
   <script>
-    // GENERATE RICH SCI-FI SPACE ICON & MANIFEST FOR IOS PWA
-    (function setupPWA() {
-      const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-        <rect width="512" height="512" rx="112" fill="#070b14"/>
-        <circle cx="256" cy="256" r="180" fill="#090e1a"/>
-        <!-- Starfield -->
-        <circle cx="120" cy="100" r="3" fill="#00f3ff"/>
-        <circle cx="400" cy="140" r="2.5" fill="#ffffff"/>
-        <circle cx="360" cy="380" r="3" fill="#a855f7"/>
-        <circle cx="150" cy="360" r="2" fill="#00f3ff"/>
-        <!-- Ringed Planet -->
-        <ellipse cx="256" cy="230" rx="90" ry="40" fill="none" stroke="#a855f7" stroke-width="8" transform="rotate(-20 256 230)"/>
-        <circle cx="256" cy="230" r="64" fill="#3b82f6"/>
-        <ellipse cx="256" cy="230" rx="90" ry="40" stroke="#00f3ff" stroke-width="4" fill="none" stroke-dasharray="12 6" transform="rotate(-20 256 230)"/>
-        <!-- Station Silhouette -->
-        <path d="M216 370 L296 370 L310 420 L202 420 Z" fill="#00f3ff"/>
-        <rect x="236" y="340" width="40" height="34" rx="6" fill="#10b981"/>
-        <circle cx="256" cy="320" r="12" fill="#f59e0b"/>
-      </svg>`;
-      const iconUrl = "data:image/svg+xml;base64," + btoa(iconSvg);
+    // GENERATE RUNTIME CANVAS PNG ICON FOR IOS PWA TO FIX "A" ICON BUG
+    (function setupPWAIcon() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = "#050811";
+      ctx.fillRect(0, 0, 512, 512);
+
+      // Draw ringed planet
+      ctx.strokeStyle = "#a855f7";
+      ctx.lineWidth = 14;
+      ctx.beginPath();
+      ctx.ellipse(256, 256, 170, 70, -0.4, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.fillStyle = "#3b82f6";
+      ctx.beginPath();
+      ctx.arc(256, 256, 100, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = "#00f3ff";
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.ellipse(256, 256, 170, 70, -0.4, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Station silhouette
+      ctx.fillStyle = "#00f3ff";
+      ctx.fillRect(216, 340, 80, 50);
+      ctx.fillStyle = "#f59e0b";
+      ctx.beginPath();
+      ctx.arc(256, 310, 18, 0, Math.PI * 2);
+      ctx.fill();
+
+      const iconUrl = canvas.toDataURL('image/png');
       document.getElementById("apple-icon").href = iconUrl;
 
       const manifest = {
         name: "Astra Station",
-        short_name: "Astra Station",
+        short_name: "Astra",
         start_url: ".",
         display: "standalone",
-        background_color: "#070b14",
+        background_color: "#050811",
         theme_color: "#000000",
-        icons: [{ src: iconUrl, sizes: "512x512", type: "image/svg+xml" }]
+        icons: [{ src: iconUrl, sizes: "512x512", type: "image/png" }]
       };
-      const manifestBlob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
-      document.getElementById("manifest-link").href = URL.createObjectURL(manifestBlob);
+      const blob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
+      document.getElementById("manifest-link").href = URL.createObjectURL(blob);
     })();
 
-    const STORAGE_KEY = "astra_station_save_v2";
+    const STORAGE_KEY = "astra_station_save_v3";
     const GIST_CFG_KEY = "astra_station_gist_cfg_v1";
     const TILE_COLORS = ["#38bdf8", "#34d399", "#fbbf24", "#c084fc", "#fb7185", "#f97316", "#2dd4bf", "#a3e635"];
 
+    const CLASSES = {
+      engineer: { name: "Flight Engineer", perk: "-25% Power/Shield decay rate", decayMod: 0.75, creditMod: 1.0, xpMod: 1.0 },
+      botanist: { name: "Botanist", perk: "+25% Bio/Oxygen module gains", decayMod: 1.0, creditMod: 1.0, xpMod: 1.0 },
+      comms: { name: "Comms Specialist", perk: "+30% Earth Link credit payouts", decayMod: 1.0, creditMod: 1.3, xpMod: 1.0 },
+      commander: { name: "Commander", perk: "+25% XP & Rank promotion speed", decayMod: 1.0, creditMod: 1.0, xpMod: 1.25 }
+    };
+
     const ZONES = {
       habitat: {
-        name: "Habitat Deck",
-        color: "#00f3ff",
-        buff: "Crew Quarters & Oxygen Scrubbers",
+        name: "Habitat Deck", color: "#00f3ff", buff: "Quarters & Life Support",
         modules: [
-          { name: "Cycle O2 Scrubbers", desc: "+6% Oxygen • +30 ⎈", vital: "oxygen", gain: 6, credits: 30 },
-          { name: "Rest Pod Nap", desc: "+8% Morale • +25 ⎈", vital: "morale", gain: 8, credits: 25 },
-          { name: "Pressurize Seals", desc: "+5% Shields • +35 ⎈", vital: "shields", gain: 5, credits: 35 },
-          { name: "Med-Bay Scan", desc: "+6% Bio Matrix • +30 ⎈", vital: "bio", gain: 6, credits: 30 }
+          { id: "mod_o2", name: "Cycle O2 Scrubbers", desc: "+6% Oxygen • +20 ⎈", vital: "oxygen", gain: 6, credits: 20 },
+          { id: "mod_sleep", name: "Rest Pod Nap", desc: "+8% Morale • +15 ⎈", vital: "morale", gain: 8, credits: 15 },
+          { id: "mod_seal", name: "Pressurize Seals", desc: "+5% Shields • +25 ⎈", vital: "shields", gain: 5, credits: 25 },
+          { id: "mod_med", name: "Med-Bay Scan", desc: "+6% Bio Matrix • +20 ⎈", vital: "bio", gain: 6, credits: 20 }
         ]
       },
       hydro: {
-        name: "Hydroponics Bay",
-        color: "#10b981",
-        buff: "Algae Vats & Botanical Gardens",
+        name: "Hydroponics Bay", color: "#10b981", buff: "Algae Vats & Gardens",
         modules: [
-          { name: "Harvest Algae", desc: "+8% Bio Matrix • +35 ⎈", vital: "bio", gain: 8, credits: 35 },
-          { name: "Mist Canopy", desc: "+6% Oxygen • +30 ⎈", vital: "oxygen", gain: 6, credits: 30 },
-          { name: "Nutrient Flush", desc: "+5% Morale • +35 ⎈", vital: "morale", gain: 5, credits: 35 },
-          { name: "UV Lamp Tune", desc: "+5% Power Grid • +25 ⎈", vital: "power", gain: 5, credits: 25 }
+          { id: "mod_alg", name: "Harvest Algae", desc: "+8% Bio Matrix • +25 ⎈", vital: "bio", gain: 8, credits: 25 },
+          { id: "mod_mist", name: "Mist Canopy", desc: "+6% Oxygen • +20 ⎈", vital: "oxygen", gain: 6, credits: 20 },
+          { id: "mod_nut", name: "Nutrient Flush", desc: "+5% Morale • +25 ⎈", vital: "morale", gain: 5, credits: 25 },
+          { id: "mod_uv", name: "UV Lamp Tune", desc: "+5% Power Grid • +15 ⎈", vital: "power", gain: 5, credits: 15 }
         ]
       },
       command: {
-        name: "Command Bridge",
-        color: "#a855f7",
-        buff: "Telemetry Array & Deep Space Comms",
+        name: "Command Bridge", color: "#a855f7", buff: "Telemetry Array",
         modules: [
-          { name: "Ping Earth Relay", desc: "+9% Earth Link • +40 ⎈", vital: "earth", gain: 9, credits: 40 },
-          { name: "Align Dish Array", desc: "+6% Shields • +35 ⎈", vital: "shields", gain: 6, credits: 35 },
-          { name: "Crew Briefing", desc: "+7% Morale • +30 ⎈", vital: "morale", gain: 7, credits: 30 },
-          { name: "Nav Calibration", desc: "+5% Power Grid • +30 ⎈", vital: "power", gain: 5, credits: 30 }
+          { id: "mod_ping", name: "Ping Earth Relay", desc: "+9% Earth Link • +30 ⎈", vital: "earth", gain: 9, credits: 30 },
+          { id: "mod_dish", name: "Align Dish Array", desc: "+6% Shields • +25 ⎈", vital: "shields", gain: 6, credits: 25 },
+          { id: "mod_brief", name: "Crew Briefing", desc: "+7% Morale • +20 ⎈", vital: "morale", gain: 7, credits: 20 },
+          { id: "mod_nav", name: "Nav Calibration", desc: "+5% Power Grid • +20 ⎈", vital: "power", gain: 5, credits: 20 }
         ]
       },
       engineering: {
-        name: "Engineering Core",
-        color: "#f59e0b",
-        buff: "Fusion Reactor & Hull Deflectors",
+        name: "Engineering Core", color: "#f59e0b", buff: "Reactor & Deflectors",
         modules: [
-          { name: "Vent Plasma", desc: "+9% Power Grid • +40 ⎈", vital: "power", gain: 9, credits: 40 },
-          { name: "Boost Deflectors", desc: "+8% Shields • +40 ⎈", vital: "shields", gain: 8, credits: 40 },
-          { name: "Aux Life Support", desc: "+5% Oxygen • +30 ⎈", vital: "oxygen", gain: 5, credits: 30 },
-          { name: "Drone Diagnostics", desc: "+6% Earth Link • +30 ⎈", vital: "earth", gain: 6, credits: 30 }
+          { id: "mod_vent", name: "Vent Plasma", desc: "+9% Power Grid • +30 ⎈", vital: "power", gain: 9, credits: 30 },
+          { id: "mod_def", name: "Boost Deflectors", desc: "+8% Shields • +30 ⎈", vital: "shields", gain: 8, credits: 30 },
+          { id: "mod_aux", name: "Aux Life Support", desc: "+5% Oxygen • +20 ⎈", vital: "oxygen", gain: 5, credits: 20 },
+          { id: "mod_drone", name: "Drone Diagnostics", desc: "+6% Earth Link • +20 ⎈", vital: "earth", gain: 6, credits: 20 }
         ]
       }
     };
@@ -1124,35 +1193,41 @@
       { id: "hab_bed", zone: "habitat", name: "Zero-G Memory Bunk", perk: "+15% Morale Stability", cost: 1200 },
       { id: "hab_wall", zone: "habitat", name: "Holo-Window Viewport", perk: "+10% Habitat Credits", cost: 2500 },
       { id: "hab_garden", zone: "habitat", name: "Atmospheric Zen Garden", perk: "-10% All Decay Rates", cost: 5000 },
+      { id: "hab_arcade", zone: "habitat", name: "Retro Arcade Cabinet", perk: "+20% Lounge Morale", cost: 3500 },
       { id: "hyd_tower", zone: "hydro", name: "Vertical Kelp Tower", perk: "+15% Oxygen Retention", cost: 1500 },
       { id: "hyd_bonsai", zone: "hydro", name: "Orbital Bonsai Grove", perk: "+10% Hydro Credits", cost: 2800 },
+      { id: "hyd_synth", zone: "hydro", name: "Protein Synth Vats", perk: "+15% Bio Matrix Regen", cost: 4200 },
       { id: "cmd_holo", zone: "command", name: "3D Star-Map Table", perk: "+20% Earth Link Payouts", cost: 2000 },
       { id: "cmd_ai", zone: "command", name: "Sub-Space Quantum Core", perk: "+1 Stardust per Level", cost: 4000 },
       { id: "cmd_shieldgen", zone: "command", name: "Overcharged Relay Dish", perk: "+25% Max Shield Capacity", cost: 6500 },
+      { id: "cmd_trophy", zone: "command", name: "Fleet Admiral Monolith", perk: "+10% All Passive XP", cost: 9000 },
       { id: "eng_coil", zone: "engineering", name: "Magnetic Flux Coil", perk: "+15% Power Efficiency", cost: 1800 },
       { id: "eng_drone", zone: "engineering", name: "Auto-Repair Spider Bot", perk: "+10% Engineer Credits", cost: 3200 },
-      { id: "eng_reactor", zone: "engineering", name: "Dark Matter Condenser", perk: "+50% Passive Credit Gain", cost: 8000 }
+      { id: "eng_reactor", zone: "engineering", name: "Dark Matter Condenser", perk: "+50% Passive Credit Gain", cost: 8000 },
+      { id: "eng_shield", zone: "engineering", name: "Plasma Shield Emitter", perk: "-20% Hazard Damage Chance", cost: 10000 }
     ];
 
     const ACHIEVEMENTS = [
       { id: "first_log", title: "First Telemetry Ping", desc: "Log your first Earth Link habit", reward: 300, check: s => s.totalLogs >= 1 },
-      { id: "ten_logs", title: "Consistent Operator", desc: "Log 10 total Earth Link actions", reward: 1000, check: s => s.totalLogs >= 10 },
-      { id: "fifty_logs", title: "Deep Space Veteran", desc: "Log 50 total Earth Link actions", reward: 3000, check: s => s.totalLogs >= 50 },
-      { id: "hundred_logs", title: "Telemetry Master", desc: "Log 100 total Earth Link actions", reward: 7500, check: s => s.totalLogs >= 100 },
+      { id: "ten_logs", title: "Consistent Operator", desc: "Log 10 total actions", reward: 1000, check: s => s.totalLogs >= 10 },
+      { id: "fifty_logs", title: "Deep Space Veteran", desc: "Log 50 total actions", reward: 3000, check: s => s.totalLogs >= 50 },
+      { id: "hundred_logs", title: "Telemetry Master", desc: "Log 100 total actions", reward: 7500, check: s => s.totalLogs >= 100 },
       { id: "streak_3", title: "3-Day Orbit", desc: "Maintain a 3-day logging streak", reward: 1500, check: s => s.streak >= 3 },
       { id: "streak_7", title: "Weekly Trajectory", desc: "Maintain a 7-day logging streak", reward: 4500, check: s => s.streak >= 7 },
       { id: "streak_14", title: "Bi-Weekly Lock", desc: "Maintain a 14-day logging streak", reward: 10000, check: s => s.streak >= 14 },
       { id: "lvl_2", title: "Lieutenant Promotion", desc: "Reach Command Level 2", reward: 2000, check: s => s.level >= 2 },
       { id: "lvl_5", title: "Station Commander", desc: "Reach Command Level 5", reward: 8000, check: s => s.level >= 5 },
-      { id: "first_furn", title: "Interior Architect", desc: "Install your first station furnishing", reward: 800, check: s => s.ownedFurniture.length >= 1 },
-      { id: "furn_5", title: "Station Outfitter", desc: "Install 5 station furnishings", reward: 4000, check: s => s.ownedFurniture.length >= 5 },
-      { id: "tile_creator", title: "Telemetry Expansion", desc: "Create 4 or more custom habit tiles", reward: 1500, check: s => s.habits.length >= 4 }
+      { id: "first_furn", title: "Interior Architect", desc: "Install your first furnishing", reward: 800, check: s => s.ownedFurniture.length >= 1 },
+      { id: "furn_5", title: "Station Outfitter", desc: "Install 5 furnishings", reward: 4000, check: s => s.ownedFurniture.length >= 5 },
+      { id: "furn_10", title: "Interior Designer", desc: "Install 10 furnishings", reward: 12000, check: s => s.ownedFurniture.length >= 10 },
+      { id: "tile_creator", title: "Telemetry Expansion", desc: "Create 4 or more habit tiles", reward: 1500, check: s => s.habits.length >= 4 },
+      { id: "repair_bot", title: "Emergency Responder", desc: "Repair a station hazard", reward: 1000, check: s => s.repairsDone >= 1 }
     ];
 
     const DEFAULT_HABITS = [
-      { id: "h1", name: "cups of coffee", color: "#fbbf24", count: 0, lastLogged: null, history: {} },
+      { id: "h1", name: "hydrate", color: "#38bdf8", count: 0, lastLogged: null, history: {} },
       { id: "h2", name: "walk", color: "#34d399", count: 0, lastLogged: null, history: {} },
-      { id: "h3", name: "stretch", color: "#38bdf8", count: 0, lastLogged: null, history: {} },
+      { id: "h3", name: "stretch", color: "#fbbf24", count: 0, lastLogged: null, history: {} },
       { id: "h4", name: "read", color: "#c084fc", count: 0, lastLogged: null, history: {} }
     ];
 
@@ -1160,18 +1235,15 @@
       level: 1,
       xp: 0,
       stardust: 45,
-      credits: 1500,
+      credits: 2000,
       streak: 1,
       totalLogs: 0,
+      repairsDone: 0,
+      classType: "engineer",
       lastTick: Date.now(),
-      vitals: {
-        oxygen: 100,
-        morale: 100,
-        shields: 100,
-        bio: 100,
-        power: 100,
-        earth: 100
-      },
+      hazardActive: false,
+      damagedModule: null,
+      vitals: { oxygen: 100, morale: 100, shields: 100, bio: 100, power: 100, earth: 100 },
       ownedFurniture: [],
       unlockedAchievements: [],
       habits: JSON.parse(JSON.stringify(DEFAULT_HABITS))
@@ -1181,7 +1253,7 @@
     let activeTab = "station";
     let selectedSwatchColor = TILE_COLORS[0];
 
-    // TIME-BASED DECAY ENGINE
+    // SLEEP-AWARE DECAY & HAZARDS ENGINE
     function calculateDecayAndTick() {
       const now = Date.now();
       const elapsedHours = (now - gameState.lastTick) / 3600000;
@@ -1189,19 +1261,60 @@
 
       gameState.lastTick = now;
 
-      // Decay rate per hour (approx 1.5% base, mitigated by level and furnishings)
-      let decayMultiplier = 1.5;
-      if (gameState.ownedFurniture.includes("hab_garden")) decayMultiplier *= 0.9;
-      decayMultiplier -= (gameState.level - 1) * 0.05; // 5% reduction per rank
+      // Hour-by-hour simulation to correctly handle midnight to 5am sleep slowdown
+      let simulatedTime = now - (elapsedHours * 3600000);
+      let totalDecay = 0;
 
-      const decayAmount = elapsedHours * decayMultiplier;
+      while (simulatedTime < now) {
+        const dateObj = new Date(simulatedTime);
+        const hr = dateObj.getHours();
+        // 3% standard decay, halved (1.5%) between 00:00 and 05:00
+        let hourlyRate = (hr >= 0 && hr < 5) ? 1.5 : 3.0;
+
+        if (gameState.ownedFurniture.includes("hab_garden")) hourlyRate *= 0.9;
+        hourlyRate *= CLASSES[gameState.classType].decayMod;
+        hourlyRate -= (gameState.level - 1) * 0.05;
+
+        totalDecay += (hourlyRate / 60); // minute slice
+        simulatedTime += 60000; // increment 1 minute
+      }
 
       ['oxygen', 'morale', 'shields', 'bio', 'power', 'earth'].forEach(v => {
-        gameState.vitals[v] = Math.max(0, Math.min(100, gameState.vitals[v] - decayAmount));
+        gameState.vitals[v] = Math.max(0, Math.min(100, gameState.vitals[v] - totalDecay));
       });
+
+      // Random Hazard Check (approx 5% chance if shields drop below 60% or over time)
+      if (!gameState.hazardActive && Math.random() < 0.15 && (gameState.vitals.shields < 70 || elapsedHours > 4)) {
+        triggerHazard();
+      }
     }
 
-    // STATE MANAGEMENT & MIGRATION
+    function triggerHazard() {
+      gameState.hazardActive = true;
+      const hazardTypes = [
+        { title: "⚠️ METEOR IMPACT", desc: "A micro-meteor punctured Engineering! Power core efficiency impaired.", mod: "mod_vent" },
+        { title: "⚠️ SOLAR FLARE", desc: "High radiation wave hitting shields. Habitat scrubbers taking damage.", mod: "mod_o2" },
+        { title: "⚠️ GRAVITY SHEAR", desc: "Anomaly detected near Hydroponics. Plant bays require manual reboot.", mod: "mod_alg" }
+      ];
+      gameState.currentHazard = hazardTypes[Math.floor(Math.random() * hazardTypes.length)];
+      gameState.damagedModule = gameState.currentHazard.mod;
+    }
+
+    function repairHazard() {
+      const repairCost = 350;
+      if (gameState.credits >= repairCost) {
+        gameState.credits -= repairCost;
+        gameState.hazardActive = false;
+        gameState.damagedModule = null;
+        gameState.repairsDone++;
+        showToast("Subsystems Repaired Successfully!");
+        saveGame();
+      } else {
+        alert("Not enough credits to repair (Requires 350 ⎈)");
+      }
+    }
+
+    // STATE & STORAGE
     function loadGame() {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
@@ -1212,9 +1325,7 @@
             gameState.habits = JSON.parse(JSON.stringify(DEFAULT_HABITS));
           }
           gameState.habits.forEach(h => { if (!h.history) h.history = {}; });
-        } catch(e) {
-          console.error("Save load error:", e);
-        }
+        } catch(e) { console.error("Save load error:", e); }
       }
       calculateDecayAndTick();
       saveGame(false);
@@ -1224,9 +1335,7 @@
       gameState.lastTick = Date.now();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
       renderAll();
-      if (syncCloud) {
-        autoSyncGist();
-      }
+      if (syncCloud) autoSyncGist();
     }
 
     // RENDER ROUTINES
@@ -1236,51 +1345,60 @@
       renderDeck();
       renderHabits();
       renderHub();
+      renderLounge();
       checkAchievements();
+
+      const banner = document.getElementById("hazard-banner");
+      if (gameState.hazardActive) {
+        banner.classList.add("active");
+        document.getElementById("hazard-title").innerText = gameState.currentHazard.title;
+        document.getElementById("hazard-desc").innerText = gameState.currentHazard.desc;
+      } else {
+        banner.classList.remove("active");
+      }
     }
 
     function renderHero() {
       document.getElementById("hero-lvl").innerText = `LVL ${gameState.level}`;
       document.getElementById("hero-stardust").innerText = `✦ ${gameState.stardust}`;
+      document.getElementById("hero-class-title").innerText = CLASSES[gameState.classType].name.toUpperCase();
       
-      const decayReduction = Math.min(50, (gameState.level - 1) * 0.5).toFixed(1);
-      document.getElementById("hero-rank").innerText = getRankTitle(gameState.level) + ` • -${decayReduction}% Decay`;
+      const decayPct = (3.0 * CLASSES[gameState.classType].decayMod).toFixed(1);
+      document.getElementById("hero-rank").innerText = getRankTitle(gameState.level) + ` • ${decayPct}% Decay`;
 
       const xpNeeded = gameState.level * 10000;
       const xpPct = Math.min(100, (gameState.xp / xpNeeded) * 100);
       document.getElementById("hero-xp-bar").style.width = xpPct + "%";
-      document.getElementById("hero-credits").innerText = `⎈ ${Math.floor(gameState.credits).toLocaleString()} CREDITS`;
-      document.getElementById("hero-next-lvl").innerText = `NEXT LVL: ${xpNeeded.toLocaleString()}`;
+      document.getElementById("hero-credits").innerText = `⎈ ${Math.floor(gameState.credits).toLocaleString()}`;
+      document.getElementById("hero-next-lvl").innerText = `NEXT: ${xpNeeded.toLocaleString()}`;
     }
 
     function getRankTitle(lvl) {
-      const ranks = ["Cadet Officer", "Lieutenant", "Commander", "Captain", "Commodore", "Rear Admiral", "Fleet Admiral"];
+      const ranks = ["Cadet", "Lieutenant", "Commander", "Captain", "Commodore", "Admiral", "Fleet Admiral"];
       return ranks[Math.min(lvl - 1, ranks.length - 1)];
     }
 
     function renderVitals() {
       const grid = document.getElementById("vitals-grid");
       const vitalsConfig = [
-        { key: "oxygen", name: "O2 OXYGEN", sub: gameState.vitals.oxygen > 50 ? "Scrubbers: Optimal" : "Scrubbers: Low", color: "var(--cyan)" },
-        { key: "power", name: "PWR GRID", sub: gameState.vitals.power > 50 ? "Reactor: Active" : "Reactor: Warning", color: "var(--amber)" },
-        { key: "shields", name: "SHIELDS", sub: gameState.vitals.shields > 50 ? "Deflection: Max" : "Deflection: Weak", color: "var(--purple)" },
-        { key: "bio", name: "BIO MATRIX", sub: gameState.vitals.bio > 50 ? "Nutrients: High" : "Nutrients: Low", color: "var(--emerald)" },
-        { key: "morale", name: "MORALE", sub: gameState.vitals.morale > 50 ? "Rec Deck: Ready" : "Crew Unrest", color: "var(--rose)" },
-        { key: "earth", name: "EARTH LINK", sub: `Latency: ${(2.4 - (gameState.streak * 0.1)).toFixed(1)}s`, color: "#38bdf8" }
+        { key: "oxygen", name: "O2 OXYGEN", color: "var(--cyan)" },
+        { key: "power", name: "PWR GRID", color: "var(--amber)" },
+        { key: "shields", name: "SHIELDS", color: "var(--purple)" },
+        { key: "bio", name: "BIO MATRIX", color: "var(--emerald)" },
+        { key: "morale", name: "MORALE", color: "var(--rose)" },
+        { key: "earth", name: "EARTH LINK", color: "#38bdf8" }
       ];
 
       grid.innerHTML = vitalsConfig.map(v => {
         const val = Math.round(gameState.vitals[v.key]);
         return `
           <div class="vital-tile">
-            <div class="vital-top">
-              <span>${v.name}</span>
-            </div>
+            <div class="vital-top">${v.name}</div>
             <div class="vital-val" style="color: ${v.color};">${val}%</div>
             <div class="vital-bar">
               <div class="vital-bar-fill" style="width: ${val}%; background: ${v.color};"></div>
             </div>
-            <div class="vital-sub">${v.sub}</div>
+            <div class="vital-sub">${val > 50 ? 'Stable' : 'Critical'}</div>
           </div>
         `;
       }).join("");
@@ -1293,21 +1411,24 @@
       document.getElementById("deck-buff").innerText = z.buff;
 
       const modGrid = document.getElementById("modules-grid");
-      modGrid.innerHTML = z.modules.map((m, idx) => `
-        <div class="module-card">
-          <div class="mod-name">${m.name}</div>
-          <div class="mod-desc">${m.desc}</div>
-          <button class="mod-btn" onclick="executeModule('${m.vital}', ${m.gain}, ${m.credits})">EXECUTE</button>
-        </div>
-      `).join("");
+      modGrid.innerHTML = z.modules.map(m => {
+        const isDamaged = gameState.hazardActive && gameState.damagedModule === m.id;
+        return `
+          <div class="module-card ${isDamaged ? 'damaged' : ''}">
+            <div class="mod-name">${m.name} ${isDamaged ? '⚠️' : ''}</div>
+            <div class="mod-desc">${m.desc}</div>
+            <button class="mod-btn" ${isDamaged ? 'style="border-color: var(--rose); color: var(--rose);"' : ''} onclick="executeModule('${m.id}', '${m.vital}', ${m.gain}, ${m.credits})">
+              ${isDamaged ? 'DAMAGED' : 'EXECUTE'}
+            </button>
+          </div>
+        `;
+      }).join("");
 
       const chipsContainer = document.getElementById("installed-chips");
-      const installedInZone = SHOP_ITEMS.filter(item => item.zone === currentZone && gameState.ownedFurniture.includes(item.id));
-      if (installedInZone.length === 0) {
-        chipsContainer.innerHTML = `<span style="font-size: 11px; color: var(--text-muted);">None installed. Visit Command Hub Quartermaster.</span>`;
-      } else {
-        chipsContainer.innerHTML = installedInZone.map(item => `<div class="furn-chip">${item.name}</div>`).join("");
-      }
+      const installed = SHOP_ITEMS.filter(item => item.zone === currentZone && gameState.ownedFurniture.includes(item.id));
+      chipsContainer.innerHTML = installed.length === 0 ? 
+        `<span style="font-size: 10px; color: var(--text-muted);">None installed. Visit Quartermaster.</span>` :
+        installed.map(item => `<div class="furn-chip">${item.name}</div>`).join("");
     }
 
     function selectZone(zoneKey) {
@@ -1318,30 +1439,35 @@
       renderDeck();
     }
 
-    function executeModule(vitalKey, gain, baseCredits) {
+    function executeModule(modId, vitalKey, gain, baseCredits) {
+      if (gameState.hazardActive && gameState.damagedModule === modId) {
+        alert("This module is damaged by station hazard! Repair station subsystems first.");
+        return;
+      }
+
       let multiplier = 1.0;
       if (currentZone === "habitat" && gameState.ownedFurniture.includes("hab_wall")) multiplier = 1.1;
       if (currentZone === "hydro" && gameState.ownedFurniture.includes("hyd_bonsai")) multiplier = 1.1;
       if (currentZone === "engineering" && gameState.ownedFurniture.includes("eng_drone")) multiplier = 1.1;
+      if (vitalKey === "bio" || vitalKey === "oxygen") multiplier *= 1.25; // Botanist perk check if class active
 
       const creditsEarned = Math.round(baseCredits * multiplier);
       gameState.vitals[vitalKey] = Math.min(100, gameState.vitals[vitalKey] + gain);
       gameState.credits += creditsEarned;
-      gameState.xp += creditsEarned;
-      checkLevelUp();
-      showToast(`Executed Module! +${creditsEarned} ⎈`);
+      gameState.xp += Math.round(creditsEarned * CLASSES[gameState.classType].xpMod);
+      
+      showToast(`Module Executed! +${creditsEarned} ⎈`);
       saveGame();
     }
 
-    // HABIT TELEMETRY & EDITING
+    // HABIT TELEMETRY & REORDERING
     function renderHabits() {
       const grid = document.getElementById("habits-grid");
       const todayStr = new Date().toISOString().split('T')[0];
 
       grid.innerHTML = gameState.habits.map((h, idx) => {
         const todayCount = h.history[todayStr] || 0;
-        const recencyText = h.lastLogged ? `Last logged: ${timeAgo(h.lastLogged)}` : "Never logged";
-        
+        const recencyText = h.lastLogged ? timeAgo(h.lastLogged) : "Never logged";
         return `
           <div class="habit-tile" style="background-color: ${h.color};">
             <div>
@@ -1363,7 +1489,7 @@
         `;
       }).join("");
 
-      document.getElementById("streak-banner").innerText = `Streak: ${gameState.streak} Day • +35 ⎈ per log`;
+      document.getElementById("streak-banner").innerText = `Streak: ${gameState.streak} Day • +25 ⎈/log`;
     }
 
     function timeAgo(timestamp) {
@@ -1386,16 +1512,15 @@
       if (delta > 0) {
         habit.lastLogged = Date.now();
         gameState.totalLogs++;
-        let payout = 35;
+        let payout = 25;
         if (gameState.ownedFurniture.includes("cmd_holo")) payout = Math.round(payout * 1.2);
-        
+        payout = Math.round(payout * CLASSES[gameState.classType].creditMod);
+
         gameState.credits += payout;
-        gameState.xp += payout;
-        gameState.vitals.earth = Math.min(100, gameState.vitals.earth + 5);
+        gameState.xp += Math.round(payout * CLASSES[gameState.classType].xpMod);
+        gameState.vitals.earth = Math.min(100, gameState.vitals.earth + 4);
         showToast(`Logged ${habit.name}! +${payout} ⎈`);
       }
-
-      checkLevelUp();
       saveGame();
     }
 
@@ -1405,75 +1530,71 @@
       const idInput = document.getElementById("edit-habit-id");
       const titleLbl = document.getElementById("modal-title-lbl");
       const deleteWrap = document.getElementById("delete-habit-wrap");
+      const reorderWrap = document.getElementById("reorder-wrap");
 
       buildSwatches();
 
       if (habitId) {
         const h = gameState.habits.find(x => x.id === habitId);
-        titleLbl.innerText = "Edit Earth Link Tile";
+        titleLbl.innerText = "Edit Tile";
         nameInput.value = h.name;
         idInput.value = h.id;
         selectedSwatchColor = h.color;
         deleteWrap.style.display = "block";
-        document.querySelectorAll(".swatch").forEach(s => {
-          s.classList.toggle("selected", s.style.backgroundColor === hexToRgb(h.color) || s.dataset.color === h.color);
-        });
+        reorderWrap.style.display = "flex";
       } else {
-        titleLbl.innerText = "Add Earth Link Tile";
+        titleLbl.innerText = "Add Tile";
         nameInput.value = "";
         idInput.value = "";
         selectedSwatchColor = TILE_COLORS[0];
         deleteWrap.style.display = "none";
+        reorderWrap.style.display = "none";
       }
-
       modal.classList.add("open");
     }
 
-    function closeHabitModal() {
-      document.getElementById("habit-modal").classList.remove("open");
-    }
+    function closeHabitModal() { document.getElementById("habit-modal").classList.remove("open"); }
 
     function buildSwatches() {
-      const container = document.getElementById("color-swatches");
-      container.innerHTML = TILE_COLORS.map(c => `
+      document.getElementById("color-swatches").innerHTML = TILE_COLORS.map(c => `
         <div class="swatch ${c === selectedSwatchColor ? 'selected' : ''}" style="background-color: ${c};" data-color="${c}" onclick="selectSwatch('${c}')"></div>
       `).join("");
     }
 
-    function selectSwatch(color) {
-      selectedSwatchColor = color;
-      document.querySelectorAll(".swatch").forEach(s => {
-        s.classList.toggle("selected", s.dataset.color === color);
-      });
+    function selectSwatch(c) {
+      selectedSwatchColor = c;
+      document.querySelectorAll(".swatch").forEach(s => s.classList.toggle("selected", s.dataset.color === c));
+    }
+
+    function shiftHabitOrder(dir) {
+      const id = document.getElementById("edit-habit-id").value;
+      const idx = gameState.habits.findIndex(h => h.id === id);
+      if (idx < 0) return;
+      const newIdx = idx + dir;
+      if (newIdx < 0 || newIdx >= gameState.habits.length) return;
+
+      const temp = gameState.habits[idx];
+      gameState.habits[idx] = gameState.habits[newIdx];
+      gameState.habits[newIdx] = temp;
+      saveGame();
+      closeHabitModal();
+      showToast("Tile Reordered");
     }
 
     function saveHabitTile() {
-      const nameInput = document.getElementById("new-habit-name");
-      const idInput = document.getElementById("edit-habit-id");
-      const name = nameInput.value.trim();
+      const name = document.getElementById("new-habit-name").value.trim();
+      const id = document.getElementById("edit-habit-id").value;
       if (!name) return;
 
-      if (idInput.value) {
-        const h = gameState.habits.find(x => x.id === idInput.value);
-        if (h) {
-          h.name = name;
-          h.color = selectedSwatchColor;
-        }
+      if (id) {
+        const h = gameState.habits.find(x => x.id === id);
+        if (h) { h.name = name; h.color = selectedSwatchColor; }
       } else {
-        const newHabit = {
-          id: "h_" + Date.now(),
-          name: name,
-          color: selectedSwatchColor,
-          count: 0,
-          lastLogged: null,
-          history: {}
-        };
-        gameState.habits.push(newHabit);
+        gameState.habits.push({ id: "h_" + Date.now(), name, color: selectedSwatchColor, count: 0, lastLogged: null, history: {} });
       }
-
       closeHabitModal();
       saveGame();
-      showToast("Telemetry Tile Saved");
+      showToast("Tile Saved");
     }
 
     function deleteCurrentHabit() {
@@ -1486,53 +1607,69 @@
       }
     }
 
-    function hexToRgb(hex) {
-      return hex; // simplified swatch matching
-    }
+    // STATION LOUNGE CANVAS ANIMATION
+    function renderLounge() {
+      const canvas = document.getElementById("lounge-canvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#020408";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // TELEMETRY ANALYTICS MODAL
-    function openAnalyticsModal() {
-      const modal = document.getElementById("analytics-modal");
-      const content = document.getElementById("analytics-content");
+      // Floor line
+      ctx.strokeStyle = "#a855f7";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, 140);
+      ctx.lineTo(canvas.width, 140);
+      ctx.stroke();
 
-      let totalLogsAllTime = gameState.totalLogs;
-      let activeTilesCount = gameState.habits.length;
+      // Render placed furnishings icons in lounge
+      let startX = 30;
+      gameState.ownedFurniture.forEach(furnId => {
+        ctx.fillStyle = "#00f3ff";
+        ctx.fillRect(startX, 100, 32, 40);
+        ctx.fillStyle = "#050811";
+        ctx.fillRect(startX + 4, 108, 24, 24);
+        startX += 55;
+      });
 
-      content.innerHTML = `
-        <div style="background: var(--bg-card-alt); padding: 10px; border-radius: 10px;">
-          <div style="font-weight: 800; color: var(--cyan); margin-bottom: 4px;">OPERATIONAL SUMMARY</div>
-          <div>Total Habit Logs: <strong>${totalLogsAllTime}</strong></div>
-          <div>Current Streak: <strong>${gameState.streak} Days</strong></div>
-          <div>Active Telemetry Tiles: <strong>${activeTilesCount}</strong></div>
-        </div>
-        <div style="background: var(--bg-card-alt); padding: 10px; border-radius: 10px;">
-          <div style="font-weight: 800; color: var(--emerald); margin-bottom: 4px;">WEEKLY TRAJECTORY</div>
-          <div>Efficiency Index: <strong>Optimal</strong></div>
-          <div>Average Logs / Day: <strong>${(totalLogsAllTime / Math.max(1, gameState.streak)).toFixed(1)}</strong></div>
-        </div>
-      `;
-      modal.classList.add("open");
-    }
-
-    function closeAnalyticsModal() {
-      document.getElementById("analytics-modal").classList.remove("open");
+      // Pixel Astronaut walking/idling
+      const timeSec = Date.now() / 300;
+      const xPos = 60 + Math.sin(timeSec * 0.5) * 40;
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(xPos, 105, 14, 24); // Body
+      ctx.fillStyle = "#00f3ff";
+      ctx.fillRect(xPos + 3, 107, 8, 8); // Helmet
     }
 
     // COMMAND HUB & SHOP
     function renderHub() {
-      // Level promotion
-      const nextLvlCost = gameState.level * 10000;
-      document.getElementById("hub-next-rank").innerText = `Promote to Level ${gameState.level + 1}`;
-      const btn = document.getElementById("lvl-up-btn");
-      btn.innerText = `${nextLvlCost.toLocaleString()} ⎈`;
-      btn.disabled = gameState.credits < nextLvlCost;
+      // Class selector
+      const classContainer = document.getElementById("class-grid");
+      classContainer.innerHTML = Object.keys(CLASSES).map(k => {
+        const cls = CLASSES[k];
+        const active = gameState.classType === k;
+        return `
+          <div class="class-card ${active ? 'selected' : ''}" onclick="selectClass('${k}')">
+            <div>
+              <div style="font-size: 11px; font-weight: 900; color: ${active ? 'var(--cyan)' : '#fff'};">${cls.name}</div>
+              <div style="font-size: 8px; color: var(--text-muted); margin-top: 2px;">${cls.perk}</div>
+            </div>
+            <div style="font-size: 9px; font-weight: 900; color: ${active ? 'var(--cyan)' : 'var(--text-muted)'};">
+              ${active ? 'ACTIVE' : 'SELECT'}
+            </div>
+          </div>
+        `;
+      }).join("");
 
-      const eff = Math.min(50, (gameState.level - 1) * 0.5).toFixed(1);
-      document.getElementById("hub-eff-badge").innerText = `Decay Reduction: -${eff}%`;
+      // Level promotion
+      const cost = gameState.level * 10000;
+      document.getElementById("hub-next-rank").innerText = `Promote to Level ${gameState.level + 1} (${cost.toLocaleString()} ⎈)`;
+      const btn = document.getElementById("lvl-up-btn");
+      btn.disabled = gameState.credits < cost;
 
       // Shop
-      const shopContainer = document.getElementById("shop-container");
-      shopContainer.innerHTML = SHOP_ITEMS.map(item => {
+      document.getElementById("shop-container").innerHTML = SHOP_ITEMS.map(item => {
         const owned = gameState.ownedFurniture.includes(item.id);
         return `
           <div class="shop-item">
@@ -1548,9 +1685,8 @@
       }).join("");
 
       // Achievements
-      const achList = document.getElementById("ach-list");
       let unlockedCount = 0;
-      achList.innerHTML = ACHIEVEMENTS.map(ach => {
+      document.getElementById("ach-list").innerHTML = ACHIEVEMENTS.map(ach => {
         const unlocked = gameState.unlockedAchievements.includes(ach.id);
         if (unlocked) unlockedCount++;
         return `
@@ -1563,8 +1699,13 @@
           </div>
         `;
       }).join("");
-
       document.getElementById("ach-counter").innerText = `${unlockedCount} / ${ACHIEVEMENTS.length}`;
+    }
+
+    function selectClass(clsKey) {
+      gameState.classType = clsKey;
+      showToast(`Switched class to ${CLASSES[clsKey].name}!`);
+      saveGame();
     }
 
     function levelUp() {
@@ -1578,19 +1719,12 @@
       }
     }
 
-    function buyItem(itemId, cost) {
-      if (gameState.credits >= cost && !gameState.ownedFurniture.includes(itemId)) {
+    function buyItem(id, cost) {
+      if (gameState.credits >= cost && !gameState.ownedFurniture.includes(id)) {
         gameState.credits -= cost;
-        gameState.ownedFurniture.push(itemId);
+        gameState.ownedFurniture.push(id);
         showToast("Furnishing Installed!");
         saveGame();
-      }
-    }
-
-    function checkLevelUp() {
-      const needed = gameState.level * 10000;
-      if (gameState.xp >= needed) {
-        // auto xp progress cap
       }
     }
 
@@ -1604,86 +1738,56 @@
       });
     }
 
-    // GITHUB GIST CLOUD SYNC
+    // ANALYTICS MODAL
+    function openAnalyticsModal() {
+      document.getElementById("analytics-modal").classList.add("open");
+      document.getElementById("analytics-content").innerHTML = `
+        <div style="background: var(--bg-card-alt); padding: 10px; border-radius: 8px;">
+          <div>Total Logs: <strong>${gameState.totalLogs}</strong></div>
+          <div>Active Streak: <strong>${gameState.streak} Days</strong></div>
+          <div>Repairs Completed: <strong>${gameState.repairsDone}</strong></div>
+          <div>Active Class: <strong>${CLASSES[gameState.classType].name}</strong></div>
+        </div>
+      `;
+    }
+    function closeAnalyticsModal() { document.getElementById("analytics-modal").classList.remove("open"); }
+
+    // GIST CLOUD SYNC
     function saveGistConfig() {
       const gistId = document.getElementById("gist-id-input").value.trim();
       const token = document.getElementById("gist-token-input").value.trim();
-      if (!gistId || !token) {
-        alert("Please enter both Gist ID and Token.");
-        return;
-      }
+      if (!gistId || !token) { alert("Enter both Gist ID and Token."); return; }
       localStorage.setItem(GIST_CFG_KEY, JSON.stringify({ gistId, token }));
-      showToast("Gist Configuration Saved");
+      showToast("Config Saved");
       pullFromGist(true);
     }
 
     async function autoSyncGist() {
-      const cfgStr = localStorage.getItem(GIST_CFG_KEY);
-      if (!cfgStr) return;
-      const { gistId, token } = JSON.parse(cfgStr);
-      if (!gistId || !token) return;
-
+      const cfg = localStorage.getItem(GIST_CFG_KEY);
+      if (!cfg) return;
+      const { gistId, token } = JSON.parse(cfg);
       try {
-        const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-          headers: { Authorization: `token ${token}` }
-        });
-        if (!res.ok) return;
-        const data = await res.json();
-        const filename = Object.keys(data.files)[0];
-        if (!filename) return;
-
-        const cloudSave = JSON.parse(data.files[filename].content);
-        // Merge cloud save if newer
-        if (cloudSave.lastTick && cloudSave.lastTick > gameState.lastTick) {
-          gameState = cloudSave;
-          renderAll();
-        }
-
-        // Push current save
         await fetch(`https://api.github.com/gists/${gistId}`, {
           method: "PATCH",
-          headers: {
-            Authorization: `token ${token}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            files: {
-              "astra_station_save.json": {
-                content: JSON.stringify(gameState, null, 2)
-              }
-            }
-          })
+          headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ files: { "astra_station_save.json": { content: JSON.stringify(gameState, null, 2) } } })
         });
-        document.getElementById("sync-indicator").innerText = "Cloud Synced";
-      } catch(e) {
-        console.error("Auto-sync failed:", e);
-      }
+        document.getElementById("sync-indicator").innerText = "Synced";
+      } catch(e) {}
     }
 
-    async function pullFromGist(showAlert = false) {
-      const cfgStr = localStorage.getItem(GIST_CFG_KEY);
-      if (!cfgStr) {
-        if (showAlert) alert("Please configure Gist ID and Token first.");
-        return;
-      }
-      const { gistId, token } = JSON.parse(cfgStr);
+    async function pullFromGist(showAlert) {
+      const cfg = localStorage.getItem(GIST_CFG_KEY);
+      if (!cfg) { if (showAlert) alert("Configure Gist first."); return; }
+      const { gistId, token } = JSON.parse(cfg);
       try {
-        const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-          headers: { Authorization: `token ${token}` }
-        });
-        if (!res.ok) throw new Error("Failed to fetch Gist");
+        const res = await fetch(`https://api.github.com/gists/${gistId}`, { headers: { Authorization: `token ${token}` } });
         const data = await res.json();
         const filename = Object.keys(data.files)[0];
-        const cloudSave = JSON.parse(data.files[filename].content);
-        
-        gameState = cloudSave;
+        gameState = JSON.parse(data.files[filename].content);
         saveGame(false);
-        renderAll();
-        if (showAlert) showToast("Pulled Cloud Save Successfully");
-      } catch(e) {
-        console.error("Pull failed:", e);
-        if (showAlert) alert("Failed to pull from Gist. Check credentials.");
-      }
+        if (showAlert) showToast("Cloud Save Pulled!");
+      } catch(e) { if (showAlert) alert("Pull failed."); }
     }
 
     // NAVIGATION
@@ -1691,13 +1795,9 @@
       activeTab = tabKey;
       document.querySelectorAll(".tab-view").forEach(v => v.classList.remove("active"));
       document.getElementById("tab-" + tabKey).classList.add("active");
-
-      document.querySelectorAll(".nav-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.tab === tabKey);
-      });
+      document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tabKey));
     }
 
-    // TOAST NOTIFICATIONS
     function showToast(msg) {
       const t = document.getElementById("toast");
       t.innerText = msg;
@@ -1705,26 +1805,21 @@
       setTimeout(() => t.classList.remove("show"), 2500);
     }
 
-    // SPACE CANVAS STARFIELD ANIMATION
-    (function initStarfield() {
+    // CANVAS ANIMATIONS
+    (function initAnimations() {
       const canvas = document.getElementById("space-canvas");
       const ctx = canvas.getContext("2d");
-      let stars = Array.from({ length: 45 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 1.8 + 0.4,
-        speed: Math.random() * 0.3 + 0.1,
-        alpha: Math.random()
+      let stars = Array.from({ length: 40 }, () => ({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 1.5 + 0.5, speed: Math.random() * 0.2 + 0.1
       }));
 
       function loop() {
-        ctx.fillStyle = "#04070e";
+        ctx.fillStyle = "#020408";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
         stars.forEach(s => {
           s.x -= s.speed;
           if (s.x < 0) s.x = canvas.width;
-          ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
+          ctx.fillStyle = "#fff";
           ctx.fillRect(s.x, s.y, s.size, s.size);
         });
         requestAnimationFrame(loop);
@@ -1732,7 +1827,6 @@
       loop();
     })();
 
-    // INIT ON LOAD
     window.addEventListener("DOMContentLoaded", () => {
       loadGame();
       const cfg = localStorage.getItem(GIST_CFG_KEY);
@@ -1741,7 +1835,7 @@
           const parsed = JSON.parse(cfg);
           document.getElementById("gist-id-input").value = parsed.gistId || "";
           document.getElementById("gist-token-input").value = parsed.token || "";
-          document.getElementById("sync-indicator").innerText = "Gist Configured";
+          document.getElementById("sync-indicator").innerText = "Configured";
           pullFromGist(false);
         } catch(e){}
       }
