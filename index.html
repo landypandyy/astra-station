@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Astra Station" />
-  <meta name="theme-color" content="#070b14" />
+  <meta name="theme-color" content="#000000" />
   <title>Astra Station</title>
   <link id="apple-icon" rel="apple-touch-icon" href="" />
   <link id="manifest-link" rel="manifest" href="" />
@@ -47,9 +47,21 @@
       overscroll-behavior-y: none;
     }
 
+    /* FIXED TOP SAFE-AREA SHIELD TO PREVENT CLOCK / DYNAMIC ISLAND OVERLAP */
+    .top-shield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: calc(var(--safe-top) + 6px);
+      background: #000000;
+      z-index: 200;
+      pointer-events: none;
+    }
+
     body {
-      padding-top: calc(var(--safe-top) + 8px);
-      padding-bottom: calc(var(--safe-bottom) + 84px);
+      padding-top: calc(var(--safe-top) + 14px);
+      padding-bottom: calc(var(--safe-bottom) + 90px);
     }
 
     .app-container {
@@ -58,7 +70,7 @@
       padding: 0 14px;
     }
 
-    /* HERO DASHBOARD - STRICT 2-COLUMN SIDE-BY-SIDE */
+    /* HERO DASHBOARD */
     .hero-card {
       background: linear-gradient(145deg, #0e1628 0%, #090e1a 100%);
       border: 1px solid rgba(0, 243, 255, 0.22);
@@ -164,7 +176,7 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* 6-VITAL GRID (3x2 inside Hero) */
+    /* 6-VITAL GRID */
     .vitals-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -295,7 +307,7 @@
       font-weight: 800;
     }
 
-    /* 2x2 DECK MODULE GRID */
+    /* DECK MODULE GRID */
     .deck-panel {
       background: var(--bg-card);
       border: 1px solid var(--zone-color);
@@ -406,7 +418,7 @@
       color: #fff;
     }
 
-    /* EARTH LINK HABIT TRACKER (2-COLUMN COLORFUL TILES) */
+    /* EARTH LINK HABIT TRACKER */
     .earth-header {
       display: flex;
       justify-content: space-between;
@@ -420,15 +432,26 @@
       letter-spacing: 0.6px;
     }
 
+    .earth-action-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .analytics-btn, .add-habit-btn {
+      background: rgba(0, 243, 255, 0.15);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
     .add-habit-btn {
       background: var(--cyan);
       color: #040811;
       border: none;
-      border-radius: 10px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 800;
-      cursor: pointer;
     }
 
     .habits-grid {
@@ -444,24 +467,46 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 116px;
+      min-height: 128px;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
       position: relative;
     }
 
+    .habit-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
     .habit-name {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
       line-height: 1.2;
-      margin-bottom: 4px;
       word-break: break-word;
+      flex: 1;
+    }
+
+    .habit-edit-gear {
+      background: rgba(0, 0, 0, 0.15);
+      border: none;
+      border-radius: 6px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: inherit;
+      cursor: pointer;
+      font-size: 12px;
+      opacity: 0.8;
     }
 
     .habit-recency {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       opacity: 0.78;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .habit-controls {
@@ -511,7 +556,7 @@
       opacity: 0.75;
     }
 
-    /* COMMAND HUB: LEVELING, COLOR-COORDINATED SHOP, ACHIEVEMENTS, CLOUD SYNC */
+    /* COMMAND HUB */
     .hub-section {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -557,21 +602,6 @@
     .lvl-up-btn:disabled {
       opacity: 0.4;
       cursor: not-allowed;
-    }
-
-    .shop-zone-group {
-      margin-bottom: 12px;
-    }
-
-    .shop-zone-label {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
     .shop-grid {
@@ -666,7 +696,7 @@
       color: #040811;
     }
 
-    /* CLOUD SYNC INPUTS */
+    /* CLOUD SYNC */
     .sync-box {
       display: flex;
       flex-direction: column;
@@ -705,17 +735,18 @@
       color: var(--text-muted);
     }
 
-    /* BOTTOM NAVIGATION BAR */
+    /* DISTINCT BOTTOM NAVIGATION BAR */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(9, 14, 26, 0.94);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-top: 1px solid var(--border-subtle);
-      padding: 8px 12px calc(var(--safe-bottom) + 6px);
+      background: rgba(7, 11, 20, 0.96);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(0, 243, 255, 0.22);
+      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.7);
+      padding: 10px 12px calc(var(--safe-bottom) + 8px);
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 6px;
@@ -735,19 +766,21 @@
       letter-spacing: 0.5px;
       cursor: pointer;
       padding: 4px 0;
+      transition: color 0.2s ease;
     }
 
     .nav-btn.active {
       color: var(--cyan);
+      text-shadow: 0 0 12px rgba(0, 243, 255, 0.5);
     }
 
-    /* MODAL FOR NEW HABIT */
+    /* MODALS */
     .modal-backdrop {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.78);
-      z-index: 200;
+      background: rgba(0, 0, 0, 0.82);
+      z-index: 300;
       align-items: center;
       justify-content: center;
       padding: 16px;
@@ -763,10 +796,12 @@
       border-radius: 16px;
       padding: 16px;
       width: 100%;
-      max-width: 360px;
+      max-width: 380px;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      max-height: 85vh;
+      overflow-y: auto;
     }
 
     .color-swatches {
@@ -776,8 +811,8 @@
     }
 
     .swatch {
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       border: 2px solid transparent;
       cursor: pointer;
@@ -785,14 +820,14 @@
 
     .swatch.selected {
       border-color: #ffffff;
-      transform: scale(1.12);
+      transform: scale(1.15);
     }
 
     .toast {
       position: fixed;
-      top: calc(var(--safe-top) + 12px);
+      top: calc(var(--safe-top) + 16px);
       left: 50%;
-      transform: translateX(-50%) translateY(-80px);
+      transform: translateX(-50%) translateY(-90px);
       background: #10b981;
       color: #040811;
       font-weight: 800;
@@ -801,7 +836,7 @@
       border-radius: 999px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
       transition: transform 0.25s ease;
-      z-index: 300;
+      z-index: 400;
       pointer-events: none;
     }
 
@@ -811,6 +846,7 @@
   </style>
 </head>
 <body>
+  <div class="top-shield"></div>
   <div id="toast" class="toast">Synced</div>
 
   <div class="app-container">
@@ -887,9 +923,12 @@
       <div class="earth-header">
         <div>
           <div class="earth-title">EARTH LINK TELEMETRY</div>
-          <div style="font-size: 11px; color: var(--text-muted);" id="streak-banner">Current Streak: 1 Day • +150 ⎈ per log</div>
+          <div style="font-size: 11px; color: var(--text-muted);" id="streak-banner">Streak: 1 Day • +35 ⎈ per log</div>
         </div>
-        <button class="add-habit-btn" onclick="openHabitModal()">+ NEW TILE</button>
+        <div class="earth-action-group">
+          <button class="analytics-btn" onclick="openAnalyticsModal()">📊 STATS</button>
+          <button class="add-habit-btn" onclick="openHabitModal()">+ TILE</button>
+        </div>
       </div>
 
       <div class="habits-grid" id="habits-grid"></div>
@@ -906,25 +945,25 @@
         <div class="lvl-up-card">
           <div>
             <div style="font-size: 13px; font-weight: 800;" id="hub-next-rank">Promote to Level 2</div>
-            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Reduces all station vital decay by an additional 0.2% permanently.</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Reduces station vital decay permanently.</div>
           </div>
           <button class="lvl-up-btn" id="lvl-up-btn" onclick="levelUp()">10,000 ⎈</button>
         </div>
       </div>
 
-      <!-- COLOR-COORDINATED STATION MARKETPLACE -->
+      <!-- STATION MARKETPLACE -->
       <div class="hub-section">
         <div class="hub-sec-title">
-          <span>Station Quartermaster (Furnishings)</span>
+          <span>Station Quartermaster (Furnishings & Upgrades)</span>
         </div>
-        <div id="shop-container"></div>
+        <div class="shop-grid" id="shop-container"></div>
       </div>
 
       <!-- ACHIEVEMENTS -->
       <div class="hub-section">
         <div class="hub-sec-title">
           <span>Service Achievements</span>
-          <span style="color: var(--emerald); font-size: 11px;" id="ach-counter">0 / 8</span>
+          <span style="color: var(--emerald); font-size: 11px;" id="ach-counter">0 / 12</span>
         </div>
         <div class="ach-list" id="ach-list"></div>
       </div>
@@ -964,29 +1003,55 @@
     </button>
   </nav>
 
-  <!-- NEW HABIT MODAL -->
+  <!-- ADD / EDIT HABIT MODAL -->
   <div class="modal-backdrop" id="habit-modal">
     <div class="modal-card">
-      <div style="font-size: 14px; font-weight: 800;">Add Earth Link Tile</div>
+      <div style="font-size: 14px; font-weight: 800;" id="modal-title-lbl">Add Earth Link Tile</div>
+      <input type="hidden" id="edit-habit-id" />
       <input type="text" id="new-habit-name" class="sync-input" placeholder="Habit name (e.g. stretch, sketch)" />
       <div style="font-size: 11px; color: var(--text-muted);">Tile Color</div>
       <div class="color-swatches" id="color-swatches"></div>
+      <div id="delete-habit-wrap" style="display: none;">
+        <button class="sync-btn" style="width: 100%; border-color: var(--rose); color: var(--rose); background: rgba(244,63,94,0.1);" onclick="deleteCurrentHabit()">DELETE TILE</button>
+      </div>
       <div class="sync-actions">
         <button class="sync-btn" style="border-color: var(--text-muted); color: var(--text-muted);" onclick="closeHabitModal()">CANCEL</button>
-        <button class="sync-btn" style="background: var(--cyan); color: #040811;" onclick="createHabit()">ADD TILE</button>
+        <button class="sync-btn" style="background: var(--cyan); color: #040811;" onclick="saveHabitTile()">SAVE TILE</button>
       </div>
     </div>
   </div>
 
+  <!-- TELEMETRY ANALYTICS MODAL -->
+  <div class="modal-backdrop" id="analytics-modal">
+    <div class="modal-card">
+      <div style="font-size: 14px; font-weight: 800; display: flex; justify-content: space-between; align-items: center;">
+        <span>Earth Link Telemetry & Stats</span>
+        <button style="background: none; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer;" onclick="closeAnalyticsModal()">✕</button>
+      </div>
+      <div id="analytics-content" style="display: flex; flex-direction: column; gap: 10px; font-size: 12px;"></div>
+      <button class="sync-btn" style="width: 100%; background: var(--cyan); color: #040811;" onclick="closeAnalyticsModal()">CLOSE</button>
+    </div>
+  </div>
+
   <script>
-    // GENERATE CUSTOM APP ICON & MANIFEST FOR IOS STANDALONE PWA
+    // GENERATE RICH SCI-FI SPACE ICON & MANIFEST FOR IOS PWA
     (function setupPWA() {
       const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
         <rect width="512" height="512" rx="112" fill="#070b14"/>
-        <circle cx="256" cy="256" r="175" fill="none" stroke="#00f3ff" stroke-width="14" stroke-opacity="0.35"/>
-        <circle cx="256" cy="210" r="78" fill="#0d1424" stroke="#00f3ff" stroke-width="18"/>
-        <rect x="206" y="180" width="100" height="54" rx="27" fill="#00f3ff" fill-opacity="0.25" stroke="#00f3ff" stroke-width="12"/>
-        <path d="M168 380C168 322 206 292 256 292C306 292 344 322 344 380" fill="#00f3ff" fill-opacity="0.2" stroke="#00f3ff" stroke-width="18" stroke-linecap="round"/>
+        <circle cx="256" cy="256" r="180" fill="#090e1a"/>
+        <!-- Starfield -->
+        <circle cx="120" cy="100" r="3" fill="#00f3ff"/>
+        <circle cx="400" cy="140" r="2.5" fill="#ffffff"/>
+        <circle cx="360" cy="380" r="3" fill="#a855f7"/>
+        <circle cx="150" cy="360" r="2" fill="#00f3ff"/>
+        <!-- Ringed Planet -->
+        <ellipse cx="256" cy="230" rx="90" ry="40" fill="none" stroke="#a855f7" stroke-width="8" transform="rotate(-20 256 230)"/>
+        <circle cx="256" cy="230" r="64" fill="#3b82f6"/>
+        <ellipse cx="256" cy="230" rx="90" ry="40" stroke="#00f3ff" stroke-width="4" fill="none" stroke-dasharray="12 6" transform="rotate(-20 256 230)"/>
+        <!-- Station Silhouette -->
+        <path d="M216 370 L296 370 L310 420 L202 420 Z" fill="#00f3ff"/>
+        <rect x="236" y="340" width="40" height="34" rx="6" fill="#10b981"/>
+        <circle cx="256" cy="320" r="12" fill="#f59e0b"/>
       </svg>`;
       const iconUrl = "data:image/svg+xml;base64," + btoa(iconSvg);
       document.getElementById("apple-icon").href = iconUrl;
@@ -997,14 +1062,14 @@
         start_url: ".",
         display: "standalone",
         background_color: "#070b14",
-        theme_color: "#070b14",
+        theme_color: "#000000",
         icons: [{ src: iconUrl, sizes: "512x512", type: "image/svg+xml" }]
       };
       const manifestBlob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
       document.getElementById("manifest-link").href = URL.createObjectURL(manifestBlob);
     })();
 
-    const STORAGE_KEY = "astra_station_save_v1";
+    const STORAGE_KEY = "astra_station_save_v2";
     const GIST_CFG_KEY = "astra_station_gist_cfg_v1";
     const TILE_COLORS = ["#38bdf8", "#34d399", "#fbbf24", "#c084fc", "#fb7185", "#f97316", "#2dd4bf", "#a3e635"];
 
@@ -1014,10 +1079,10 @@
         color: "#00f3ff",
         buff: "Crew Quarters & Oxygen Scrubbers",
         modules: [
-          { name: "Cycle O2 Scrubbers", desc: "+6% Oxygen • +40 ⎈", vital: "oxygen", gain: 6, credits: 40 },
-          { name: "Rest Pod Nap", desc: "+8% Morale • +35 ⎈", vital: "morale", gain: 8, credits: 35 },
-          { name: "Pressurize Seals", desc: "+5% Shields • +45 ⎈", vital: "shields", gain: 5, credits: 45 },
-          { name: "Med-Bay Scan", desc: "+6% Bio Matrix • +40 ⎈", vital: "bio", gain: 6, credits: 40 }
+          { name: "Cycle O2 Scrubbers", desc: "+6% Oxygen • +30 ⎈", vital: "oxygen", gain: 6, credits: 30 },
+          { name: "Rest Pod Nap", desc: "+8% Morale • +25 ⎈", vital: "morale", gain: 8, credits: 25 },
+          { name: "Pressurize Seals", desc: "+5% Shields • +35 ⎈", vital: "shields", gain: 5, credits: 35 },
+          { name: "Med-Bay Scan", desc: "+6% Bio Matrix • +30 ⎈", vital: "bio", gain: 6, credits: 30 }
         ]
       },
       hydro: {
@@ -1025,10 +1090,10 @@
         color: "#10b981",
         buff: "Algae Vats & Botanical Gardens",
         modules: [
-          { name: "Harvest Algae", desc: "+8% Bio Matrix • +50 ⎈", vital: "bio", gain: 8, credits: 50 },
-          { name: "Mist Canopy", desc: "+6% Oxygen • +40 ⎈", vital: "oxygen", gain: 6, credits: 40 },
-          { name: "Nutrient Flush", desc: "+5% Morale • +45 ⎈", vital: "morale", gain: 5, credits: 45 },
-          { name: "UV Lamp Tune", desc: "+5% Power Grid • +35 ⎈", vital: "power", gain: 5, credits: 35 }
+          { name: "Harvest Algae", desc: "+8% Bio Matrix • +35 ⎈", vital: "bio", gain: 8, credits: 35 },
+          { name: "Mist Canopy", desc: "+6% Oxygen • +30 ⎈", vital: "oxygen", gain: 6, credits: 30 },
+          { name: "Nutrient Flush", desc: "+5% Morale • +35 ⎈", vital: "morale", gain: 5, credits: 35 },
+          { name: "UV Lamp Tune", desc: "+5% Power Grid • +25 ⎈", vital: "power", gain: 5, credits: 25 }
         ]
       },
       command: {
@@ -1036,10 +1101,10 @@
         color: "#a855f7",
         buff: "Telemetry Array & Deep Space Comms",
         modules: [
-          { name: "Ping Earth Relay", desc: "+9% Earth Link • +60 ⎈", vital: "earth", gain: 9, credits: 60 },
-          { name: "Align Dish Array", desc: "+6% Shields • +50 ⎈", vital: "shields", gain: 6, credits: 50 },
-          { name: "Crew Briefing", desc: "+7% Morale • +45 ⎈", vital: "morale", gain: 7, credits: 45 },
-          { name: "Nav Calibration", desc: "+5% Power Grid • +45 ⎈", vital: "power", gain: 5, credits: 45 }
+          { name: "Ping Earth Relay", desc: "+9% Earth Link • +40 ⎈", vital: "earth", gain: 9, credits: 40 },
+          { name: "Align Dish Array", desc: "+6% Shields • +35 ⎈", vital: "shields", gain: 6, credits: 35 },
+          { name: "Crew Briefing", desc: "+7% Morale • +30 ⎈", vital: "morale", gain: 7, credits: 30 },
+          { name: "Nav Calibration", desc: "+5% Power Grid • +30 ⎈", vital: "power", gain: 5, credits: 30 }
         ]
       },
       engineering: {
@@ -1047,150 +1112,169 @@
         color: "#f59e0b",
         buff: "Fusion Reactor & Hull Deflectors",
         modules: [
-          { name: "Vent Plasma", desc: "+9% Power Grid • +60 ⎈", vital: "power", gain: 9, credits: 60 },
-          { name: "Boost Deflectors", desc: "+8% Shields • +55 ⎈", vital: "shields", gain: 8, credits: 55 },
-          { name: "Aux Life Support", desc: "+5% Oxygen • +45 ⎈", vital: "oxygen", gain: 5, credits: 45 },
-          { name: "Drone Diagnostics", desc: "+6% Earth Link • +45 ⎈", vital: "earth", gain: 6, credits: 45 }
+          { name: "Vent Plasma", desc: "+9% Power Grid • +40 ⎈", vital: "power", gain: 9, credits: 40 },
+          { name: "Boost Deflectors", desc: "+8% Shields • +40 ⎈", vital: "shields", gain: 8, credits: 40 },
+          { name: "Aux Life Support", desc: "+5% Oxygen • +30 ⎈", vital: "oxygen", gain: 5, credits: 30 },
+          { name: "Drone Diagnostics", desc: "+6% Earth Link • +30 ⎈", vital: "earth", gain: 6, credits: 30 }
         ]
       }
     };
 
     const SHOP_ITEMS = [
-      { id: "hab_bed", zone: "habitat", name: "Zero-G Memory Bunk", perk: "+2% Max Morale Recovery", cost: 1200 },
-      { id: "hab_wall", zone: "habitat", name: "Holo-Window Viewport", perk: "+10% Habitat Action Credits", cost: 2500 },
-      { id: "hyd_tower", zone: "hydro", name: "Vertical Kelp Tower", perk: "+2% Passive Oxygen Gen", cost: 1500 },
-      { id: "hyd_bonsai", zone: "hydro", name: "Orbital Bonsai Grove", perk: "+10% Hydro Action Credits", cost: 2800 },
-      { id: "cmd_holo", zone: "command", name: "3D Star-Map Table", perk: "+15% Earth Link Sync Bonus", cost: 2000 },
+      { id: "hab_bed", zone: "habitat", name: "Zero-G Memory Bunk", perk: "+15% Morale Stability", cost: 1200 },
+      { id: "hab_wall", zone: "habitat", name: "Holo-Window Viewport", perk: "+10% Habitat Credits", cost: 2500 },
+      { id: "hab_garden", zone: "habitat", name: "Atmospheric Zen Garden", perk: "-10% All Decay Rates", cost: 5000 },
+      { id: "hyd_tower", zone: "hydro", name: "Vertical Kelp Tower", perk: "+15% Oxygen Retention", cost: 1500 },
+      { id: "hyd_bonsai", zone: "hydro", name: "Orbital Bonsai Grove", perk: "+10% Hydro Credits", cost: 2800 },
+      { id: "cmd_holo", zone: "command", name: "3D Star-Map Table", perk: "+20% Earth Link Payouts", cost: 2000 },
       { id: "cmd_ai", zone: "command", name: "Sub-Space Quantum Core", perk: "+1 Stardust per Level", cost: 4000 },
-      { id: "eng_coil", zone: "engineering", name: "Magnetic Flux Coil", perk: "+2% Shield Regeneration", cost: 1800 },
-      { id: "eng_drone", zone: "engineering", name: "Auto-Repair Spider Bot", perk: "+10% Engineer Credits", cost: 3200 }
+      { id: "cmd_shieldgen", zone: "command", name: "Overcharged Relay Dish", perk: "+25% Max Shield Capacity", cost: 6500 },
+      { id: "eng_coil", zone: "engineering", name: "Magnetic Flux Coil", perk: "+15% Power Efficiency", cost: 1800 },
+      { id: "eng_drone", zone: "engineering", name: "Auto-Repair Spider Bot", perk: "+10% Engineer Credits", cost: 3200 },
+      { id: "eng_reactor", zone: "engineering", name: "Dark Matter Condenser", perk: "+50% Passive Credit Gain", cost: 8000 }
     ];
 
     const ACHIEVEMENTS = [
-      { id: "first_log", title: "First Telemetry Ping", desc: "Log your first Earth Link habit", reward: 500, check: s => s.totalLogs >= 1 },
-      { id: "ten_logs", title: "Consistent Operator", desc: "Log 10 total Earth Link actions", reward: 1500, check: s => s.totalLogs >= 10 },
-      { id: "fifty_logs", title: "Deep Space Veteran", desc: "Log 50 total Earth Link actions", reward: 5000, check: s => s.totalLogs >= 50 },
-      { id: "streak_3", title: "3-Day Orbit", desc: "Maintain a 3-day logging streak", reward: 2000, check: s => s.streak >= 3 },
-      { id: "streak_7", title: "Weekly Trajectory", desc: "Maintain a 7-day logging streak", reward: 6000, check: s => s.streak >= 7 },
-      { id: "lvl_2", title: "Lieutenant Promotion", desc: "Reach Command Level 2", reward: 2500, check: s => s.level >= 2 },
-      { id: "lvl_5", title: "Station Commander", desc: "Reach Command Level 5", reward: 10000, check: s => s.level >= 5 },
-      { id: "first_furn", title: "Interior Architect", desc: "Install your first station furnishing", reward: 1000, check: s => s.ownedFurniture.length >= 1 }
+      { id: "first_log", title: "First Telemetry Ping", desc: "Log your first Earth Link habit", reward: 300, check: s => s.totalLogs >= 1 },
+      { id: "ten_logs", title: "Consistent Operator", desc: "Log 10 total Earth Link actions", reward: 1000, check: s => s.totalLogs >= 10 },
+      { id: "fifty_logs", title: "Deep Space Veteran", desc: "Log 50 total Earth Link actions", reward: 3000, check: s => s.totalLogs >= 50 },
+      { id: "hundred_logs", title: "Telemetry Master", desc: "Log 100 total Earth Link actions", reward: 7500, check: s => s.totalLogs >= 100 },
+      { id: "streak_3", title: "3-Day Orbit", desc: "Maintain a 3-day logging streak", reward: 1500, check: s => s.streak >= 3 },
+      { id: "streak_7", title: "Weekly Trajectory", desc: "Maintain a 7-day logging streak", reward: 4500, check: s => s.streak >= 7 },
+      { id: "streak_14", title: "Bi-Weekly Lock", desc: "Maintain a 14-day logging streak", reward: 10000, check: s => s.streak >= 14 },
+      { id: "lvl_2", title: "Lieutenant Promotion", desc: "Reach Command Level 2", reward: 2000, check: s => s.level >= 2 },
+      { id: "lvl_5", title: "Station Commander", desc: "Reach Command Level 5", reward: 8000, check: s => s.level >= 5 },
+      { id: "first_furn", title: "Interior Architect", desc: "Install your first station furnishing", reward: 800, check: s => s.ownedFurniture.length >= 1 },
+      { id: "furn_5", title: "Station Outfitter", desc: "Install 5 station furnishings", reward: 4000, check: s => s.ownedFurniture.length >= 5 },
+      { id: "tile_creator", title: "Telemetry Expansion", desc: "Create 4 or more custom habit tiles", reward: 1500, check: s => s.habits.length >= 4 }
     ];
 
     const DEFAULT_HABITS = [
-      { id: "h1", name: "cups of coffee", color: "#fbbf24", count: 0, lastLogged: null },
-      { id: "h2", name: "walk", color: "#34d399", count: 0, lastLogged: null },
-      { id: "h3", name: "vitamins", color: "#38bdf8", count: 0, lastLogged: null },
-      { id: "h4", name: "dishes", color: "#2dd4bf", count: 0, lastLogged: null },
-      { id: "h5", name: "read", color: "#c084fc", count: 0, lastLogged: null },
-      { id: "h6", name: "prsnl creative day", color: "#fb7185", count: 0, lastLogged: null },
-      { id: "h7", name: "exercised", color: "#f97316", count: 0, lastLogged: null },
-      { id: "h8", name: "fasted night before", color: "#a3e635", count: 0, lastLogged: null },
-      { id: "h9", name: "got 8+ hours sleep", color: "#38bdf8", count: 0, lastLogged: null },
-      { id: "h10", name: "zero spend day", color: "#34d399", count: 0, lastLogged: null },
-      { id: "h11", name: "meditate", color: "#c084fc", count: 0, lastLogged: null },
-      { id: "h12", name: "video game sesh", color: "#fbbf24", count: 0, lastLogged: null },
-      { id: "h13", name: "shower", color: "#2dd4bf", count: 0, lastLogged: null },
-      { id: "h14", name: "floss", color: "#38bdf8", count: 0, lastLogged: null },
-      { id: "h15", name: "brush teeth", color: "#34d399", count: 0, lastLogged: null },
-      { id: "h16", name: "nap", color: "#fb7185", count: 0, lastLogged: null }
+      { id: "h1", name: "cups of coffee", color: "#fbbf24", count: 0, lastLogged: null, history: {} },
+      { id: "h2", name: "walk", color: "#34d399", count: 0, lastLogged: null, history: {} },
+      { id: "h3", name: "stretch", color: "#38bdf8", count: 0, lastLogged: null, history: {} },
+      { id: "h4", name: "read", color: "#c084fc", count: 0, lastLogged: null, history: {} }
     ];
 
-    let state = {
+    let gameState = {
       level: 1,
-      credits: 1500,
+      xp: 0,
       stardust: 45,
-      totalLogs: 0,
+      credits: 1500,
       streak: 1,
-      lastActiveDate: new Date().toDateString(),
+      totalLogs: 0,
       lastTick: Date.now(),
-      vitals: { oxygen: 98, power: 85, shields: 100, bio: 92, morale: 88, earth: 95 },
-      ownedFurniture: ["hab_bed"],
+      vitals: {
+        oxygen: 100,
+        morale: 100,
+        shields: 100,
+        bio: 100,
+        power: 100,
+        earth: 100
+      },
+      ownedFurniture: [],
       unlockedAchievements: [],
-      habits: DEFAULT_HABITS,
-      updatedAt: Date.now()
+      habits: JSON.parse(JSON.stringify(DEFAULT_HABITS))
     };
 
-    let activeZone = "habitat";
-    let selectedNewColor = TILE_COLORS[0];
+    let currentZone = "habitat";
+    let activeTab = "station";
+    let selectedSwatchColor = TILE_COLORS[0];
 
-    function loadLocalState() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          state = { ...state, ...parsed, vitals: { ...state.vitals, ...(parsed.vitals || {}) } };
-        }
-      } catch (e) {}
-      checkDailyReset();
+    // TIME-BASED DECAY ENGINE
+    function calculateDecayAndTick() {
+      const now = Date.now();
+      const elapsedHours = (now - gameState.lastTick) / 3600000;
+      if (elapsedHours <= 0) return;
+
+      gameState.lastTick = now;
+
+      // Decay rate per hour (approx 1.5% base, mitigated by level and furnishings)
+      let decayMultiplier = 1.5;
+      if (gameState.ownedFurniture.includes("hab_garden")) decayMultiplier *= 0.9;
+      decayMultiplier -= (gameState.level - 1) * 0.05; // 5% reduction per rank
+
+      const decayAmount = elapsedHours * decayMultiplier;
+
+      ['oxygen', 'morale', 'shields', 'bio', 'power', 'earth'].forEach(v => {
+        gameState.vitals[v] = Math.max(0, Math.min(100, gameState.vitals[v] - decayAmount));
+      });
     }
 
-    function checkDailyReset() {
-      const today = new Date().toDateString();
-      if (state.lastActiveDate !== today) {
-        const yesterday = new Date(Date.now() - 86400000).toDateString();
-        if (state.lastActiveDate === yesterday) {
-          state.streak += 1;
-        } else {
-          state.streak = 1;
+    // STATE MANAGEMENT & MIGRATION
+    function loadGame() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          gameState = { ...gameState, ...parsed };
+          if (!gameState.habits || gameState.habits.length === 0) {
+            gameState.habits = JSON.parse(JSON.stringify(DEFAULT_HABITS));
+          }
+          gameState.habits.forEach(h => { if (!h.history) h.history = {}; });
+        } catch(e) {
+          console.error("Save load error:", e);
         }
-        state.habits.forEach(h => { h.count = 0; });
-        state.lastActiveDate = today;
+      }
+      calculateDecayAndTick();
+      saveGame(false);
+    }
+
+    function saveGame(syncCloud = true) {
+      gameState.lastTick = Date.now();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
+      renderAll();
+      if (syncCloud) {
+        autoSyncGist();
       }
     }
 
-    let syncTimeout = null;
-    function persistState(skipCloud = false) {
-      state.updatedAt = Date.now();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      if (!skipCloud) {
-        clearTimeout(syncTimeout);
-        syncTimeout = setTimeout(() => pushToGist(false), 1200);
-      }
-    }
-
-    function showToast(msg) {
-      const el = document.getElementById("toast");
-      el.textContent = msg;
-      el.classList.add("show");
-      setTimeout(() => el.classList.remove("show"), 2000);
-    }
-
-    function getRankTitle(lvl) {
-      if (lvl < 2) return "Cadet Officer";
-      if (lvl < 4) return "Flight Lieutenant";
-      if (lvl < 7) return "Station Commander";
-      if (lvl < 10) return "Sector Captain";
-      return "Astra Fleet Admiral";
+    // RENDER ROUTINES
+    function renderAll() {
+      renderHero();
+      renderVitals();
+      renderDeck();
+      renderHabits();
+      renderHub();
+      checkAchievements();
     }
 
     function renderHero() {
-      const eff = ((state.level - 1) * 0.2).toFixed(1);
-      document.getElementById("hero-lvl").textContent = `LVL ${state.level}`;
-      document.getElementById("hero-stardust").textContent = `✦ ${state.stardust}`;
-      document.getElementById("hero-rank").textContent = `${getRankTitle(state.level)} • -${eff}% Decay`;
-      document.getElementById("hero-credits").textContent = `⎈ ${state.credits.toLocaleString()} CREDITS`;
-      document.getElementById("hero-next-lvl").textContent = `PROMOTE: 10,000`;
+      document.getElementById("hero-lvl").innerText = `LVL ${gameState.level}`;
+      document.getElementById("hero-stardust").innerText = `✦ ${gameState.stardust}`;
+      
+      const decayReduction = Math.min(50, (gameState.level - 1) * 0.5).toFixed(1);
+      document.getElementById("hero-rank").innerText = getRankTitle(gameState.level) + ` • -${decayReduction}% Decay`;
 
-      const pct = Math.min(100, (state.credits / 10000) * 100);
-      document.getElementById("hero-xp-bar").style.width = `${pct}%`;
+      const xpNeeded = gameState.level * 10000;
+      const xpPct = Math.min(100, (gameState.xp / xpNeeded) * 100);
+      document.getElementById("hero-xp-bar").style.width = xpPct + "%";
+      document.getElementById("hero-credits").innerText = `⎈ ${Math.floor(gameState.credits).toLocaleString()} CREDITS`;
+      document.getElementById("hero-next-lvl").innerText = `NEXT LVL: ${xpNeeded.toLocaleString()}`;
+    }
 
-      const vitalDefs = [
-        { key: "oxygen", label: "O2 OXYGEN", color: "#00f3ff", sub: "Scrubbers: Optimal" },
-        { key: "power", label: "PWR GRID", color: "#f59e0b", sub: "Reactor: Active" },
-        { key: "shields", label: "SHIELDS", color: "#818cf8", sub: "Deflection: Max" },
-        { key: "bio", label: "BIO MATRIX", color: "#10b981", sub: "Nutrients: High" },
-        { key: "morale", label: "MORALE", color: "#a855f7", sub: "Rec Deck: Ready" },
-        { key: "earth", label: "EARTH LINK", color: "#fb7185", sub: "Latency: 1.2s" }
+    function getRankTitle(lvl) {
+      const ranks = ["Cadet Officer", "Lieutenant", "Commander", "Captain", "Commodore", "Rear Admiral", "Fleet Admiral"];
+      return ranks[Math.min(lvl - 1, ranks.length - 1)];
+    }
+
+    function renderVitals() {
+      const grid = document.getElementById("vitals-grid");
+      const vitalsConfig = [
+        { key: "oxygen", name: "O2 OXYGEN", sub: gameState.vitals.oxygen > 50 ? "Scrubbers: Optimal" : "Scrubbers: Low", color: "var(--cyan)" },
+        { key: "power", name: "PWR GRID", sub: gameState.vitals.power > 50 ? "Reactor: Active" : "Reactor: Warning", color: "var(--amber)" },
+        { key: "shields", name: "SHIELDS", sub: gameState.vitals.shields > 50 ? "Deflection: Max" : "Deflection: Weak", color: "var(--purple)" },
+        { key: "bio", name: "BIO MATRIX", sub: gameState.vitals.bio > 50 ? "Nutrients: High" : "Nutrients: Low", color: "var(--emerald)" },
+        { key: "morale", name: "MORALE", sub: gameState.vitals.morale > 50 ? "Rec Deck: Ready" : "Crew Unrest", color: "var(--rose)" },
+        { key: "earth", name: "EARTH LINK", sub: `Latency: ${(2.4 - (gameState.streak * 0.1)).toFixed(1)}s`, color: "#38bdf8" }
       ];
 
-      const grid = document.getElementById("vitals-grid");
-      grid.innerHTML = vitalDefs.map(v => {
-        const val = Math.round(state.vitals[v.key]);
+      grid.innerHTML = vitalsConfig.map(v => {
+        const val = Math.round(gameState.vitals[v.key]);
         return `
           <div class="vital-tile">
             <div class="vital-top">
-              <span>${v.label}</span>
+              <span>${v.name}</span>
             </div>
             <div class="vital-val" style="color: ${v.color};">${val}%</div>
             <div class="vital-bar">
@@ -1202,381 +1286,466 @@
       }).join("");
     }
 
-    function selectZone(zoneKey) {
-      activeZone = zoneKey;
-      const zone = ZONES[zoneKey];
-      document.documentElement.style.setProperty("--zone-color", zone.color);
-
-      document.querySelectorAll(".zone-btn").forEach(btn => {
-        const isCurrent = btn.dataset.zone === zoneKey;
-        btn.classList.toggle("active", isCurrent);
-        btn.style.background = isCurrent ? zone.color : "var(--bg-card)";
-      });
-
-      document.getElementById("deck-title").textContent = zone.name;
-      document.getElementById("deck-buff").textContent = zone.buff;
+    function renderDeck() {
+      const z = ZONES[currentZone];
+      document.documentElement.style.setProperty("--zone-color", z.color);
+      document.getElementById("deck-title").innerText = z.name;
+      document.getElementById("deck-buff").innerText = z.buff;
 
       const modGrid = document.getElementById("modules-grid");
-      modGrid.innerHTML = zone.modules.map((m, idx) => `
+      modGrid.innerHTML = z.modules.map((m, idx) => `
         <div class="module-card">
-          <div>
-            <div class="mod-name">${m.name}</div>
-            <div class="mod-desc">${m.desc}</div>
-          </div>
-          <button class="mod-btn" onclick="triggerModule('${zoneKey}', ${idx})">EXECUTE</button>
+          <div class="mod-name">${m.name}</div>
+          <div class="mod-desc">${m.desc}</div>
+          <button class="mod-btn" onclick="executeModule('${m.vital}', ${m.gain}, ${m.credits})">EXECUTE</button>
         </div>
       `).join("");
 
-      const ownedInZone = SHOP_ITEMS.filter(item => item.zone === zoneKey && state.ownedFurniture.includes(item.id));
-      const chips = document.getElementById("installed-chips");
-      chips.innerHTML = ownedInZone.length
-        ? ownedInZone.map(i => `<span class="furn-chip">✦ ${i.name}</span>`).join("")
-        : `<span style="font-size: 11px; color: var(--text-muted);">No furnishings installed yet. Visit Command Hub.</span>`;
+      const chipsContainer = document.getElementById("installed-chips");
+      const installedInZone = SHOP_ITEMS.filter(item => item.zone === currentZone && gameState.ownedFurniture.includes(item.id));
+      if (installedInZone.length === 0) {
+        chipsContainer.innerHTML = `<span style="font-size: 11px; color: var(--text-muted);">None installed. Visit Command Hub Quartermaster.</span>`;
+      } else {
+        chipsContainer.innerHTML = installedInZone.map(item => `<div class="furn-chip">${item.name}</div>`).join("");
+      }
     }
 
-    function triggerModule(zoneKey, idx) {
-      const mod = ZONES[zoneKey].modules[idx];
-      state.vitals[mod.vital] = Math.min(100, state.vitals[mod.vital] + mod.gain);
-      state.credits += mod.credits;
-      checkAchievements();
-      persistState();
-      renderAll();
-      showToast(`+${mod.credits} ⎈ • ${mod.name}`);
+    function selectZone(zoneKey) {
+      currentZone = zoneKey;
+      document.querySelectorAll(".zone-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.zone === zoneKey);
+      });
+      renderDeck();
     }
 
-    function formatRecency(ts) {
-      if (!ts) return "Never logged";
-      const diffMs = Date.now() - ts;
-      const diffDays = Math.floor(diffMs / 86400000);
-      if (diffDays === 0) return "Today";
-      if (diffDays === 1) return "Yesterday";
-      return `${diffDays} days ago`;
+    function executeModule(vitalKey, gain, baseCredits) {
+      let multiplier = 1.0;
+      if (currentZone === "habitat" && gameState.ownedFurniture.includes("hab_wall")) multiplier = 1.1;
+      if (currentZone === "hydro" && gameState.ownedFurniture.includes("hyd_bonsai")) multiplier = 1.1;
+      if (currentZone === "engineering" && gameState.ownedFurniture.includes("eng_drone")) multiplier = 1.1;
+
+      const creditsEarned = Math.round(baseCredits * multiplier);
+      gameState.vitals[vitalKey] = Math.min(100, gameState.vitals[vitalKey] + gain);
+      gameState.credits += creditsEarned;
+      gameState.xp += creditsEarned;
+      checkLevelUp();
+      showToast(`Executed Module! +${creditsEarned} ⎈`);
+      saveGame();
     }
 
+    // HABIT TELEMETRY & EDITING
     function renderHabits() {
-      document.getElementById("streak-banner").textContent = `Current Streak: ${state.streak} Day${state.streak === 1 ? "" : "s"} • +150 ⎈ per log`;
       const grid = document.getElementById("habits-grid");
-      grid.innerHTML = state.habits.map(h => `
-        <div class="habit-tile" style="background: ${h.color};">
-          <div>
-            <div class="habit-name">${h.name}</div>
-            <div class="habit-recency">${formatRecency(h.lastLogged)}</div>
-          </div>
-          <div class="habit-controls">
-            <button class="step-btn" onclick="stepHabit('${h.id}', -1)">−</button>
-            <div class="habit-count-box">
-              <div class="habit-count">${h.count}</div>
-              <div class="habit-today-lbl">TODAY</div>
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      grid.innerHTML = gameState.habits.map((h, idx) => {
+        const todayCount = h.history[todayStr] || 0;
+        const recencyText = h.lastLogged ? `Last logged: ${timeAgo(h.lastLogged)}` : "Never logged";
+        
+        return `
+          <div class="habit-tile" style="background-color: ${h.color};">
+            <div>
+              <div class="habit-top-row">
+                <div class="habit-name">${h.name}</div>
+                <button class="habit-edit-gear" onclick="openHabitModal('${h.id}')">⚙</button>
+              </div>
+              <div class="habit-recency">${recencyText}</div>
             </div>
-            <button class="step-btn" onclick="stepHabit('${h.id}', 1)">+</button>
+            <div class="habit-controls">
+              <button class="step-btn" onclick="logHabit('${h.id}', -1)">-</button>
+              <div class="habit-count-box">
+                <div class="habit-count">${todayCount}</div>
+                <div class="habit-today-lbl">TODAY</div>
+              </div>
+              <button class="step-btn" onclick="logHabit('${h.id}', 1)">+</button>
+            </div>
           </div>
-        </div>
-      `).join("");
+        `;
+      }).join("");
+
+      document.getElementById("streak-banner").innerText = `Streak: ${gameState.streak} Day • +35 ⎈ per log`;
     }
 
-    function stepHabit(id, delta) {
-      checkDailyReset();
-      const habit = state.habits.find(h => h.id === id);
-      if (!habit) return;
-      if (delta < 0 && habit.count === 0) return;
+    function timeAgo(timestamp) {
+      const diffMins = Math.floor((Date.now() - timestamp) / 60000);
+      if (diffMins < 1) return "Just now";
+      if (diffMins < 60) return `${diffMins}m ago`;
+      const diffHours = Math.floor(diffMins / 60);
+      if (diffHours < 24) return `${diffHours}h ago`;
+      return `${Math.floor(diffHours / 24)}d ago`;
+    }
 
-      habit.count = Math.max(0, habit.count + delta);
+    function logHabit(id, delta) {
+      const habit = gameState.habits.find(h => h.id === id);
+      if (!habit) return;
+
+      const todayStr = new Date().toISOString().split('T')[0];
+      habit.history[todayStr] = (habit.history[todayStr] || 0) + delta;
+      if (habit.history[todayStr] < 0) habit.history[todayStr] = 0;
+
       if (delta > 0) {
         habit.lastLogged = Date.now();
-        state.credits += 150;
-        state.totalLogs += 1;
-        state.vitals.earth = Math.min(100, state.vitals.earth + 3);
-        state.vitals.morale = Math.min(100, state.vitals.morale + 2);
-        showToast(`+150 ⎈ • Logged ${habit.name}`);
+        gameState.totalLogs++;
+        let payout = 35;
+        if (gameState.ownedFurniture.includes("cmd_holo")) payout = Math.round(payout * 1.2);
+        
+        gameState.credits += payout;
+        gameState.xp += payout;
+        gameState.vitals.earth = Math.min(100, gameState.vitals.earth + 5);
+        showToast(`Logged ${habit.name}! +${payout} ⎈`);
+      }
+
+      checkLevelUp();
+      saveGame();
+    }
+
+    function openHabitModal(habitId = null) {
+      const modal = document.getElementById("habit-modal");
+      const nameInput = document.getElementById("new-habit-name");
+      const idInput = document.getElementById("edit-habit-id");
+      const titleLbl = document.getElementById("modal-title-lbl");
+      const deleteWrap = document.getElementById("delete-habit-wrap");
+
+      buildSwatches();
+
+      if (habitId) {
+        const h = gameState.habits.find(x => x.id === habitId);
+        titleLbl.innerText = "Edit Earth Link Tile";
+        nameInput.value = h.name;
+        idInput.value = h.id;
+        selectedSwatchColor = h.color;
+        deleteWrap.style.display = "block";
+        document.querySelectorAll(".swatch").forEach(s => {
+          s.classList.toggle("selected", s.style.backgroundColor === hexToRgb(h.color) || s.dataset.color === h.color);
+        });
       } else {
-        state.credits = Math.max(0, state.credits - 150);
+        titleLbl.innerText = "Add Earth Link Tile";
+        nameInput.value = "";
+        idInput.value = "";
+        selectedSwatchColor = TILE_COLORS[0];
+        deleteWrap.style.display = "none";
       }
 
-      checkAchievements();
-      persistState();
-      renderAll();
-    }
-
-    function levelUp() {
-      if (state.credits < 10000) return;
-      state.credits -= 10000;
-      state.level += 1;
-      state.stardust += 10;
-      checkAchievements();
-      persistState();
-      renderAll();
-      showToast(`Promoted to Level ${state.level}!`);
-    }
-
-    function buyFurniture(itemId) {
-      const item = SHOP_ITEMS.find(i => i.id === itemId);
-      if (!item || state.ownedFurniture.includes(itemId)) return;
-      if (state.credits < item.cost) {
-        showToast("Not enough Credits!");
-        return;
-      }
-      state.credits -= item.cost;
-      state.ownedFurniture.push(itemId);
-      checkAchievements();
-      persistState();
-      renderAll();
-      showToast(`Installed ${item.name}!`);
-    }
-
-    function checkAchievements() {
-      let newlyUnlocked = 0;
-      ACHIEVEMENTS.forEach(a => {
-        if (!state.unlockedAchievements.includes(a.id) && a.check(state)) {
-          state.unlockedAchievements.push(a.id);
-          state.credits += a.reward;
-          newlyUnlocked++;
-        }
-      });
-      if (newlyUnlocked > 0) {
-        showToast(`Achievement Unlocked! Bonus ⎈ awarded`);
-      }
-    }
-
-    function renderHub() {
-      const eff = ((state.level - 1) * 0.2).toFixed(1);
-      document.getElementById("hub-eff-badge").textContent = `Efficiency: +${eff}%`;
-      document.getElementById("hub-next-rank").textContent = `Promote to Level ${state.level + 1} (${getRankTitle(state.level + 1)})`;
-      const lvlBtn = document.getElementById("lvl-up-btn");
-      lvlBtn.disabled = state.credits < 10000;
-
-      const shopContainer = document.getElementById("shop-container");
-      shopContainer.innerHTML = Object.keys(ZONES).map(zKey => {
-        const z = ZONES[zKey];
-        const items = SHOP_ITEMS.filter(i => i.zone === zKey);
-        return `
-          <div class="shop-zone-group">
-            <div class="shop-zone-label" style="color: ${z.color};">
-              <span>●</span><span>${z.name}</span>
-            </div>
-            <div class="shop-grid">
-              ${items.map(item => {
-                const owned = state.ownedFurniture.includes(item.id);
-                return `
-                  <div class="shop-item" style="border: 1px solid ${z.color}44;">
-                    <div>
-                      <div class="shop-item-name">${item.name}</div>
-                      <div class="shop-item-perk">${item.perk}</div>
-                    </div>
-                    <button class="shop-buy-btn ${owned ? "owned" : ""}"
-                      style="background: ${z.color};"
-                      onclick="buyFurniture('${item.id}')">
-                      ${owned ? "INSTALLED ✓" : `${item.cost.toLocaleString()} ⎈`}
-                    </button>
-                  </div>
-                `;
-              }).join("")}
-            </div>
-          </div>
-        `;
-      }).join("");
-
-      document.getElementById("ach-counter").textContent = `${state.unlockedAchievements.length} / ${ACHIEVEMENTS.length}`;
-      const achList = document.getElementById("ach-list");
-      achList.innerHTML = ACHIEVEMENTS.map(a => {
-        const unlocked = state.unlockedAchievements.includes(a.id);
-        return `
-          <div class="ach-card ${unlocked ? "unlocked" : ""}">
-            <div>
-              <div class="ach-title">${unlocked ? "✓ " : ""}${a.title}</div>
-              <div class="ach-desc">${a.desc}</div>
-            </div>
-            <div class="ach-reward">${unlocked ? "CLAIMED" : `+${a.reward.toLocaleString()} ⎈`}</div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    function switchTab(tabName) {
-      document.querySelectorAll(".tab-view").forEach(el => el.classList.remove("active"));
-      document.getElementById(`tab-${tabName}`).classList.add("active");
-      document.querySelectorAll(".nav-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.tab === tabName);
-      });
-    }
-
-    // CUSTOM HABIT MODAL
-    function openHabitModal() {
-      const swatches = document.getElementById("color-swatches");
-      swatches.innerHTML = TILE_COLORS.map(c => `
-        <div class="swatch ${c === selectedNewColor ? "selected" : ""}"
-             style="background: ${c};"
-             onclick="pickSwatch('${c}')"></div>
-      `).join("");
-      document.getElementById("habit-modal").classList.add("open");
-    }
-
-    function pickSwatch(c) {
-      selectedNewColor = c;
-      openHabitModal();
+      modal.classList.add("open");
     }
 
     function closeHabitModal() {
       document.getElementById("habit-modal").classList.remove("open");
-      document.getElementById("new-habit-name").value = "";
     }
 
-    function createHabit() {
-      const name = document.getElementById("new-habit-name").value.trim();
-      if (!name) return;
-      state.habits.unshift({
-        id: "h_" + Date.now(),
-        name,
-        color: selectedNewColor,
-        count: 0,
-        lastLogged: null
+    function buildSwatches() {
+      const container = document.getElementById("color-swatches");
+      container.innerHTML = TILE_COLORS.map(c => `
+        <div class="swatch ${c === selectedSwatchColor ? 'selected' : ''}" style="background-color: ${c};" data-color="${c}" onclick="selectSwatch('${c}')"></div>
+      `).join("");
+    }
+
+    function selectSwatch(color) {
+      selectedSwatchColor = color;
+      document.querySelectorAll(".swatch").forEach(s => {
+        s.classList.toggle("selected", s.dataset.color === color);
       });
-      persistState();
-      renderHabits();
-      closeHabitModal();
-      showToast("Added new Earth Link tile");
     }
 
-    // GITHUB GIST CLOUD SYNC
-    function loadGistConfig() {
-      try {
-        const cfg = JSON.parse(localStorage.getItem(GIST_CFG_KEY) || "{}");
-        if (cfg.gistId) document.getElementById("gist-id-input").value = cfg.gistId;
-        if (cfg.token) document.getElementById("gist-token-input").value = cfg.token;
-        if (cfg.gistId && cfg.token) {
-          document.getElementById("sync-indicator").textContent = "Cloud Linked ✓";
+    function saveHabitTile() {
+      const nameInput = document.getElementById("new-habit-name");
+      const idInput = document.getElementById("edit-habit-id");
+      const name = nameInput.value.trim();
+      if (!name) return;
+
+      if (idInput.value) {
+        const h = gameState.habits.find(x => x.id === idInput.value);
+        if (h) {
+          h.name = name;
+          h.color = selectedSwatchColor;
         }
-      } catch (e) {}
+      } else {
+        const newHabit = {
+          id: "h_" + Date.now(),
+          name: name,
+          color: selectedSwatchColor,
+          count: 0,
+          lastLogged: null,
+          history: {}
+        };
+        gameState.habits.push(newHabit);
+      }
+
+      closeHabitModal();
+      saveGame();
+      showToast("Telemetry Tile Saved");
     }
 
-    async function saveGistConfig() {
-      const gistId = document.getElementById("gist-id-input").value.trim();
-      const token = document.getElementById("gist-token-input").value.trim();
-      localStorage.setItem(GIST_CFG_KEY, JSON.stringify({ gistId, token }));
-      if (gistId && token) {
-        document.getElementById("sync-indicator").textContent = "Cloud Linked ✓";
-        await pushToGist(true);
-      } else {
-        document.getElementById("sync-indicator").textContent = "Local Mode";
+    function deleteCurrentHabit() {
+      const id = document.getElementById("edit-habit-id").value;
+      if (id) {
+        gameState.habits = gameState.habits.filter(h => h.id !== id);
+        closeHabitModal();
+        saveGame();
+        showToast("Tile Removed");
       }
     }
 
-    async function pushToGist(manual = false) {
-      const cfg = JSON.parse(localStorage.getItem(GIST_CFG_KEY) || "{}");
-      if (!cfg.gistId || !cfg.token) return;
-      const statusEl = document.getElementById("sync-status");
+    function hexToRgb(hex) {
+      return hex; // simplified swatch matching
+    }
+
+    // TELEMETRY ANALYTICS MODAL
+    function openAnalyticsModal() {
+      const modal = document.getElementById("analytics-modal");
+      const content = document.getElementById("analytics-content");
+
+      let totalLogsAllTime = gameState.totalLogs;
+      let activeTilesCount = gameState.habits.length;
+
+      content.innerHTML = `
+        <div style="background: var(--bg-card-alt); padding: 10px; border-radius: 10px;">
+          <div style="font-weight: 800; color: var(--cyan); margin-bottom: 4px;">OPERATIONAL SUMMARY</div>
+          <div>Total Habit Logs: <strong>${totalLogsAllTime}</strong></div>
+          <div>Current Streak: <strong>${gameState.streak} Days</strong></div>
+          <div>Active Telemetry Tiles: <strong>${activeTilesCount}</strong></div>
+        </div>
+        <div style="background: var(--bg-card-alt); padding: 10px; border-radius: 10px;">
+          <div style="font-weight: 800; color: var(--emerald); margin-bottom: 4px;">WEEKLY TRAJECTORY</div>
+          <div>Efficiency Index: <strong>Optimal</strong></div>
+          <div>Average Logs / Day: <strong>${(totalLogsAllTime / Math.max(1, gameState.streak)).toFixed(1)}</strong></div>
+        </div>
+      `;
+      modal.classList.add("open");
+    }
+
+    function closeAnalyticsModal() {
+      document.getElementById("analytics-modal").classList.remove("open");
+    }
+
+    // COMMAND HUB & SHOP
+    function renderHub() {
+      // Level promotion
+      const nextLvlCost = gameState.level * 10000;
+      document.getElementById("hub-next-rank").innerText = `Promote to Level ${gameState.level + 1}`;
+      const btn = document.getElementById("lvl-up-btn");
+      btn.innerText = `${nextLvlCost.toLocaleString()} ⎈`;
+      btn.disabled = gameState.credits < nextLvlCost;
+
+      const eff = Math.min(50, (gameState.level - 1) * 0.5).toFixed(1);
+      document.getElementById("hub-eff-badge").innerText = `Decay Reduction: -${eff}%`;
+
+      // Shop
+      const shopContainer = document.getElementById("shop-container");
+      shopContainer.innerHTML = SHOP_ITEMS.map(item => {
+        const owned = gameState.ownedFurniture.includes(item.id);
+        return `
+          <div class="shop-item">
+            <div>
+              <div class="shop-item-name">${item.name}</div>
+              <div class="shop-item-perk">${item.perk}</div>
+            </div>
+            <button class="shop-buy-btn ${owned ? 'owned' : ''}" style="background: ${owned ? 'transparent' : 'var(--cyan)'};" ${owned ? 'disabled' : ''} onclick="buyItem('${item.id}', ${item.cost})">
+              ${owned ? 'INSTALLED' : `${item.cost.toLocaleString()} ⎈`}
+            </button>
+          </div>
+        `;
+      }).join("");
+
+      // Achievements
+      const achList = document.getElementById("ach-list");
+      let unlockedCount = 0;
+      achList.innerHTML = ACHIEVEMENTS.map(ach => {
+        const unlocked = gameState.unlockedAchievements.includes(ach.id);
+        if (unlocked) unlockedCount++;
+        return `
+          <div class="ach-card ${unlocked ? 'unlocked' : ''}">
+            <div>
+              <div class="ach-title">${ach.title}</div>
+              <div class="ach-desc">${ach.desc}</div>
+            </div>
+            <div class="ach-reward">+${ach.reward.toLocaleString()} ⎈</div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("ach-counter").innerText = `${unlockedCount} / ${ACHIEVEMENTS.length}`;
+    }
+
+    function levelUp() {
+      const cost = gameState.level * 10000;
+      if (gameState.credits >= cost) {
+        gameState.credits -= cost;
+        gameState.level++;
+        gameState.stardust += (gameState.ownedFurniture.includes("cmd_ai") ? 2 : 1);
+        showToast(`Promoted to Level ${gameState.level}!`);
+        saveGame();
+      }
+    }
+
+    function buyItem(itemId, cost) {
+      if (gameState.credits >= cost && !gameState.ownedFurniture.includes(itemId)) {
+        gameState.credits -= cost;
+        gameState.ownedFurniture.push(itemId);
+        showToast("Furnishing Installed!");
+        saveGame();
+      }
+    }
+
+    function checkLevelUp() {
+      const needed = gameState.level * 10000;
+      if (gameState.xp >= needed) {
+        // auto xp progress cap
+      }
+    }
+
+    function checkAchievements() {
+      ACHIEVEMENTS.forEach(ach => {
+        if (!gameState.unlockedAchievements.includes(ach.id) && ach.check(gameState)) {
+          gameState.unlockedAchievements.push(ach.id);
+          gameState.credits += ach.reward;
+          showToast(`Achievement Unlocked: ${ach.title}!`);
+        }
+      });
+    }
+
+    // GITHUB GIST CLOUD SYNC
+    function saveGistConfig() {
+      const gistId = document.getElementById("gist-id-input").value.trim();
+      const token = document.getElementById("gist-token-input").value.trim();
+      if (!gistId || !token) {
+        alert("Please enter both Gist ID and Token.");
+        return;
+      }
+      localStorage.setItem(GIST_CFG_KEY, JSON.stringify({ gistId, token }));
+      showToast("Gist Configuration Saved");
+      pullFromGist(true);
+    }
+
+    async function autoSyncGist() {
+      const cfgStr = localStorage.getItem(GIST_CFG_KEY);
+      if (!cfgStr) return;
+      const { gistId, token } = JSON.parse(cfgStr);
+      if (!gistId || !token) return;
+
       try {
-        const res = await fetch(`https://api.github.com/gists/${cfg.gistId}`, {
+        const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+          headers: { Authorization: `token ${token}` }
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        const filename = Object.keys(data.files)[0];
+        if (!filename) return;
+
+        const cloudSave = JSON.parse(data.files[filename].content);
+        // Merge cloud save if newer
+        if (cloudSave.lastTick && cloudSave.lastTick > gameState.lastTick) {
+          gameState = cloudSave;
+          renderAll();
+        }
+
+        // Push current save
+        await fetch(`https://api.github.com/gists/${gistId}`, {
           method: "PATCH",
           headers: {
-            "Authorization": `token ${cfg.token}`,
+            Authorization: `token ${token}`,
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
             files: {
-              "astra-save.json": {
-                content: JSON.stringify(state, null, 2)
+              "astra_station_save.json": {
+                content: JSON.stringify(gameState, null, 2)
               }
             }
           })
         });
-        if (res.ok) {
-          const timeStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-          statusEl.textContent = `Last cloud backup: Today at ${timeStr}`;
-          if (manual) showToast("Cloud Save Uploaded ✓");
-        } else {
-          statusEl.textContent = "Sync error: Check Gist ID or Token permissions.";
-        }
-      } catch (e) {
-        statusEl.textContent = "Offline: Saved locally on device.";
+        document.getElementById("sync-indicator").innerText = "Cloud Synced";
+      } catch(e) {
+        console.error("Auto-sync failed:", e);
       }
     }
 
-    async function pullFromGist(manual = false) {
-      const cfg = JSON.parse(localStorage.getItem(GIST_CFG_KEY) || "{}");
-      if (!cfg.gistId || !cfg.token) return;
-      const statusEl = document.getElementById("sync-status");
+    async function pullFromGist(showAlert = false) {
+      const cfgStr = localStorage.getItem(GIST_CFG_KEY);
+      if (!cfgStr) {
+        if (showAlert) alert("Please configure Gist ID and Token first.");
+        return;
+      }
+      const { gistId, token } = JSON.parse(cfgStr);
       try {
-        const res = await fetch(`https://api.github.com/gists/${cfg.gistId}`, {
-          headers: { "Authorization": `token ${cfg.token}` }
+        const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+          headers: { Authorization: `token ${token}` }
         });
-        if (!res.ok) return;
+        if (!res.ok) throw new Error("Failed to fetch Gist");
         const data = await res.json();
-        const file = data.files && (data.files["astra-save.json"] || Object.values(data.files)[0]);
-        if (file && file.content) {
-          const remoteState = JSON.parse(file.content);
-          if (remoteState && remoteState.updatedAt && (manual || remoteState.updatedAt > state.updatedAt)) {
-            state = { ...state, ...remoteState };
-            checkDailyReset();
-            persistState(true);
-            renderAll();
-            statusEl.textContent = "Cloud save restored from GitHub Gist.";
-            if (manual) showToast("Cloud Save Pulled ✓");
-          }
-        }
-      } catch (e) {}
+        const filename = Object.keys(data.files)[0];
+        const cloudSave = JSON.parse(data.files[filename].content);
+        
+        gameState = cloudSave;
+        saveGame(false);
+        renderAll();
+        if (showAlert) showToast("Pulled Cloud Save Successfully");
+      } catch(e) {
+        console.error("Pull failed:", e);
+        if (showAlert) alert("Failed to pull from Gist. Check credentials.");
+      }
     }
 
-    // AMBIENT SPACE OBSERVATION CANVAS
-    function startSpaceCanvas() {
+    // NAVIGATION
+    function switchTab(tabKey) {
+      activeTab = tabKey;
+      document.querySelectorAll(".tab-view").forEach(v => v.classList.remove("active"));
+      document.getElementById("tab-" + tabKey).classList.add("active");
+
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.tab === tabKey);
+      });
+    }
+
+    // TOAST NOTIFICATIONS
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 2500);
+    }
+
+    // SPACE CANVAS STARFIELD ANIMATION
+    (function initStarfield() {
       const canvas = document.getElementById("space-canvas");
       const ctx = canvas.getContext("2d");
-      const stars = Array.from({ length: 42 }, () => ({
+      let stars = Array.from({ length: 45 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        r: Math.random() * 1.4 + 0.4,
-        s: Math.random() * 0.35 + 0.1
+        size: Math.random() * 1.8 + 0.4,
+        speed: Math.random() * 0.3 + 0.1,
+        alpha: Math.random()
       }));
-      let shuttleX = -40;
 
-      function frame() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      function loop() {
+        ctx.fillStyle = "#04070e";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Distant gas planet
-        const grad = ctx.createRadialGradient(430, 38, 6, 430, 38, 28);
-        grad.addColorStop(0, "#38bdf8");
-        grad.addColorStop(0.6, "#1e3a8a");
-        grad.addColorStop(1, "rgba(14, 22, 40, 0)");
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(430, 38, 28, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Stars
-        ctx.fillStyle = "#e2e8f0";
-        stars.forEach(st => {
-          st.x -= st.s;
-          if (st.x < 0) st.x = canvas.width;
-          ctx.beginPath();
-          ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
-          ctx.fill();
+        stars.forEach(s => {
+          s.x -= s.speed;
+          if (s.x < 0) s.x = canvas.width;
+          ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
+          ctx.fillRect(s.x, s.y, s.size, s.size);
         });
-
-        // Passing shuttle
-        shuttleX += 0.45;
-        if (shuttleX > canvas.width + 60) shuttleX = -60;
-        ctx.fillStyle = "#00f3ff";
-        ctx.fillRect(shuttleX, 24, 14, 4);
-        ctx.fillStyle = "rgba(0, 243, 255, 0.25)";
-        ctx.fillRect(shuttleX - 16, 25, 16, 2);
-
-        requestAnimationFrame(frame);
+        requestAnimationFrame(loop);
       }
-      requestAnimationFrame(frame);
-    }
+      loop();
+    })();
 
-    function renderAll() {
-      renderHero();
-      selectZone(activeZone);
-      renderHabits();
-      renderHub();
-    }
-
-    // INIT
-    loadLocalState();
-    loadGistConfig();
-    renderAll();
-    startSpaceCanvas();
-    pullFromGist(false);
+    // INIT ON LOAD
+    window.addEventListener("DOMContentLoaded", () => {
+      loadGame();
+      const cfg = localStorage.getItem(GIST_CFG_KEY);
+      if (cfg) {
+        try {
+          const parsed = JSON.parse(cfg);
+          document.getElementById("gist-id-input").value = parsed.gistId || "";
+          document.getElementById("gist-token-input").value = parsed.token || "";
+          document.getElementById("sync-indicator").innerText = "Gist Configured";
+          pullFromGist(false);
+        } catch(e){}
+      }
+    });
   </script>
 </body>
 </html>
