@@ -15,14 +15,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Station Hull & Riveted Bezel Palette */
       --hull-dark: #090d14;
       --hull-mid: #141d2b;
       --hull-plate: #1c283b;
       --hull-highlight: #324663;
       --hull-trim: #06090f;
-      --hazard-yellow: #e09f24;
-      --hazard-black: #101318;
 
       /* Color-Coordinated Vital Phosphors */
       --v-oxygen: #38f2ff;
@@ -63,7 +60,7 @@
       display: grid;
       grid-template-rows:
         40px
-        minmax(122px, 21vh)
+        minmax(126px, 22vh)
         auto
         minmax(0, 1fr)
         56px;
@@ -214,7 +211,7 @@
     }
 
     /* =========================================================
-       2. MULTI-PANE COMMAND CENTER OBSERVATORY WINDOW
+       2. EDGE-TO-EDGE 4-PANE COMMAND OBSERVATORY WINDOW
     ========================================================= */
     .observatory-bay {
       position: relative;
@@ -294,11 +291,10 @@
     }
 
     /* =========================================================
-       3. ILLUSTRATED COLOR-CODED INSTRUMENT PANEL (6 VITALS)
+       3. COLOR-CODED 6-VITAL INSTRUMENT PANEL
     ========================================================= */
     .instrument-deck {
-      background:
-        linear-gradient(180deg, #1e2b3d 0%, #131c29 100%);
+      background: linear-gradient(180deg, #1e2b3d 0%, #131c29 100%);
       border-top: 1px solid #3b516e;
       border-bottom: 2px solid #080c12;
       padding: 5px 7px;
@@ -335,7 +331,6 @@
 
     .vital-gauge-card:hover, .vital-gauge-card.selected {
       background: rgba(28, 42, 62, 0.95);
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
     }
 
     .vg-head {
@@ -367,19 +362,9 @@
       border: 1px solid rgba(255, 255, 255, 0.14);
     }
 
-    .vg-cell {
-      background: rgba(255, 255, 255, 0.07);
-    }
-
-    .vg-cell.lit {
-      background: var(--vc, #38f2ff);
-      box-shadow: 0 0 4px var(--vc, #38f2ff);
-    }
-
-    .vg-cell.crit {
-      background: var(--crt-red);
-      box-shadow: 0 0 5px var(--crt-red);
-    }
+    .vg-cell { background: rgba(255, 255, 255, 0.07); }
+    .vg-cell.lit { background: var(--vc, #38f2ff); box-shadow: 0 0 4px var(--vc, #38f2ff); }
+    .vg-cell.crit { background: var(--crt-red); box-shadow: 0 0 5px var(--crt-red); }
 
     .vital-inspector-bar {
       margin-top: 5px;
@@ -413,9 +398,7 @@
       border: 3px solid #26364a;
       border-radius: 8px;
       padding: 2px;
-      box-shadow:
-        inset 0 0 18px #000,
-        0 2px 0 rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 0 18px #000, 0 2px 0 rgba(255, 255, 255, 0.08);
       display: flex;
       flex-direction: column;
       position: relative;
@@ -447,6 +430,8 @@
       box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.95);
       min-width: 0;
       min-height: 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .crt-screen.amber-mode {
@@ -469,6 +454,7 @@
       gap: 6px;
       width: 100%;
       min-width: 0;
+      flex-shrink: 0;
     }
 
     .term-title {
@@ -513,12 +499,86 @@
       gap: 8px;
       font-size: 12px;
       color: #ffb8bf;
+      flex-shrink: 0;
     }
 
-    /* Color-Coordinated Habit Protocol Modules */
+    /* =========================================================
+       HOME SCREEN: LARGE ILLUSTRATED STATION LOUNGE
+    ========================================================= */
+    .lounge-hero-wrap {
+      flex: 1;
+      min-height: 215px;
+      border: 2px solid #2c4459;
+      background: #050a12;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #lounge-canvas {
+      width: 100%;
+      height: 100%;
+      flex: 1;
+      display: block;
+      image-rendering: pixelated;
+    }
+
+    .lounge-hud-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 5px;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .lounge-stat-box {
+      background: rgba(10, 20, 30, 0.85);
+      border: 1px solid #234254;
+      padding: 5px 6px;
+      font-size: 11px;
+    }
+
+    .lounge-stat-box strong {
+      display: block;
+      font-size: 13px;
+      color: var(--v-power);
+      margin-top: 1px;
+    }
+
+    /* =========================================================
+       DECK 02: PROTOCOLS + TELEMETRY COMBINED
+    ========================================================= */
+    .subview-switch-bar {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    .subview-btn {
+      background: #09131c;
+      border: 1px solid #284b5c;
+      color: #7eb8c2;
+      font-family: var(--font-tech);
+      font-size: 12px;
+      padding: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .subview-btn.active {
+      background: rgba(56, 242, 255, 0.16);
+      border-color: var(--v-oxygen);
+      color: var(--v-oxygen);
+      font-weight: bold;
+    }
+
     .protocol-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
       gap: 8px;
       width: 100%;
     }
@@ -577,10 +637,42 @@
       gap: 4px;
     }
 
+    .yield-pill {
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 2px;
+      background: rgba(255, 176, 0, 0.14);
+      border: 1px solid rgba(255, 176, 0, 0.4);
+      color: var(--v-power);
+    }
+
+    .yield-pill.capped {
+      background: rgba(255, 59, 78, 0.16);
+      border-color: var(--crt-red);
+      color: #ff9aa4;
+    }
+
     .proto-controls {
       display: flex;
       gap: 5px;
       width: 100%;
+    }
+
+    .decrement-btn {
+      background: rgba(255, 176, 0, 0.12);
+      border: 1px solid #8a6214;
+      color: var(--v-power);
+      font-family: var(--font-tech);
+      font-size: 15px;
+      font-weight: bold;
+      padding: 0 11px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .decrement-btn:active {
+      background: var(--v-power);
+      color: #050505;
     }
 
     .engage-switch {
@@ -618,18 +710,37 @@
       color: #d46a78;
     }
 
-    /* Telemetry Charts & Earth Link Tiles */
-    .chart-toggle-row {
-      display: flex;
-      gap: 5px;
+    /* Telemetry Visualizations */
+    .kpi-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .kpi-card {
+      background: rgba(8, 20, 30, 0.8);
+      border: 1px solid #1f4454;
+      padding: 6px 8px;
+    }
+
+    .kpi-card span {
+      font-size: 10.5px;
+      color: #7eb8c2;
+      display: block;
+    }
+
+    .kpi-card strong {
+      font-size: 16px;
+      color: var(--v-oxygen);
     }
 
     .telemetry-bars {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(22px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(18px, 1fr));
       gap: 4px;
       align-items: end;
-      height: 92px;
+      height: 88px;
       padding: 6px;
       border: 1px solid #1f4454;
       background: rgba(0, 0, 0, 0.4);
@@ -649,15 +760,33 @@
 
     .t-bar {
       width: 100%;
-      max-width: 22px;
+      max-width: 20px;
       background: linear-gradient(180deg, #38f2ff, #167a8c);
       box-shadow: 0 0 6px rgba(56, 242, 255, 0.35);
       min-height: 3px;
     }
 
     .t-lbl {
-      font-size: 9.5px;
+      font-size: 9px;
       color: #7eb8c2;
+    }
+
+    .dist-row {
+      margin-bottom: 5px;
+      font-size: 11.5px;
+    }
+
+    .dist-track {
+      height: 7px;
+      background: #061017;
+      border: 1px solid #1e3847;
+      margin-top: 2px;
+      overflow: hidden;
+    }
+
+    .dist-fill {
+      height: 100%;
+      transition: width 0.3s ease;
     }
 
     .earth-tiles-grid {
@@ -692,7 +821,7 @@
       font-size: 11px;
       color: var(--v-power);
       letter-spacing: 0.8px;
-      margin: 6px 0 5px;
+      margin: 8px 0 5px;
       border-bottom: 1px dashed rgba(255, 176, 0, 0.3);
       padding-bottom: 2px;
     }
@@ -710,37 +839,14 @@
       width: 100%;
     }
 
-    /* Illustrated Station Lounge Canvas & Crew/Achievements */
-    .lounge-viewport-wrap {
-      border: 2px solid #2c4459;
-      background: #050a12;
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 8px;
-      position: relative;
+    .qm-tier-tag {
+      font-size: 9.5px;
+      padding: 1px 4px;
+      border: 1px solid currentColor;
+      margin-left: 4px;
     }
 
-    #lounge-canvas {
-      width: 100%;
-      height: 148px;
-      display: block;
-      image-rendering: pixelated;
-    }
-
-    .lounge-caption {
-      position: absolute;
-      bottom: 4px;
-      left: 6px;
-      right: 6px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 10px;
-      background: rgba(4, 8, 14, 0.82);
-      padding: 2px 6px;
-      border: 1px solid #294054;
-      color: #bde6ff;
-    }
-
+    /* Config / Settings Tab (Classes, Achievements, Switches, Gist) */
     .class-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -750,31 +856,34 @@
     }
 
     .class-card {
-      border: 1px solid #244757;
+      border: 1px solid #593e08;
       padding: 6px;
       cursor: pointer;
-      background: rgba(56, 242, 255, 0.04);
+      background: rgba(255, 176, 0, 0.04);
       min-width: 0;
+      color: #d9b66c;
     }
 
     .class-card.selected {
       border-color: var(--v-power);
-      background: rgba(255, 176, 0, 0.12);
-      color: var(--v-power);
+      background: rgba(255, 176, 0, 0.16);
+      color: #fff2cc;
     }
 
     .ach-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 5px;
+      margin-bottom: 8px;
     }
 
     .ach-badge {
-      border: 1px solid #25384a;
+      border: 1px solid #3d2d0d;
       padding: 5px 6px;
       font-size: 11px;
-      background: rgba(6, 12, 18, 0.7);
+      background: rgba(12, 9, 3, 0.7);
       opacity: 0.55;
+      color: #c9a763;
     }
 
     .ach-badge.unlocked {
@@ -784,12 +893,11 @@
       color: #d8ffe8;
     }
 
-    /* Hardware Switches & Gist Uplink */
     .switch-bank {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 5px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       width: 100%;
     }
 
@@ -875,7 +983,7 @@
     }
 
     /* =========================================================
-       5. BOTTOM CONSOLE HARDWARE SWITCHBANK
+       5. BOTTOM CONSOLE 4-TAB HARDWARE SWITCHBANK
     ========================================================= */
     .bottom-console-bar {
       background:
@@ -884,8 +992,8 @@
       border-top: 2px solid #384e6b;
       padding: 5px 6px;
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 5px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
       width: 100%;
       min-width: 0;
     }
@@ -897,7 +1005,7 @@
       border-radius: 4px;
       color: #a6bfd9;
       font-family: var(--font-tech);
-      font-size: 11px;
+      font-size: 11.5px;
       padding: 3px 2px;
       cursor: pointer;
       display: flex;
@@ -912,12 +1020,10 @@
       box-shadow: 0 2px 0 #05080d;
     }
 
-    .mech-btn:active {
-      transform: translateY(1px);
-    }
+    .mech-btn:active { transform: translateY(1px); }
 
     .mech-btn .cap-led {
-      width: 18px;
+      width: 20px;
       height: 3px;
       background: #2f3e4f;
       border-radius: 1px;
@@ -949,9 +1055,7 @@
       padding: 14px;
     }
 
-    #protocol-modal.open {
-      display: flex;
-    }
+    #protocol-modal.open { display: flex; }
 
     .modal-chassis {
       width: 100%;
@@ -969,9 +1073,7 @@
       color: var(--v-oxygen);
     }
 
-    .modal-field {
-      margin-bottom: 10px;
-    }
+    .modal-field { margin-bottom: 10px; }
 
     .modal-field label {
       display: block;
@@ -991,12 +1093,8 @@
     }
 
     @media (max-width: 540px) {
-      .protocol-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .hide-xs {
-        display: none !important;
-      }
+      .protocol-grid { grid-template-columns: minmax(0, 1fr); }
+      .hide-xs { display: none !important; }
     }
   </style>
 </head>
@@ -1033,7 +1131,7 @@
     </header>
 
     <!-- =======================================================
-         2. ILLUSTRATED MULTI-PANE COMMAND OBSERVATORY WINDOW
+         2. EDGE-TO-EDGE 4-PANE COMMAND OBSERVATORY WINDOW
     ======================================================= -->
     <section class="observatory-bay">
       <canvas id="space-canvas"></canvas>
@@ -1044,6 +1142,7 @@
         </div>
         <div class="viewport-lever-box">
           <button class="lever-btn active" id="btn-view-orbit" onclick="setViewportMode('orbit')">CANOPY</button>
+          <button class="lever-btn" id="btn-view-traj" onclick="setViewportMode('traj')">TRAJ</button>
           <button class="lever-btn" id="btn-view-radar" onclick="setViewportMode('radar')">SCANNER</button>
         </div>
       </div>
@@ -1057,7 +1156,7 @@
         <div class="vitals-matrix" id="vitals-matrix"></div>
         <div class="vital-inspector-bar" id="vital-inspector">
           <span>TAP ANY SUBSYSTEM GAUGE TO INSPECT DIAGNOSTICS</span>
-          <span id="decay-badge" style="color:var(--v-power);">DECAY: 3.0%/HR</span>
+          <span style="color:var(--v-power);">3.0%/HR</span>
         </div>
       </div>
     </section>
@@ -1072,28 +1171,24 @@
     </main>
 
     <!-- =======================================================
-         5. BOTTOM CONSOLE HARDWARE SWITCHBANK
+         5. BOTTOM CONSOLE 4-TAB HARDWARE SWITCHBANK
     ======================================================= -->
     <nav class="bottom-console-bar">
-      <button class="mech-btn active" id="tab-protocols" onclick="switchDeck('protocols')">
+      <button class="mech-btn active" id="tab-home" onclick="switchDeck('home')">
         <span class="cap-led"></span>
-        <span>01 PROTO</span>
+        <span>01 HOME</span>
       </button>
-      <button class="mech-btn" id="tab-telemetry" onclick="switchDeck('telemetry')">
+      <button class="mech-btn" id="tab-protocols" onclick="switchDeck('protocols')">
         <span class="cap-led"></span>
-        <span>02 TELEM</span>
+        <span>02 PROTO</span>
       </button>
       <button class="mech-btn" id="tab-quartermaster" onclick="switchDeck('quartermaster')">
         <span class="cap-led"></span>
         <span>03 SUPPLY</span>
       </button>
-      <button class="mech-btn" id="tab-lounge" onclick="switchDeck('lounge')">
+      <button class="mech-btn" id="tab-config" onclick="switchDeck('config')">
         <span class="cap-led"></span>
-        <span>04 LOUNGE</span>
-      </button>
-      <button class="mech-btn" id="tab-uplink" onclick="switchDeck('uplink')">
-        <span class="cap-led"></span>
-        <span>05 UPLINK</span>
+        <span>04 CONFIG</span>
       </button>
     </nav>
   </div>
@@ -1131,7 +1226,7 @@
 
   <script>
     /* =========================================================
-       1. SUBSYSTEM METADATA & COLOR COORDINATION SCHEMA
+       1. SUBSYSTEM METADATA & EXPANDED LONG-TERM CATALOGS
     ========================================================= */
     const VITAL_META = {
       oxygen:  { label: 'OXYGEN',  icon: '◈', color: '#38f2ff', role: 'Life Support & Hydration', desc: 'Charged by water, fresh air, and breathing protocols.' },
@@ -1143,28 +1238,47 @@
     };
 
     const LOUNGE_CATALOG = [
-      { id: 'furn-espresso', name: 'Galley Espresso Synthesizer', vital: 'power', cost: 80, desc: 'Permanent Lounge Brew Bar (+2⎈ bonus on Power logs).' },
-      { id: 'furn-fern',     name: 'Hydroponic Terrarium Pod',    vital: 'bio',   cost: 95, desc: 'Living greenery unit in Lounge (+2⎈ bonus on Bio logs).' },
-      { id: 'furn-arcade',   name: 'Retro CRT Arcade Cabinet',    vital: 'morale',cost: 120, desc: 'Playable 16-bit cabinet in Lounge (+3⎈ on Morale logs).' },
-      { id: 'furn-hifi',     name: 'Reel-to-Reel Hi-Fi Deck',     vital: 'morale',cost: 140, desc: 'Analog audio console for the Lounge deck.' },
-      { id: 'furn-cat',      name: 'Zero-G Station Cat & Bed',    vital: 'earth', cost: 160, desc: 'Adopts an orange tabby mascot who roams your Lounge.' },
-      { id: 'furn-starmap',  name: 'Holographic Star Projector',  vital: 'oxygen',cost: 180, desc: 'Projects orbital constellations across the Lounge ceiling.' }
+      { id: 'furn-espresso', name: 'Galley Espresso Bar',        tier: 'TIER I',   vital: 'power',   cost: 150,  desc: 'Permanent Lounge espresso rig (+1⎈ on Power logs).' },
+      { id: 'furn-rug',      name: 'Woven Orbital Deck Rug',     tier: 'TIER I',   vital: 'morale',  cost: 220,  desc: 'Insulated geometric deck runner for the crew habitat.' },
+      { id: 'furn-fern',     name: 'Hydroponic Terrarium Pod',   tier: 'TIER I',   vital: 'bio',     cost: 300,  desc: 'Living greenery unit (+1⎈ on Bio logs).' },
+      { id: 'furn-books',    name: 'Speculative Micro-Library',  tier: 'TIER II',  vital: 'morale',  cost: 450,  desc: 'Wall-mounted sci-fi & dark academia archive shelf.' },
+      { id: 'furn-hifi',     name: 'Reel-to-Reel Hi-Fi Deck',    tier: 'TIER II',  vital: 'morale',  cost: 620,  desc: 'Analog tape console with twin VU meters.' },
+      { id: 'furn-aquarium', name: 'Zero-G Jellyfish Tank',      tier: 'TIER II',  vital: 'oxygen',  cost: 800,  desc: 'Bioluminescent pelagic cylinder tank.' },
+      { id: 'furn-arcade',   name: 'Retro CRT Arcade Cabinet',   tier: 'TIER III', vital: 'morale',  cost: 1050, desc: 'Playable 16-bit cabinet in Lounge (+2⎈ on Morale logs).' },
+      { id: 'furn-press',    name: 'Manual Screen-Print Press',  tier: 'TIER III', vital: 'morale',  cost: 1350, desc: 'Custom silk-screen printmaking table & drying rack.' },
+      { id: 'furn-cat',      name: 'Zero-G Tabby Cat & Pod',     tier: 'TIER III', vital: 'earth',   cost: 1700, desc: 'Adopts an orange station cat who lounges by the window.' },
+      { id: 'furn-starmap',  name: 'Holographic Star Projector', tier: 'TIER IV',  vital: 'oxygen',  cost: 2200, desc: 'Projects live constellation telemetry across the Lounge.' },
+      { id: 'furn-bonsai',   name: 'Ancient Nebula Bonsai',      tier: 'TIER IV',  vital: 'bio',     cost: 2800, desc: 'Centuries-old miniature pine in a levitating planter.' },
+      { id: 'furn-server',   name: 'Aux NAS Cryo-Rack',          tier: 'TIER V',   vital: 'shields', cost: 3600, desc: 'Dedicated self-hosted home-lab node inside the Lounge.' },
+      { id: 'furn-observ',   name: 'Brass Deep-Space Telescope', tier: 'TIER V',   vital: 'earth',   cost: 4500, desc: 'Precision optical refractor aimed through the Lounge dome.' }
     ];
 
     const CONSUMABLE_CATALOG = [
-      { id: 'boost-o2',      name: 'Emergency O2 Canister',       vital: 'oxygen',  cost: 45, desc: 'Instantly restores +35% OXYGEN.' },
-      { id: 'boost-core',    name: 'Fusion Fuel Cell',          vital: 'power',   cost: 45, desc: 'Instantly restores +35% POWER.' },
-      { id: 'boost-shields', name: 'Capacitor Shield Burst',    vital: 'shields', cost: 45, desc: 'Instantly restores +35% SHIELDS.' },
-      { id: 'boost-rations', name: 'Gourmet Galley Ration Pack',  vital: 'bio',     cost: 55, desc: 'Instantly restores +30% BIO & +25% MORALE.' }
+      { id: 'boost-o2',      name: 'Emergency O2 Canister',      vital: 'oxygen',  cost: 65, desc: 'Instantly restores +35% OXYGEN.' },
+      { id: 'boost-core',    name: 'Fusion Fuel Cell',         vital: 'power',   cost: 65, desc: 'Instantly restores +35% POWER.' },
+      { id: 'boost-shields', name: 'Capacitor Shield Burst',   vital: 'shields', cost: 65, desc: 'Instantly restores +35% SHIELDS.' },
+      { id: 'boost-rations', name: 'Gourmet Galley Ration Pack', vital: 'bio',     cost: 80, desc: 'Instantly restores +30% BIO & +25% MORALE.' }
     ];
 
     const ACHIEVEMENTS_LIST = [
-      { id: 'first-orbit',   name: 'First Orbit',      desc: 'Initialize Astra Station Command Bridge.', check: () => true },
-      { id: 'proto-5',       name: 'Deck Officer',     desc: 'Execute 5 total habit protocols.',         check: s => totalLogsCount(s) >= 5 },
-      { id: 'proto-25',      name: 'Veteran Commander',desc: 'Execute 25 total habit protocols.',        check: s => totalLogsCount(s) >= 25 },
-      { id: 'rich-500',      name: 'Quartermaster Vault', desc: 'Hold 500⎈ or more station credits.',    check: s => s.credits >= 500 },
-      { id: 'lounge-2',      name: 'Interior Designer',desc: 'Install 2+ furnishings in Station Lounge.',check: s => (s.ownedItems || []).filter(i => i.startsWith('furn-')).length >= 2 },
-      { id: 'all-high',      name: 'Peak Resonance',   desc: 'Keep all 6 vitals above 80% simultaneously.', check: s => Object.values(s.vitals).every(v => v >= 80) }
+      { id: 'first-orbit', name: 'First Orbit',         rarity: 'COMMON',    color: '#38f2ff', desc: 'Initialize Astra Station Command Bridge.',      check: () => true },
+      { id: 'proto-10',    name: 'Deck Cadet',          rarity: 'COMMON',    color: '#38f2ff', desc: 'Execute 10 total habit protocols.',            check: s => totalLogsCount(s) >= 10 },
+      { id: 'proto-50',    name: 'Watch Officer',       rarity: 'UNCOMMON',  color: '#3dff8b', desc: 'Execute 50 total habit protocols.',            check: s => totalLogsCount(s) >= 50 },
+      { id: 'proto-150',   name: 'Flight Commander',    rarity: 'RARE',      color: '#6ea8ff', desc: 'Execute 150 total habit protocols.',           check: s => totalLogsCount(s) >= 150 },
+      { id: 'proto-500',   name: 'Orbital Veteran',     rarity: 'EPIC',      color: '#ff6ec7', desc: 'Execute 500 total habit protocols.',           check: s => totalLogsCount(s) >= 500 },
+      { id: 'proto-1500',  name: 'Deep Space Legend',   rarity: 'MYTHIC',    color: '#ffb000', desc: 'Execute 1,500 lifetime habit protocols.',      check: s => totalLogsCount(s) >= 1500 },
+      { id: 'streak-7',    name: '7-Day Orbit',         rarity: 'UNCOMMON',  color: '#3dff8b', desc: 'Log protocols on 7 distinct calendar days.',   check: s => uniqueActiveDays(s) >= 7 },
+      { id: 'streak-30',   name: 'Lunar Cycle',         rarity: 'RARE',      color: '#6ea8ff', desc: 'Log protocols on 30 distinct calendar days.',  check: s => uniqueActiveDays(s) >= 30 },
+      { id: 'streak-90',   name: 'Quarter-Year Tour',   rarity: 'EPIC',      color: '#ff6ec7', desc: 'Log protocols on 90 distinct calendar days.',  check: s => uniqueActiveDays(s) >= 90 },
+      { id: 'streak-180',  name: 'Half-Year Expedition',rarity: 'LEGENDARY', color: '#b388ff', desc: 'Log protocols on 180 distinct calendar days.', check: s => uniqueActiveDays(s) >= 180 },
+      { id: 'streak-365',  name: 'Solar Revolution',    rarity: 'MYTHIC',    color: '#ffb000', desc: 'Log protocols on 365 distinct calendar days.', check: s => uniqueActiveDays(s) >= 365 },
+      { id: 'lvl-5',       name: 'Senior Lieutenant',   rarity: 'UNCOMMON',  color: '#3dff8b', desc: 'Reach Commander Level 5.',                     check: s => s.level >= 5 },
+      { id: 'lvl-15',      name: 'Station Captain',     rarity: 'EPIC',      color: '#ff6ec7', desc: 'Reach Commander Level 15.',                    check: s => s.level >= 15 },
+      { id: 'lvl-30',      name: 'Fleet Admiral',       rarity: 'MYTHIC',    color: '#ffb000', desc: 'Reach Commander Level 30.',                    check: s => s.level >= 30 },
+      { id: 'lounge-4',    name: 'Habitation Architect',rarity: 'RARE',      color: '#6ea8ff', desc: 'Install 4+ Lounge furnishings.',              check: s => ownedFurnitureCount(s) >= 4 },
+      { id: 'lounge-9',    name: 'Curator of LEO',      rarity: 'EPIC',      color: '#ff6ec7', desc: 'Install 9+ Lounge furnishings.',              check: s => ownedFurnitureCount(s) >= 9 },
+      { id: 'lounge-all',  name: 'Grand Luxury Suite',  rarity: 'MYTHIC',    color: '#ffb000', desc: 'Collect all 13 Lounge furnishings.',           check: s => ownedFurnitureCount(s) >= LOUNGE_CATALOG.length },
+      { id: 'balanced-6',  name: 'Harmonic Equilibrium',rarity: 'RARE',      color: '#b388ff', desc: 'Log all 6 subsystems at least once today.',    check: s => subsystemsLoggedToday(s) >= 6 }
     ];
 
     const HAZARDS_POOL = [
@@ -1174,7 +1288,7 @@
     ];
 
     /* =========================================================
-       2. PERSISTENCE & GAME STATE ENGINE (v3 / v4 COMPATIBLE)
+       2. PERSISTENCE, LEVEL CURVE & DIMINISHING RETURNS
     ========================================================= */
     const STORAGE_KEY = 'astra_station_save_v4';
     const LEGACY_KEY = 'astra_station_save_v3';
@@ -1184,7 +1298,7 @@
     const DEFAULT_STATE = {
       level: 1,
       xp: 0,
-      credits: 120,
+      credits: 150,
       playerClass: 'Flight Engineer',
       lastDecayTimestamp: Date.now(),
       vitals: {
@@ -1196,12 +1310,12 @@
         earth: 78
       },
       habits: [
-        { id: 'h1', name: 'Hydro-Ration Cycle (2L Water)', vital: 'oxygen', count: 4, lastLogged: null, history: {} },
-        { id: 'h2', name: 'Deep Systems Focus Block', vital: 'power', count: 5, lastLogged: null, history: {} },
-        { id: 'h3', name: 'Hull & Quarters Maintenance', vital: 'shields', count: 2, lastLogged: null, history: {} },
-        { id: 'h4', name: 'Protein & Galley Prep', vital: 'bio', count: 3, lastLogged: null, history: {} },
-        { id: 'h5', name: 'Analog Craft / Analog Audio', vital: 'morale', count: 2, lastLogged: null, history: {} },
-        { id: 'h6', name: 'Earth Subspace Comms Check-In', vital: 'earth', count: 1, lastLogged: null, history: {} }
+        { id: 'h1', name: 'Hydro-Ration Cycle (2L Water)', vital: 'oxygen', count: 0, lastLogged: null, history: {} },
+        { id: 'h2', name: 'Deep Systems Focus Block', vital: 'power', count: 0, lastLogged: null, history: {} },
+        { id: 'h3', name: 'Hull & Quarters Maintenance', vital: 'shields', count: 0, lastLogged: null, history: {} },
+        { id: 'h4', name: 'Protein & Galley Prep', vital: 'bio', count: 0, lastLogged: null, history: {} },
+        { id: 'h5', name: 'Analog Craft / Analog Audio', vital: 'morale', count: 0, lastLogged: null, history: {} },
+        { id: 'h6', name: 'Earth Subspace Comms Check-In', vital: 'earth', count: 0, lastLogged: null, history: {} }
       ],
       ownedItems: ['furn-espresso'],
       achievements: ['first-orbit'],
@@ -1213,23 +1327,56 @@
         { label: 'SIGNAL GAIN', value: '98.4% LOCK' }
       ],
       logs: [
-        `[${new Date().toLocaleTimeString()}] ASTRA BRIDGE v3 MULTI-PANE ONLINE.`
+        `[${new Date().toLocaleTimeString()}] ASTRA BRIDGE v3 ONLINE.`
       ]
     };
 
     let gameState = loadGameState();
-    let activeDeck = 'protocols';
+    let activeDeck = 'home';
+    let protoSubView = 'tallies'; // 'tallies' | 'telemetry'
     let selectedVital = 'oxygen';
     let chartRange = '7d';
-    let viewportMode = 'orbit';
-    let hwPrefs = {
-      scanlines: true,
-      audio: true,
-      dimmer: false
-    };
+    let viewportMode = 'orbit'; // 'orbit' | 'traj' | 'radar'
+    let hwPrefs = { scanlines: true, audio: true, dimmer: false };
+
+    function xpRequiredForLevel(lvl) {
+      return Math.floor(150 * Math.pow(lvl, 1.45));
+    }
+
+    // Diminishing returns multiplier based on how many times THIS habit was already logged today
+    function getDiminishingTier(todayCount) {
+      if (todayCount < 2)  return { mult: 1.00, label: '100% YIELD', capped: false };
+      if (todayCount < 5)  return { mult: 0.40, label: '40% YIELD',  capped: false };
+      if (todayCount < 8)  return { mult: 0.15, label: '15% YIELD',  capped: false };
+      if (todayCount < 10) return { mult: 0.05, label: '5% YIELD',   capped: false };
+      return                      { mult: 0.00, label: 'DAILY CAP',  capped: true };
+    }
 
     function totalLogsCount(state = gameState) {
       return (state.habits || []).reduce((sum, h) => sum + (h.count || 0), 0);
+    }
+
+    function ownedFurnitureCount(state = gameState) {
+      return (state.ownedItems || []).filter(id => LOUNGE_CATALOG.some(f => f.id === id)).length;
+    }
+
+    function uniqueActiveDays(state = gameState) {
+      const days = new Set();
+      (state.habits || []).forEach(h => {
+        if (h.history) {
+          Object.entries(h.history).forEach(([k, v]) => { if (v > 0) days.add(k); });
+        }
+      });
+      return days.size;
+    }
+
+    function subsystemsLoggedToday(state = gameState) {
+      const day = todayKey();
+      const set = new Set();
+      (state.habits || []).forEach(h => {
+        if (h.history && h.history[day] > 0 && h.vital) set.add(h.vital);
+      });
+      return set.size;
     }
 
     function loadGameState() {
@@ -1248,7 +1395,6 @@
           logs: Array.isArray(parsed.logs) ? parsed.logs.slice(0, 40) : structuredClone(DEFAULT_STATE.logs)
         };
       } catch (e) {
-        console.error('Save load failed:', e);
         return structuredClone(DEFAULT_STATE);
       }
     }
@@ -1277,7 +1423,7 @@
     function appendLog(msg) {
       const stamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       gameState.logs.unshift(`[${stamp}] ${msg}`);
-      if (gameState.logs.length > 35) gameState.logs.pop();
+      if (gameState.logs.length > 40) gameState.logs.pop();
     }
 
     /* =========================================================
@@ -1302,10 +1448,8 @@
       }
     }
 
-    function triggerHazard(forcedId = null) {
-      const h = forcedId
-        ? HAZARDS_POOL.find(x => x.id === forcedId) || HAZARDS_POOL[0]
-        : HAZARDS_POOL[Math.floor(Math.random() * HAZARDS_POOL.length)];
+    function triggerHazard() {
+      const h = HAZARDS_POOL[Math.floor(Math.random() * HAZARDS_POOL.length)];
       gameState.activeHazard = { ...h, triggeredAt: Date.now() };
       gameState.vitals[h.vital] = Math.max(0, +(gameState.vitals[h.vital] - h.dmg).toFixed(1));
       playClick(220, 0.16, 'sawtooth');
@@ -1313,6 +1457,7 @@
       saveGameState();
       renderVitalsMatrix();
       renderMainCRT();
+      if (activeDeck === 'home') requestAnimationFrame(drawLoungeScene);
     }
 
     /* =========================================================
@@ -1337,7 +1482,7 @@
     }
 
     /* =========================================================
-       5. HABIT PROTOCOL ENGAGEMENT & CRUD
+       5. HABIT PROTOCOL ENGAGEMENT, DECREMENT & CRUD
     ========================================================= */
     function resolveHabitVital(habit) {
       if (habit.vital && VITAL_META[habit.vital]) return habit.vital;
@@ -1346,49 +1491,94 @@
       );
     }
 
+    function computeRewardForHabit(habit, todayCountBefore) {
+      const vKey = resolveHabitVital(habit);
+      const tier = getDiminishingTier(todayCountBefore);
+      const hasFurnBonus = gameState.ownedItems.some(id => {
+        const item = LOUNGE_CATALOG.find(f => f.id === id);
+        return item && item.vital === vKey;
+      });
+      const baseCredits = (gameState.playerClass === 'Quartermaster' ? 18 : 12) + (hasFurnBonus ? 2 : 0);
+      const baseXp = gameState.playerClass === 'Flight Engineer' ? 30 : 24;
+
+      const credits = tier.capped ? 0 : Math.max(tier.mult > 0 ? 1 : 0, Math.round(baseCredits * tier.mult));
+      const xp = tier.capped ? 0 : Math.max(tier.mult > 0 ? 1 : 0, Math.round(baseXp * tier.mult));
+      const vitalBoost = tier.capped ? 2 : Math.max(3, Math.round(15 * tier.mult));
+      return { credits, xp, vitalBoost, tier, vKey };
+    }
+
     function engageProtocol(habitId) {
       const habit = gameState.habits.find(h => h.id === habitId);
       if (!habit) return;
 
       playClick(680, 0.06, 'triangle');
       const day = todayKey();
+      habit.history = habit.history || {};
+      const prevToday = habit.history[day] || 0;
+      const { credits, xp, vitalBoost, tier, vKey } = computeRewardForHabit(habit, prevToday);
+
       habit.count = (habit.count || 0) + 1;
       habit.lastLogged = Date.now();
-      habit.history = habit.history || {};
-      habit.history[day] = (habit.history[day] || 0) + 1;
+      habit.history[day] = prevToday + 1;
 
-      const vKey = resolveHabitVital(habit);
       selectedVital = vKey;
-      gameState.vitals[vKey] = Math.min(100, +(gameState.vitals[vKey] + 15).toFixed(1));
+      gameState.vitals[vKey] = Math.min(100, +(gameState.vitals[vKey] + vitalBoost).toFixed(1));
 
-      // Clear matching hazard if active
       let hazardMsg = '';
       if (gameState.activeHazard && gameState.activeHazard.vital === vKey) {
         hazardMsg = ` // ${gameState.activeHazard.title} RESOLVED!`;
         gameState.activeHazard = null;
       }
 
-      // Furnishings & Class bonuses
-      const hasFurnBonus = gameState.ownedItems.some(id => {
-        const item = LOUNGE_CATALOG.find(f => f.id === id);
-        return item && item.vital === vKey;
-      });
-      const creditBonus = (gameState.playerClass === 'Quartermaster' ? 18 : 12) + (hasFurnBonus ? 2 : 0);
-      const xpGain = gameState.playerClass === 'Flight Engineer' ? 30 : 25;
+      gameState.credits += credits;
+      gameState.xp += xp;
 
-      gameState.credits += creditBonus;
-      gameState.xp += xpGain;
-
-      const xpNeeded = gameState.level * 100;
-      if (gameState.xp >= xpNeeded) {
-        gameState.xp -= xpNeeded;
+      let needed = xpRequiredForLevel(gameState.level);
+      while (gameState.xp >= needed) {
+        gameState.xp -= needed;
         gameState.level += 1;
+        needed = xpRequiredForLevel(gameState.level);
         playClick(880, 0.14, 'square');
         appendLog(`PROMOTION! COMMANDER LEVEL ${gameState.level}${hazardMsg}`);
+      }
+      if (xp > 0 || credits > 0) {
+        appendLog(`${habit.name} [${tier.label}]: +${vitalBoost}% ${VITAL_META[vKey].label}, +${xp}XP, +${credits}⎈${hazardMsg}`);
       } else {
-        appendLog(`${habit.name}: +15% ${VITAL_META[vKey].label}, +${xpGain}XP, +${creditBonus}⎈${hazardMsg}`);
+        appendLog(`${habit.name} [DAILY CAP]: Tally +1 (+${vitalBoost}% ${VITAL_META[vKey].label}, 0⎈)${hazardMsg}`);
       }
 
+      saveGameState();
+      renderVitalsMatrix();
+      renderMainCRT();
+    }
+
+    function decrementProtocol(habitId) {
+      const habit = gameState.habits.find(h => h.id === habitId);
+      if (!habit) return;
+
+      const day = todayKey();
+      habit.history = habit.history || {};
+      const curToday = habit.history[day] || 0;
+
+      if (curToday <= 0 && (habit.count || 0) <= 0) {
+        playClick(200, 0.05);
+        return;
+      }
+
+      playClick(340, 0.05, 'sawtooth');
+      const countBeforeLastLog = Math.max(0, curToday - 1);
+      const { credits, xp, vitalBoost, vKey } = computeRewardForHabit(habit, countBeforeLastLog);
+
+      if (curToday > 0) {
+        habit.history[day] = curToday - 1;
+      }
+      habit.count = Math.max(0, (habit.count || 0) - 1);
+
+      gameState.vitals[vKey] = Math.max(0, +(gameState.vitals[vKey] - vitalBoost).toFixed(1));
+      gameState.credits = Math.max(0, gameState.credits - credits);
+      gameState.xp = Math.max(0, gameState.xp - xp);
+
+      appendLog(`REVERTED: ${habit.name} (-1 tally, -${credits}⎈, -${xp}XP)`);
       saveGameState();
       renderVitalsMatrix();
       renderMainCRT();
@@ -1518,6 +1708,9 @@
       if (gameState.activeHazard) {
         tag.className = 'viewport-tag hazard-active';
         tag.textContent = `⚠ ${gameState.activeHazard.title} // CHARGE ${gameState.activeHazard.vital.toUpperCase()}`;
+      } else if (viewportMode === 'traj') {
+        tag.className = 'viewport-tag';
+        tag.textContent = `ARTEMIS-ASTRA TRAJECTORY // LEG ${Math.min(10, gameState.level)} OF 10`;
       } else {
         tag.className = 'viewport-tag';
         tag.textContent = 'SECTOR 07 // ALL HULL SEALS NOMINAL';
@@ -1525,7 +1718,7 @@
     }
 
     /* =========================================================
-       7. PRIMARY CRT DECK VIEWS
+       7. PRIMARY CRT DECK VIEWS (01 HOME, 02 PROTO, 03 SUPPLY, 04 CONFIG)
     ========================================================= */
     function switchDeck(deck) {
       playClick(490, 0.04);
@@ -1534,105 +1727,216 @@
       const btn = document.getElementById('tab-' + deck);
       if (btn) btn.classList.add('active');
       renderMainCRT();
-      if (deck === 'lounge') requestAnimationFrame(drawLoungeScene);
+      if (deck === 'home') requestAnimationFrame(drawLoungeScene);
+    }
+
+    function setProtoSubView(view) {
+      playClick(520, 0.03);
+      protoSubView = view;
+      renderMainCRT();
     }
 
     function renderMainCRT() {
       const crt = document.getElementById('main-crt');
       const today = todayKey();
-      crt.classList.toggle('amber-mode', activeDeck === 'uplink');
+      crt.classList.toggle('amber-mode', activeDeck === 'config');
 
-      if (activeDeck === 'protocols') {
+      /* -------------------------------------------------------
+         DECK 01: HOME (LARGE ILLUSTRATED STATION LOUNGE)
+      ------------------------------------------------------- */
+      if (activeDeck === 'home') {
+        const ownedCount = ownedFurnitureCount();
+        const unlockedAch = gameState.achievements.length;
+        const avgVital = Math.round(Object.values(gameState.vitals).reduce((a, b) => a + b, 0) / 6);
+
         const hazardHtml = gameState.activeHazard ? `
           <div class="hazard-banner">
             <div>
-              <strong>⚠ ${gameState.activeHazard.title}</strong><br/>
-              <span>${gameState.activeHazard.desc}</span>
+              <strong>⚠ ${gameState.activeHazard.title}</strong> — ${gameState.activeHazard.desc}
             </div>
-            <span style="color:var(--crt-red); font-weight:bold; flex-shrink:0;">-${gameState.activeHazard.dmg}%</span>
+            <button class="term-action-btn" style="border-color:var(--crt-red); color:#ffb8bf;" onclick="switchDeck('protocols')">RESPOND</button>
           </div>
         ` : '';
 
-        const cards = gameState.habits.map(h => {
-          const vKey = resolveHabitVital(h);
-          const meta = VITAL_META[vKey];
-          const todayCount = (h.history && h.history[today]) || 0;
-          const isUnassigned = !h.vital || !VITAL_META[h.vital];
-          return `
-            <div class="protocol-module ${todayCount > 0 ? 'logged-today' : ''}" style="--vc:${meta.color}">
-              <div class="proto-top">
-                <div class="proto-name">${h.name}</div>
-                <span class="proto-vital-badge">${meta.icon} ${isUnassigned ? 'AUTO:' + meta.label : meta.label}</span>
-              </div>
-              <div class="proto-effect-line">
-                <span>EFFECT: <strong style="color:${meta.color}">+15% ${meta.label}</strong> &amp; +12⎈</span>
-                <span>TODAY: <strong>${todayCount}x</strong> · TOTAL: <strong>${h.count || 0}</strong></span>
-              </div>
-              <div class="proto-controls">
-                <button class="engage-switch" onclick="engageProtocol('${h.id}')">[ ENGAGE +15% ${meta.label} ]</button>
-                <button class="icon-sq-btn" title="Edit / Assign Vital" onclick="openProtocolModal('${h.id}')">✎</button>
-                <button class="icon-sq-btn del" title="Remove" onclick="deleteProtocol('${h.id}')">✕</button>
-              </div>
-            </div>
-          `;
-        }).join('');
-
         crt.innerHTML = `
           <div class="term-toolbar">
-            <span class="term-title">DECK 01 // COLOR-CODED PROTOCOLS</span>
-            <button class="term-action-btn" onclick="openProtocolModal()">+ NEW</button>
+            <span class="term-title">DECK 01 // STATION LOUNGE</span>
+            <span style="font-size:11px; color:var(--v-power);">${gameState.playerClass.toUpperCase()}</span>
           </div>
           ${hazardHtml}
-          <div class="protocol-grid">${cards}</div>
-        `;
-      } else if (activeDeck === 'telemetry') {
-        const numDays = chartRange === '30d' ? 14 : 7;
-        const days = [];
-        for (let i = numDays - 1; i >= 0; i--) {
-          const d = new Date();
-          d.setDate(d.getDate() - i);
-          const key = d.toISOString().slice(0, 10);
-          let total = 0;
-          gameState.habits.forEach(h => {
-            if (h.history && h.history[key]) total += h.history[key];
-          });
-          days.push({ label: key.slice(8), total });
-        }
-        const maxVal = Math.max(4, ...days.map(d => d.total));
-        const bars = days.map(d => {
-          const pct = Math.round((d.total / maxVal) * 64);
-          return `
-            <div class="t-col">
-              <span style="font-size:9.5px;">${d.total}</span>
-              <div class="t-bar" style="height:${pct}px"></div>
-              <span class="t-lbl">${d.label}</span>
-            </div>
-          `;
-        }).join('');
-
-        const tilesHtml = gameState.earthTiles.map((tile, idx) => `
-          <div class="earth-tile" onclick="editEarthTile(${idx})">
-            <div style="font-size:10px; color:#b388ff;">${tile.label} ✎</div>
-            <div style="font-size:13px; color:#fff; margin-top:2px;">${tile.value}</div>
+          <div class="lounge-hero-wrap">
+            <canvas id="lounge-canvas" width="360" height="220"></canvas>
           </div>
-        `).join('');
+          <div class="lounge-hud-strip">
+            <div class="lounge-stat-box">
+              <span>LOUNGE GEAR</span>
+              <strong>${ownedCount} / ${LOUNGE_CATALOG.length}</strong>
+            </div>
+            <div class="lounge-stat-box">
+              <span>BADGE BOARD</span>
+              <strong style="color:var(--v-bio);">${unlockedAch} / ${ACHIEVEMENTS_LIST.length}</strong>
+            </div>
+            <div class="lounge-stat-box">
+              <span>HULL INTEGRITY</span>
+              <strong style="color:var(--v-oxygen);">${avgVital}% AVG</strong>
+            </div>
+          </div>
+        `;
+        requestAnimationFrame(drawLoungeScene);
 
-        const logsHtml = gameState.logs.map(l => `<div class="log-entry">&gt; ${l}</div>`).join('');
-
-        crt.innerHTML = `
+      /* -------------------------------------------------------
+         DECK 02: PROTOCOLS (TALLY TILES <-> TELEMETRY TOGGLE)
+      ------------------------------------------------------- */
+      } else if (activeDeck === 'protocols') {
+        const toggleBar = `
           <div class="term-toolbar">
-            <span class="term-title">DECK 02 // TELEMETRY &amp; EARTH LINK</span>
-            <div class="chart-toggle-row">
-              <button class="lever-btn ${chartRange === '7d' ? 'active' : ''}" onclick="setChartRange('7d')">7D</button>
-              <button class="lever-btn ${chartRange === '30d' ? 'active' : ''}" onclick="setChartRange('30d')">14D</button>
-            </div>
+            <span class="term-title">DECK 02 // ${protoSubView === 'tallies' ? 'HABIT PROTOCOLS' : 'TELEMETRY ANALYTICS'}</span>
+            ${protoSubView === 'tallies'
+              ? `<button class="term-action-btn" onclick="openProtocolModal()">+ NEW</button>`
+              : `<div class="chart-toggle-row">
+                   <button class="lever-btn ${chartRange === '7d' ? 'active' : ''}" onclick="setChartRange('7d')">7D</button>
+                   <button class="lever-btn ${chartRange === '30d' ? 'active' : ''}" onclick="setChartRange('30d')">14D</button>
+                 </div>`
+            }
           </div>
-          <div class="telemetry-bars">${bars}</div>
-          <div class="section-subhead" style="color:#b388ff;">EARTH LINK TELEMETRY TILES (TAP TO EDIT)</div>
-          <div class="earth-tiles-grid">${tilesHtml}</div>
-          <div class="section-subhead">STATION EVENT LOG (${totalLogsCount()} TOTAL EXECUTIONS)</div>
-          <div class="log-stream">${logsHtml}</div>
+          <div class="subview-switch-bar">
+            <button class="subview-btn ${protoSubView === 'tallies' ? 'active' : ''}" onclick="setProtoSubView('tallies')">
+              [ 01 TALLY PROTOCOLS ]
+            </button>
+            <button class="subview-btn ${protoSubView === 'telemetry' ? 'active' : ''}" onclick="setProtoSubView('telemetry')">
+              [ 02 TELEMETRY &amp; DATA ]
+            </button>
+          </div>
         `;
+
+        if (protoSubView === 'tallies') {
+          const hazardHtml = gameState.activeHazard ? `
+            <div class="hazard-banner">
+              <div>
+                <strong>⚠ ${gameState.activeHazard.title}</strong><br/>
+                <span>${gameState.activeHazard.desc}</span>
+              </div>
+              <span style="color:var(--crt-red); font-weight:bold; flex-shrink:0;">-${gameState.activeHazard.dmg}%</span>
+            </div>
+          ` : '';
+
+          const cards = gameState.habits.map(h => {
+            const vKey = resolveHabitVital(h);
+            const meta = VITAL_META[vKey];
+            const todayCount = (h.history && h.history[today]) || 0;
+            const reward = computeRewardForHabit(h, todayCount);
+            const isUnassigned = !h.vital || !VITAL_META[h.vital];
+
+            return `
+              <div class="protocol-module ${todayCount > 0 ? 'logged-today' : ''}" style="--vc:${meta.color}">
+                <div class="proto-top">
+                  <div class="proto-name">${h.name}</div>
+                  <span class="proto-vital-badge">${meta.icon} ${isUnassigned ? 'AUTO:' + meta.label : meta.label}</span>
+                </div>
+                <div class="proto-effect-line">
+                  <span>NEXT: <strong style="color:${meta.color}">+${reward.vitalBoost}% ${meta.label}</strong> · +${reward.credits}⎈ · +${reward.xp}XP</span>
+                  <span class="yield-pill ${reward.tier.capped ? 'capped' : ''}">${reward.tier.label}</span>
+                </div>
+                <div class="proto-effect-line">
+                  <span>TODAY: <strong>${todayCount}x</strong></span>
+                  <span>LIFETIME TALLY: <strong>${h.count || 0}</strong></span>
+                </div>
+                <div class="proto-controls">
+                  <button class="decrement-btn" title="Reduce count by 1" onclick="decrementProtocol('${h.id}')">−</button>
+                  <button class="engage-switch" onclick="engageProtocol('${h.id}')">[ + ENGAGE ${meta.label} ]</button>
+                  <button class="icon-sq-btn" title="Edit / Assign Vital" onclick="openProtocolModal('${h.id}')">✎</button>
+                  <button class="icon-sq-btn del" title="Remove" onclick="deleteProtocol('${h.id}')">✕</button>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          crt.innerHTML = `${toggleBar}${hazardHtml}<div class="protocol-grid">${cards}</div>`;
+        } else {
+          // TELEMETRY & ANALYTICS SUBVIEW
+          const numDays = chartRange === '30d' ? 14 : 7;
+          const days = [];
+          for (let i = numDays - 1; i >= 0; i--) {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            const key = d.toISOString().slice(0, 10);
+            let total = 0;
+            gameState.habits.forEach(h => {
+              if (h.history && h.history[key]) total += h.history[key];
+            });
+            days.push({ label: key.slice(8), total });
+          }
+          const maxVal = Math.max(4, ...days.map(d => d.total));
+          const bars = days.map(d => {
+            const pct = Math.round((d.total / maxVal) * 60);
+            return `
+              <div class="t-col">
+                <span style="font-size:9.5px;">${d.total}</span>
+                <div class="t-bar" style="height:${pct}px"></div>
+                <span class="t-lbl">${d.label}</span>
+              </div>
+            `;
+          }).join('');
+
+          const lifetime = totalLogsCount();
+          const activeDays = uniqueActiveDays();
+          const dailyAvg = activeDays > 0 ? (lifetime / activeDays).toFixed(1) : '0.0';
+          const nextLvlXp = xpRequiredForLevel(gameState.level);
+
+          // Subsystem distribution breakdown
+          const subCounts = { oxygen: 0, power: 0, shields: 0, bio: 0, morale: 0, earth: 0 };
+          gameState.habits.forEach(h => {
+            const vk = resolveHabitVital(h);
+            subCounts[vk] = (subCounts[vk] || 0) + (h.count || 0);
+          });
+          const distHtml = Object.keys(VITAL_META).map(k => {
+            const meta = VITAL_META[k];
+            const cnt = subCounts[k] || 0;
+            const pct = lifetime > 0 ? Math.round((cnt / lifetime) * 100) : 0;
+            return `
+              <div class="dist-row">
+                <div style="display:flex; justify-content:space-between; color:${meta.color};">
+                  <span>${meta.icon} ${meta.label}</span>
+                  <span>${cnt} logs (${pct}%)</span>
+                </div>
+                <div class="dist-track">
+                  <div class="dist-fill" style="width:${pct}%; background:${meta.color};"></div>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          const tilesHtml = gameState.earthTiles.map((tile, idx) => `
+            <div class="earth-tile" onclick="editEarthTile(${idx})">
+              <div style="font-size:10px; color:#b388ff;">${tile.label} ✎</div>
+              <div style="font-size:13px; color:#fff; margin-top:2px;">${tile.value}</div>
+            </div>
+          `).join('');
+
+          const logsHtml = gameState.logs.map(l => `<div class="log-entry">&gt; ${l}</div>`).join('');
+
+          crt.innerHTML = `
+            ${toggleBar}
+            <div class="kpi-grid-4">
+              <div class="kpi-card"><span>LIFETIME EXECUTIONS</span><strong>${lifetime}</strong></div>
+              <div class="kpi-card"><span>ACTIVE MISSION DAYS</span><strong style="color:var(--v-bio);">${activeDays} DAYS</strong></div>
+              <div class="kpi-card"><span>DAILY PROTOCOL AVG</span><strong style="color:var(--v-power);">${dailyAvg} / DAY</strong></div>
+              <div class="kpi-card"><span>NEXT RANK XP</span><strong style="color:var(--v-morale);">${gameState.xp} / ${nextLvlXp}</strong></div>
+            </div>
+            <div class="section-subhead">EXECUTION CADENCE (${chartRange === '30d' ? '14 DAYS' : '7 DAYS'})</div>
+            <div class="telemetry-bars">${bars}</div>
+            <div class="section-subhead">SUBSYSTEM EFFORT DISTRIBUTION</div>
+            <div style="margin-bottom:8px;">${distHtml}</div>
+            <div class="section-subhead" style="color:#b388ff;">EARTH LINK TELEMETRY TILES (TAP TO EDIT)</div>
+            <div class="earth-tiles-grid">${tilesHtml}</div>
+            <div class="section-subhead">BRIDGE EVENT LOG</div>
+            <div class="log-stream">${logsHtml}</div>
+          `;
+        }
+
+      /* -------------------------------------------------------
+         DECK 03: QUARTERMASTER SUPPLY (13 FURNISHINGS + BOOSTS)
+      ------------------------------------------------------- */
       } else if (activeDeck === 'quartermaster') {
         const furnHtml = LOUNGE_CATALOG.map(item => {
           const meta = VITAL_META[item.vital];
@@ -1640,7 +1944,10 @@
           return `
             <div class="qm-item" style="--vc:${meta.color}">
               <div style="min-width:0;">
-                <div style="font-size:14px; color:#fff;">${item.name}</div>
+                <div style="font-size:14px; color:#fff;">
+                  ${item.name}
+                  <span class="qm-tier-tag" style="color:${meta.color};">${item.tier}</span>
+                </div>
                 <div style="font-size:11.5px; color:#9ec5d6;">${item.desc}</div>
               </div>
               ${owned
@@ -1669,15 +1976,21 @@
             <span class="term-title">DECK 03 // QUARTERMASTER</span>
             <span style="color:var(--v-power); font-weight:bold;">${gameState.credits}⎈</span>
           </div>
-          <div class="section-subhead">STATION LOUNGE FURNISHINGS (VISIBLE IN DECK 04)</div>
+          <div class="section-subhead">STATION LOUNGE FURNISHINGS (${ownedFurnitureCount()}/${LOUNGE_CATALOG.length} INSTALLED)</div>
           ${furnHtml}
           <div class="section-subhead">EMERGENCY SUBSYSTEM RECHARGES</div>
           ${boostHtml}
         `;
-      } else if (activeDeck === 'lounge') {
-        const ownedCount = LOUNGE_CATALOG.filter(f => gameState.ownedItems.includes(f.id)).length;
+
+      /* -------------------------------------------------------
+         DECK 04: CONFIG (CONTROLS, CLASSES, 18 ACHIEVEMENTS, GIST)
+      ------------------------------------------------------- */
+      } else if (activeDeck === 'config') {
+        const savedToken = localStorage.getItem('astra_gist_token') || '';
+        const savedGistId = localStorage.getItem('astra_gist_id') || DEFAULT_GIST_ID;
+
         const classes = [
-          { name: 'Flight Engineer', perk: '+5 XP bonus per protocol.' },
+          { name: 'Flight Engineer', perk: '+6 XP bonus per protocol.' },
           { name: 'Quartermaster',   perk: '+6⎈ bonus per protocol.' },
           { name: 'Astro-Botanist',  perk: 'Bio & Oxygen specialist.' },
           { name: 'Comms Officer',   perk: 'Earth Link specialist.' }
@@ -1694,36 +2007,15 @@
           const unlocked = gameState.achievements.includes(a.id);
           return `
             <div class="ach-badge ${unlocked ? 'unlocked' : ''}">
-              <div style="font-weight:bold;">${unlocked ? '★' : '☆'} ${a.name}</div>
+              <div style="font-weight:bold;">${unlocked ? '★' : '☆'} ${a.name} <span style="font-size:9px; color:${a.color};">[${a.rarity}]</span></div>
               <div style="font-size:10px; opacity:0.85;">${a.desc}</div>
             </div>
           `;
         }).join('');
 
         crt.innerHTML = `
-          <div class="term-toolbar">
-            <span class="term-title">DECK 04 // STATION LOUNGE</span>
-            <span style="font-size:11px; color:var(--v-power);">${ownedCount}/${LOUNGE_CATALOG.length} ITEMS</span>
-          </div>
-          <div class="lounge-viewport-wrap">
-            <canvas id="lounge-canvas" width="320" height="148"></canvas>
-            <div class="lounge-caption">
-              <span>CREW HABITAT // ${gameState.playerClass.toUpperCase()}</span>
-              <span>BUY ITEMS IN 03 SUPPLY TO POPULATE</span>
-            </div>
-          </div>
-          <div class="section-subhead">COMMANDER SPECIALIZATION</div>
-          <div class="class-grid">${classHtml}</div>
-          <div class="section-subhead">STATION ACHIEVEMENTS (${gameState.achievements.length}/${ACHIEVEMENTS_LIST.length})</div>
-          <div class="ach-grid">${achHtml}</div>
-        `;
-      } else if (activeDeck === 'uplink') {
-        const savedToken = localStorage.getItem('astra_gist_token') || '';
-        const savedGistId = localStorage.getItem('astra_gist_id') || DEFAULT_GIST_ID;
-
-        crt.innerHTML = `
           <div class="term-toolbar" style="border-color:#7a5200;">
-            <span class="term-title" style="color:var(--v-power);">DECK 05 // SYS &amp; GIST UPLINK</span>
+            <span class="term-title" style="color:var(--v-power);">DECK 04 // CONTROLS &amp; SETTINGS</span>
           </div>
           <div class="switch-bank">
             <div class="rocker-switch ${hwPrefs.scanlines ? 'on' : ''}" id="sw-scanlines" onclick="toggleHardware('scanlines')">
@@ -1743,6 +2035,14 @@
               <span class="rocker-label">TEST ALERT</span>
             </div>
           </div>
+
+          <div class="section-subhead">COMMANDER SPECIALIZATION</div>
+          <div class="class-grid">${classHtml}</div>
+
+          <div class="section-subhead">ACHIEVEMENT BADGE BOARD (${gameState.achievements.length}/${ACHIEVEMENTS_LIST.length} UNLOCKED)</div>
+          <div class="ach-grid">${achHtml}</div>
+
+          <div class="section-subhead">GITHUB GIST CLOUD UPLINK</div>
           <div class="gist-form-group">
             <label>GIST ID (${GIST_FILENAME})</label>
             <input type="text" class="gist-input" id="gist-id-input" value="${savedGistId}" />
@@ -1826,11 +2126,10 @@
       appendLog(`SPECIALIZATION: ${cls.toUpperCase()}`);
       saveGameState();
       renderMainCRT();
-      requestAnimationFrame(drawLoungeScene);
     }
 
     /* =========================================================
-       8. ILLUSTRATED STATION LOUNGE CANVAS RENDERER
+       8. ILLUSTRATED LIVE STATION LOUNGE CANVAS (WITH BADGE WALL)
     ========================================================= */
     function drawLoungeScene() {
       const lc = document.getElementById('lounge-canvas');
@@ -1840,114 +2139,250 @@
       const h = lc.height;
       g.clearRect(0, 0, w, h);
 
-      // Wall & Deck Floor
-      g.fillStyle = '#111a26';
-      g.fillRect(0, 0, w, 108);
-      g.fillStyle = '#1c293b';
-      g.fillRect(0, 108, w, 40);
-      g.fillStyle = '#0a0f17';
-      g.fillRect(0, 106, w, 3);
+      const isHazard = Boolean(gameState.activeHazard);
+      const owned = new Set(gameState.ownedItems || []);
 
-      // Hexagonal Observatory Window in Lounge (IMG_4413 style)
+      // 1. Back Bulkhead Wall & Deck Floor
+      g.fillStyle = isHazard ? '#1c1016' : '#101824';
+      g.fillRect(0, 0, w, 154);
+      g.fillStyle = '#1b2738';
+      g.fillRect(0, 154, w, 66);
+      g.fillStyle = '#090d14';
+      g.fillRect(0, 152, w, 3);
+
+      // Floor grid seams
+      g.strokeStyle = '#131d2b';
+      g.lineWidth = 1;
+      for (let x = 20; x < w; x += 40) {
+        g.beginPath(); g.moveTo(x, 155); g.lineTo(x - 14, h); g.stroke();
+      }
+
+      // 2. Woven Orbital Deck Rug (furn-rug)
+      if (owned.has('furn-rug')) {
+        g.fillStyle = '#2b2042';
+        g.fillRect(92, 166, 176, 38);
+        g.strokeStyle = '#b388ff';
+        g.strokeRect(95, 169, 170, 32);
+        g.strokeStyle = '#ffb000';
+        g.strokeRect(102, 174, 156, 22);
+      }
+
+      // 3. Panoramic Lounge Space Window
       g.fillStyle = '#040812';
-      g.fillRect(92, 12, 136, 76);
-      g.strokeStyle = '#364f6e';
+      g.fillRect(108, 16, 144, 92);
+      g.strokeStyle = isHazard ? '#ff3b4e' : '#364f6e';
       g.lineWidth = 3;
-      g.strokeRect(92, 12, 136, 76);
+      g.strokeRect(108, 16, 144, 92);
 
-      // Stars & Blue Planet Curve inside Lounge Window
+      // Stars & Earth Horizon in Lounge Window
       g.fillStyle = '#d8f4ff';
-      [[106,24],[124,38],[145,20],[195,28],[212,44],[172,32]].forEach(([sx,sy]) => g.fillRect(sx, sy, 2, 2));
+      [[120,28],[138,44],[158,24],[210,32],[232,50],[186,36],[224,24]].forEach(([sx,sy]) => g.fillRect(sx, sy, 2, 2));
       g.fillStyle = '#1366b5';
       g.beginPath();
-      g.arc(165, 118, 56, Math.PI, Math.PI * 2);
+      g.arc(180, 138, 66, Math.PI, Math.PI * 2);
       g.fill();
       g.fillStyle = '#6be4ff';
-      g.fillRect(130, 74, 42, 3);
-      g.fillRect(154, 80, 50, 3);
+      g.fillRect(140, 86, 48, 3);
+      g.fillRect(166, 93, 56, 3);
+
+      // Brass Deep-Space Telescope (furn-observ)
+      if (owned.has('furn-observ')) {
+        g.strokeStyle = '#ffb000';
+        g.lineWidth = 3;
+        g.beginPath(); g.moveTo(226, 114); g.lineTo(244, 86); g.stroke();
+        g.strokeStyle = '#6e8299';
+        g.lineWidth = 1.5;
+        g.beginPath(); g.moveTo(234, 102); g.lineTo(226, 124); g.moveTo(234, 102); g.lineTo(242, 124); g.stroke();
+      }
 
       // Holographic Star Projector (furn-starmap)
-      if (gameState.ownedItems.includes('furn-starmap')) {
-        g.fillStyle = 'rgba(56, 242, 255, 0.25)';
+      if (owned.has('furn-starmap')) {
+        g.fillStyle = 'rgba(56, 242, 255, 0.22)';
         g.beginPath();
-        g.moveTo(160, 106);
-        g.lineTo(132, 22);
-        g.lineTo(188, 22);
+        g.moveTo(180, 152); g.lineTo(142, 24); g.lineTo(218, 24);
         g.closePath();
         g.fill();
         g.fillStyle = '#38f2ff';
-        g.fillRect(155, 102, 10, 5);
+        g.fillRect(173, 147, 14, 6);
       }
 
-      // Left Corner: Hydroponic Terrarium Pod (furn-fern)
-      if (gameState.ownedItems.includes('furn-fern')) {
-        g.fillStyle = '#25384d';
-        g.fillRect(14, 62, 28, 46);
-        g.fillStyle = '#0a2e22';
-        g.fillRect(17, 66, 22, 26);
+      // 4. WALL ACHIEVEMENT BADGE BOARD (Left of Window)
+      g.fillStyle = '#080e17';
+      g.fillRect(10, 16, 86, 56);
+      g.strokeStyle = '#ffb000';
+      g.lineWidth = 1.5;
+      g.strokeRect(10, 16, 86, 56);
+      g.fillStyle = '#ffb000';
+      g.font = '7px monospace';
+      g.fillText('ACHIEVEMENTS', 15, 25);
+
+      // 6x3 Grid of Glowing Dot Badges for all 18 Achievements
+      ACHIEVEMENTS_LIST.forEach((ach, idx) => {
+        const col = idx % 6;
+        const row = Math.floor(idx / 6);
+        const bx = 18 + col * 12;
+        const by = 33 + row * 12;
+        const unlocked = gameState.achievements.includes(ach.id);
+        g.fillStyle = unlocked ? ach.color : '#1b2636';
+        g.fillRect(bx, by, 7, 7);
+        if (unlocked) {
+          g.fillStyle = '#ffffff';
+          g.fillRect(bx + 2, by + 2, 2, 2);
+        }
+      });
+
+      // 5. LIVE VITALS WALL MONITOR (Right of Window)
+      g.fillStyle = '#070d14';
+      g.fillRect(264, 16, 86, 56);
+      g.strokeStyle = '#38f2ff';
+      g.strokeRect(264, 16, 86, 56);
+      const vKeys = Object.keys(VITAL_META);
+      vKeys.forEach((vk, i) => {
+        const val = gameState.vitals[vk] ?? 100;
+        const meta = VITAL_META[vk];
+        g.fillStyle = '#152230';
+        g.fillRect(270, 23 + i * 7, 74, 4);
+        g.fillStyle = val < 25 ? '#ff3b4e' : meta.color;
+        g.fillRect(270, 23 + i * 7, Math.round((val / 100) * 74), 4);
+      });
+
+      // Speculative Micro-Library Shelf (furn-books)
+      if (owned.has('furn-books')) {
+        g.fillStyle = '#25354a';
+        g.fillRect(10, 78, 86, 6);
+        const bookColors = ['#ff6ec7', '#38f2ff', '#ffb000', '#3dff8b', '#b388ff', '#6ea8ff'];
+        bookColors.forEach((c, i) => {
+          g.fillStyle = c;
+          g.fillRect(14 + i * 12, 68, 9, 10);
+        });
+      }
+
+      // 6. FURNITURE ITEMS IN ROOM
+      // Hydroponic Terrarium Pod (furn-fern)
+      if (owned.has('furn-fern')) {
+        g.fillStyle = '#22354a';
+        g.fillRect(10, 102, 30, 52);
+        g.fillStyle = '#092e22';
+        g.fillRect(13, 106, 24, 30);
         g.fillStyle = '#3dff8b';
-        g.fillRect(21, 74, 4, 14);
-        g.fillRect(27, 70, 5, 18);
-        g.fillRect(32, 77, 4, 11);
+        g.fillRect(17, 114, 4, 18);
+        g.fillRect(23, 110, 5, 22);
+        g.fillRect(29, 118, 4, 14);
       }
 
-      // Left-Center: Galley Espresso Synthesizer (furn-espresso)
-      if (gameState.ownedItems.includes('furn-espresso')) {
+      // Ancient Nebula Bonsai (furn-bonsai)
+      if (owned.has('furn-bonsai')) {
+        g.fillStyle = '#ffb000';
+        g.fillRect(44, 136, 20, 8);
+        g.fillStyle = '#7a5230';
+        g.fillRect(52, 126, 4, 10);
+        g.fillStyle = '#3dff8b';
+        g.fillRect(44, 118, 20, 8);
+        g.fillRect(48, 113, 12, 5);
+      }
+
+      // Galley Espresso Bar (furn-espresso)
+      if (owned.has('furn-espresso')) {
         g.fillStyle = '#2b394a';
-        g.fillRect(48, 76, 36, 32);
+        g.fillRect(68, 122, 36, 32);
         g.fillStyle = '#ffb000';
-        g.fillRect(53, 62, 24, 14);
+        g.fillRect(73, 106, 26, 16);
         g.fillStyle = '#090d14';
-        g.fillRect(57, 66, 10, 7);
+        g.fillRect(77, 110, 11, 8);
         g.fillStyle = '#ff3b4e';
-        g.fillRect(71, 66, 3, 3);
+        g.fillRect(92, 111, 3, 3);
       }
 
-      // Commander Seated in Retro Lounge Chair
-      g.fillStyle = '#3a4e66';
-      g.fillRect(114, 78, 22, 30); // chair back
-      g.fillStyle = '#e6eef8';
-      g.fillRect(120, 72, 12, 12); // helmet
-      g.fillStyle = '#38f2ff';
-      g.fillRect(124, 75, 7, 5);   // visor
-      g.fillStyle = '#c8d6e5';
-      g.fillRect(119, 84, 14, 14); // suit torso
-      g.fillRect(126, 96, 12, 6);  // legs
-
-      // Right-Center: Reel-to-Reel Hi-Fi Deck (furn-hifi)
-      if (gameState.ownedItems.includes('furn-hifi')) {
-        g.fillStyle = '#222f40';
-        g.fillRect(234, 74, 34, 34);
+      // Manual Screen-Print Press (furn-press)
+      if (owned.has('furn-press')) {
+        g.fillStyle = '#2d3f54';
+        g.fillRect(42, 158, 44, 24);
+        g.fillStyle = '#f5f0e1';
+        g.fillRect(48, 154, 32, 6);
         g.fillStyle = '#ff6ec7';
-        g.beginPath(); g.arc(244, 84, 5, 0, Math.PI * 2); g.fill();
-        g.beginPath(); g.arc(258, 84, 5, 0, Math.PI * 2); g.fill();
-        g.fillStyle = '#38f2ff';
-        g.fillRect(239, 94, 24, 4);
+        g.fillRect(54, 155, 18, 4);
       }
 
-      // Far Right: Retro CRT Arcade Cabinet (furn-arcade)
-      if (gameState.ownedItems.includes('furn-arcade')) {
-        g.fillStyle = '#1d2738';
-        g.fillRect(274, 54, 32, 54);
+      // Zero-G Jellyfish Tank (furn-aquarium)
+      if (owned.has('furn-aquarium')) {
+        g.fillStyle = '#082c3d';
+        g.fillRect(264, 80, 26, 44);
+        g.strokeStyle = '#38f2ff';
+        g.strokeRect(264, 80, 26, 44);
         g.fillStyle = '#ff6ec7';
-        g.fillRect(276, 54, 28, 7);
-        g.fillStyle = '#072229';
-        g.fillRect(278, 64, 22, 16);
+        g.fillRect(273, 94, 8, 5);
+        g.fillRect(275, 99, 1, 6);
+        g.fillRect(279, 99, 1, 6);
+      }
+
+      // Aux NAS Cryo-Rack (furn-server)
+      if (owned.has('furn-server')) {
+        g.fillStyle = '#151e29';
+        g.fillRect(264, 126, 26, 28);
         g.fillStyle = '#3dff8b';
-        g.fillRect(282, 69, 6, 6);
-        g.fillStyle = '#ffb000';
-        g.fillRect(291, 71, 4, 4);
+        g.fillRect(268, 130, 4, 2);
+        g.fillRect(268, 136, 4, 2);
+        g.fillStyle = '#38f2ff';
+        g.fillRect(275, 130, 10, 2);
+        g.fillRect(275, 136, 10, 2);
       }
 
-      // Station Cat & Bed (furn-cat)
-      if (gameState.ownedItems.includes('furn-cat')) {
+      // Reel-to-Reel Hi-Fi Deck (furn-hifi)
+      if (owned.has('furn-hifi')) {
+        g.fillStyle = '#222f40';
+        g.fillRect(294, 116, 30, 38);
+        g.fillStyle = '#ff6ec7';
+        g.beginPath(); g.arc(303, 126, 4.5, 0, Math.PI * 2); g.fill();
+        g.beginPath(); g.arc(315, 126, 4.5, 0, Math.PI * 2); g.fill();
+        g.fillStyle = '#38f2ff';
+        g.fillRect(298, 136, 22, 4);
+      }
+
+      // Retro CRT Arcade Cabinet (furn-arcade)
+      if (owned.has('furn-arcade')) {
+        g.fillStyle = '#1d2738';
+        g.fillRect(326, 94, 28, 60);
+        g.fillStyle = '#ff6ec7';
+        g.fillRect(328, 94, 24, 7);
+        g.fillStyle = '#072229';
+        g.fillRect(330, 104, 20, 16);
+        g.fillStyle = '#3dff8b';
+        g.fillRect(334, 109, 5, 5);
+        g.fillStyle = '#ffb000';
+        g.fillRect(342, 111, 4, 4);
+      }
+
+      // 7. COMMANDER SPRITE IN LOUNGE CHAIR (Color-coded to Specialization)
+      const classColors = {
+        'Flight Engineer': '#ffb000',
+        'Quartermaster':   '#3dff8b',
+        'Astro-Botanist':  '#38f2ff',
+        'Comms Officer':   '#b388ff'
+      };
+      const suitAccent = classColors[gameState.playerClass] || '#ffb000';
+
+      g.fillStyle = '#35485e';
+      g.fillRect(132, 118, 24, 36); // chair
+      g.fillStyle = '#e8f0fa';
+      g.fillRect(138, 110, 14, 14); // helmet
+      g.fillStyle = '#38f2ff';
+      g.fillRect(143, 114, 8, 5);   // visor
+      g.fillStyle = '#c8d6e5';
+      g.fillRect(137, 124, 16, 18); // torso
+      g.fillStyle = suitAccent;
+      g.fillRect(141, 128, 8, 6);   // specialization chest badge
+      g.fillStyle = '#9fb3c8';
+      g.fillRect(146, 140, 14, 7);  // legs
+
+      // Zero-G Tabby Cat & Pod (furn-cat)
+      if (owned.has('furn-cat')) {
         g.fillStyle = '#5c3c6e';
-        g.fillRect(166, 114, 26, 7);
+        g.fillRect(198, 174, 28, 8);
         g.fillStyle = '#ff9f43';
-        g.fillRect(172, 108, 12, 7); // body
-        g.fillRect(181, 104, 7, 6);  // head
-        g.fillRect(181, 102, 2, 2);  // ear
-        g.fillRect(186, 102, 2, 2);  // ear
+        g.fillRect(204, 167, 14, 8); // body
+        g.fillRect(214, 162, 8, 7);  // head
+        g.fillRect(214, 159, 2, 3);  // ear
+        g.fillRect(220, 159, 2, 3);  // ear
       }
     }
 
@@ -2048,7 +2483,7 @@
     }
 
     /* =========================================================
-       10. ILLUSTRATED MULTI-PANE COMMAND BRIDGE CANVAS
+       10. EDGE-TO-EDGE 4-PANE OBSERVATORY + ARTEMIS TRAJECTORY
     ========================================================= */
     const canvas = document.getElementById('space-canvas');
     const ctx = canvas.getContext('2d');
@@ -2058,17 +2493,17 @@
 
     function resizeCanvas() {
       const rect = canvas.parentElement.getBoundingClientRect();
-      canvas.width = Math.max(260, Math.floor(rect.width / 2));
-      canvas.height = Math.max(85, Math.floor(rect.height / 2));
-      stars = Array.from({ length: 75 }, () => ({
+      canvas.width = Math.max(280, Math.floor(rect.width / 2));
+      canvas.height = Math.max(88, Math.floor(rect.height / 2));
+      stars = Array.from({ length: 85 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         cross: Math.random() > 0.85,
         blink: Math.random() * Math.PI * 2
       }));
       comets = [
-        { x: canvas.width * 0.2, y: canvas.height * 0.25, vx: 0.35, vy: 0.12 },
-        { x: canvas.width * 0.75, y: canvas.height * 0.42, vx: -0.28, vy: 0.1 }
+        { x: canvas.width * 0.12, y: canvas.height * 0.25, vx: 0.35, vy: 0.12 },
+        { x: canvas.width * 0.78, y: canvas.height * 0.42, vx: -0.28, vy: 0.1 }
       ];
     }
 
@@ -2076,17 +2511,17 @@
       playClick(560, 0.04);
       viewportMode = mode;
       document.getElementById('btn-view-orbit').classList.toggle('active', mode === 'orbit');
+      document.getElementById('btn-view-traj').classList.toggle('active', mode === 'traj');
       document.getElementById('btn-view-radar').classList.toggle('active', mode === 'radar');
+      renderVitalsMatrix();
     }
 
     function drawDitheredPlanet(cx, cy, r, hasRing) {
-      // Base sphere
       ctx.fillStyle = '#4e5d73';
       ctx.beginPath();
       ctx.arc(cx, cy, r, 0, Math.PI * 2);
       ctx.fill();
 
-      // Shadow crescent
       ctx.save();
       ctx.beginPath();
       ctx.arc(cx, cy, r, 0, Math.PI * 2);
@@ -2096,7 +2531,6 @@
       ctx.arc(cx + r * 0.45, cy + r * 0.2, r * 0.95, 0, Math.PI * 2);
       ctx.fill();
 
-      // Pixel dithering bands & craters
       ctx.fillStyle = '#8fa3bf';
       for (let y = -r; y < r; y += 3) {
         for (let x = -r; x < r; x += 3) {
@@ -2114,43 +2548,113 @@
       }
     }
 
+    // 4-Pane Edge-to-Edge Angled Windows (Far-Left, Center-Left, Center-Right, Far-Right)
     function drawCockpitFrame(w, h) {
-      // Angled Command Canopy Struts & Bulkhead Framing (Ref: IMG 1 & 2)
-      ctx.fillStyle = '#182334';
-      // Top header beam
-      ctx.fillRect(0, 0, w, 7);
-      // Bottom console sill
-      ctx.fillRect(0, h - 8, w, 8);
+      ctx.fillStyle = '#1a2638';
+      ctx.fillRect(0, 0, w, 6);
+      ctx.fillRect(0, h - 6, w, 6);
 
-      // Left & Right Angled Canopy Pillars
+      // Left & Right thin outer hull edges
+      ctx.fillRect(0, 0, 4, h);
+      ctx.fillRect(w - 4, 0, 4, h);
+
+      // Angled Strut 1 (separates Far-Left angled window from Center-Left window)
+      ctx.strokeStyle = '#1f2e45';
+      ctx.lineWidth = 5;
       ctx.beginPath();
-      ctx.moveTo(0, 0); ctx.lineTo(w * 0.14, 0); ctx.lineTo(w * 0.22, h); ctx.lineTo(0, h);
-      ctx.closePath();
-      ctx.fillStyle = '#141e2e';
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.moveTo(w, 0); ctx.lineTo(w * 0.86, 0); ctx.lineTo(w * 0.78, h); ctx.lineTo(w, h);
-      ctx.closePath();
-      ctx.fill();
-
-      // Center Twin Angled Mullions
-      ctx.fillStyle = '#1e2c42';
-      ctx.fillRect(Math.floor(w * 0.49), 0, 4, h);
-
-      // Bevel highlights & amber indicator pips on struts
-      ctx.strokeStyle = '#3b5375';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(w * 0.14, 0); ctx.lineTo(w * 0.22, h);
-      ctx.moveTo(w * 0.86, 0); ctx.lineTo(w * 0.78, h);
+      ctx.moveTo(w * 0.19, 0); ctx.lineTo(w * 0.24, h);
       ctx.stroke();
 
+      // Center Mullion (separates Center-Left from Center-Right)
+      ctx.fillStyle = '#1f2e45';
+      ctx.fillRect(Math.floor(w * 0.495), 0, 4, h);
+
+      // Angled Strut 2 (separates Center-Right from Far-Right angled window)
+      ctx.beginPath();
+      ctx.moveTo(w * 0.81, 0); ctx.lineTo(w * 0.76, h);
+      ctx.stroke();
+
+      // Specular metallic highlights on angled struts
+      ctx.strokeStyle = '#3f5980';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.19, 0); ctx.lineTo(w * 0.24, h);
+      ctx.moveTo(w * 0.81, 0); ctx.lineTo(w * 0.76, h);
+      ctx.stroke();
+
+      // Status lamps on struts
       ctx.fillStyle = gameState.activeHazard ? '#ff3b4e' : '#ffb000';
-      ctx.fillRect(Math.floor(w * 0.05), 14, 6, 3);
-      ctx.fillRect(Math.floor(w * 0.05), 20, 6, 3);
-      ctx.fillRect(Math.floor(w * 0.92), 14, 6, 3);
-      ctx.fillRect(Math.floor(w * 0.92), 20, 6, 3);
+      ctx.fillRect(Math.floor(w * 0.205), 14, 5, 3);
+      ctx.fillRect(Math.floor(w * 0.785), 14, 5, 3);
+    }
+
+    // Artemis-III Inspired Mission Trajectory Visualization
+    function drawTrajectoryMap(w, h, t) {
+      const earthX = Math.floor(w * 0.22);
+      const earthY = Math.floor(h * 0.56);
+      const earthR = Math.max(12, Math.floor(h * 0.22));
+
+      const moonX = Math.floor(w * 0.76);
+      const moonY = Math.floor(h * 0.48);
+      const moonR = Math.max(8, Math.floor(h * 0.13));
+
+      // Earth Globe
+      ctx.fillStyle = '#1462b8';
+      ctx.beginPath(); ctx.arc(earthX, earthY, earthR, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#3dff8b';
+      ctx.fillRect(earthX - 5, earthY - 4, 7, 5);
+      ctx.fillRect(earthX + 2, earthY + 2, 5, 4);
+
+      // Moon Globe
+      drawDitheredPlanet(moonX, moonY, moonR, false);
+
+      // Green Outbound Trans-Lunar Trajectory Arc
+      ctx.strokeStyle = '#3dff8b';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(earthX + earthR, earthY - 4);
+      ctx.bezierCurveTo(w * 0.42, h * 0.14, w * 0.62, h * 0.22, moonX - moonR, moonY + 3);
+      ctx.stroke();
+
+      // Red Lunar Gateway NRHO Loop
+      ctx.strokeStyle = '#ff3b4e';
+      ctx.beginPath();
+      ctx.ellipse(moonX + 3, moonY + 4, moonR * 1.1, moonR * 2.2, 0.2, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Blue Trans-Earth Return Arc
+      ctx.strokeStyle = '#38f2ff';
+      ctx.beginPath();
+      ctx.moveTo(moonX - 4, moonY - moonR);
+      ctx.bezierCurveTo(w * 0.58, h * 0.86, w * 0.38, h * 0.78, earthX + earthR - 2, earthY + 5);
+      ctx.stroke();
+
+      // Numbered Mission Waypoint Nodes (1 - 8)
+      const nodes = [
+        { x: earthX + earthR + 4, y: earthY - 6, c: '#3dff8b' },
+        { x: w * 0.36, y: h * 0.28, c: '#3dff8b' },
+        { x: w * 0.50, y: h * 0.26, c: '#3dff8b' },
+        { x: moonX - moonR - 2, y: moonY + 2, c: '#ffb000' },
+        { x: moonX + moonR + 5, y: moonY + 12, c: '#ff3b4e' },
+        { x: w * 0.58, y: h * 0.74, c: '#38f2ff' },
+        { x: w * 0.40, y: h * 0.72, c: '#38f2ff' },
+        { x: earthX + earthR + 2, y: earthY + 6, c: '#38f2ff' }
+      ];
+
+      nodes.forEach((n, idx) => {
+        ctx.fillStyle = n.c;
+        ctx.beginPath(); ctx.arc(n.x, n.y, 3, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#040810';
+        ctx.font = '6px monospace';
+        ctx.fillText(String(idx + 1), n.x - 1.8, n.y + 2);
+      });
+
+      // Live Spacecraft Marker advancing along the journey by Level/Logs
+      const activeIdx = Math.min(nodes.length - 1, Math.floor((gameState.level - 1 + totalLogsCount() * 0.1) % nodes.length));
+      const ship = nodes[activeIdx];
+      const pulse = 4 + Math.sin(t * 0.008) * 1.5;
+      ctx.strokeStyle = '#ffb000';
+      ctx.beginPath(); ctx.arc(ship.x, ship.y, pulse, 0, Math.PI * 2); ctx.stroke();
     }
 
     function drawViewport(t) {
@@ -2161,7 +2665,6 @@
       ctx.fillStyle = '#03060d';
       ctx.fillRect(0, 0, w, h);
 
-      // Cross & pixel stars
       stars.forEach(s => {
         const alpha = 0.45 + 0.55 * Math.abs(Math.sin(t * 0.0018 + s.blink));
         ctx.fillStyle = `rgba(220, 244, 255, ${alpha})`;
@@ -2175,22 +2678,22 @@
       });
 
       if (viewportMode === 'orbit') {
-        // Left-side curved blue Earth horizon (Ref: Cockpit image 1)
+        // Curved blue Earth horizon spanning across left & center-left windows
         ctx.fillStyle = '#0e4d92';
         ctx.beginPath();
-        ctx.arc(w * 0.22, h * 1.65, h * 1.15, 0, Math.PI * 2);
+        ctx.arc(w * 0.24, h * 1.65, h * 1.18, 0, Math.PI * 2);
         ctx.fill();
         ctx.strokeStyle = '#38f2ff';
         ctx.lineWidth = 1.5;
         ctx.beginPath();
-        ctx.arc(w * 0.22, h * 1.65, h * 1.15, Math.PI * 1.1, Math.PI * 1.85);
+        ctx.arc(w * 0.24, h * 1.65, h * 1.18, Math.PI * 1.05, Math.PI * 1.9);
         ctx.stroke();
 
-        // Right-upper Ringed Gas Giant & Cratered Moon (Ref: Cockpit images 1 & 2)
-        drawDitheredPlanet(Math.floor(w * 0.72), Math.floor(h * 0.34), Math.floor(h * 0.16), true);
+        // Planets across center-right & far-right angled windows
+        drawDitheredPlanet(Math.floor(w * 0.66), Math.floor(h * 0.34), Math.floor(h * 0.16), true);
         drawDitheredPlanet(Math.floor(w * 0.36), Math.floor(h * 0.32), Math.floor(h * 0.11), false);
+        drawDitheredPlanet(Math.floor(w * 0.89), Math.floor(h * 0.58), Math.floor(h * 0.10), false);
 
-        // Streaking Comets / Meteors
         comets.forEach(c => {
           c.x += c.vx * (gameState.activeHazard ? 2.4 : 1);
           c.y += c.vy * (gameState.activeHazard ? 2.4 : 1);
@@ -2205,8 +2708,9 @@
           ctx.fillStyle = 'rgba(56, 242, 255, 0.55)';
           ctx.fillRect(cx - Math.sign(c.vx) * 6, cy - 1, 5, 1);
         });
+      } else if (viewportMode === 'traj') {
+        drawTrajectoryMap(w, h, t);
       } else {
-        // Tactical Scanner Mode
         const cx = Math.floor(w / 2);
         const cy = Math.floor(h / 2);
         const maxR = Math.min(w, h) * 0.4;
@@ -2238,7 +2742,8 @@
     function updateTopHUD() {
       document.getElementById('hud-lvl').textContent = gameState.level;
       document.getElementById('hud-credits').textContent = gameState.credits;
-      const pct = Math.min(100, Math.round((gameState.xp / (gameState.level * 100)) * 100));
+      const needed = xpRequiredForLevel(gameState.level);
+      const pct = Math.min(100, Math.round((gameState.xp / needed) * 100));
       document.getElementById('hud-xp-bar').style.width = pct + '%';
     }
 
