@@ -6,9 +6,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Astra Station" />
-  <meta name="theme-color" content="#0b0f17" />
+  <meta name="theme-color" content="#070a10" />
   <title>Astra Station - Command Bridge</title>
-  <link id="apple-icon" rel="apple-touch-icon" href="" />
+  <link rel="apple-touch-icon" href="./station-icon.jpg" />
   <link id="manifest-link" rel="manifest" href="" />
   <style>
     :root {
@@ -864,36 +864,6 @@
   </div>
 
   <script>
-    (function setupPWAIcon() {
-      const canvas = document.createElement('canvas');
-      canvas.width = 512;
-      canvas.height = 512;
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = "#101622";
-      ctx.fillRect(0, 0, 512, 512);
-      ctx.fillStyle = "#ffb000";
-      ctx.fillRect(100, 100, 312, 312);
-      ctx.fillStyle = "#070a10";
-      ctx.fillRect(130, 130, 252, 252);
-      ctx.fillStyle = "#00f3ff";
-      ctx.fillRect(160, 160, 190, 120);
-
-      const iconUrl = canvas.toDataURL('image/png');
-      document.getElementById("apple-icon").href = iconUrl;
-
-      const manifest = {
-        name: "Astra Station",
-        short_name: "Astra",
-        start_url: ".",
-        display: "standalone",
-        background_color: "#070a10",
-        theme_color: "#101622",
-        icons: [{ src: iconUrl, sizes: "512x512", type: "image/png" }]
-      };
-      const blob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
-      document.getElementById("manifest-link").href = URL.createObjectURL(blob);
-    })();
-
     const STORAGE_KEY = "astra_station_save_v4";
     const GIST_CFG_KEY = "astra_station_gist_cfg_v1";
     const TILE_COLORS = ["#38bdf8", "#34d399", "#fbbf24", "#c084fc", "#fb7185", "#f97316", "#2dd4bf", "#a3e635"];
@@ -1358,7 +1328,6 @@
       ctx.fillStyle = "#020407";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Steel floor
       ctx.strokeStyle = "#32466e";
       ctx.lineWidth = 2;
       ctx.beginPath();
@@ -1536,7 +1505,6 @@
       setTimeout(() => t.classList.remove("show"), 2500);
     }
 
-    // BRIDGE OBSERVATORY WINDOW VIEWPORT ANIMATION
     (function initBridgeView() {
       const canvas = document.getElementById("bridge-canvas");
       const ctx = canvas.getContext("2d");
@@ -1548,7 +1516,6 @@
         ctx.fillStyle = "#020407";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Planet horizon curve at bottom
         ctx.fillStyle = "#1e3a8a";
         ctx.beginPath();
         ctx.arc(canvas.width / 2, canvas.height + 260, 280, 0, Math.PI * 2);
@@ -1559,7 +1526,6 @@
         ctx.arc(canvas.width / 2, canvas.height + 265, 280, Math.PI, Math.PI * 2);
         ctx.fill();
 
-        // Stars
         stars.forEach(s => {
           s.x -= s.speed;
           if (s.x < 0) s.x = canvas.width;
